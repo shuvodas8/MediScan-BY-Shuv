@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About | MediScan Diagnostic Center</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body>
+    <!-- Header/Navigation -->
+    <header class="bg-white shadow-md sticky top-0 z-50">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <div class="flex items-center">
+                <i class="fas fa-heartbeat text-3xl text-blue-600 mr-2"></i>
+                <h1 class="text-2xl font-bold text-blue-600">MediScan</h1>
+            </div>
+            <nav class="hidden md:flex space-x-8">
+                <a href="index.html" class="text-blue-600 font-medium hover:text-blue-800 transition">Home</a>
+                <a href="about.html" class="text-gray-700 font-medium hover:text-blue-600 transition">About</a>
+                <a href="services.html" class="text-gray-700 font-medium hover:text-blue-600 transition">Services</a>
+                <a href="doctors.html" class="text-gray-700 font-medium hover:text-blue-600 transition">Our Team</a>
+                <a href="contact.html" class="text-gray-700 font-medium hover:text-blue-600 transition">Contact</a>
+                <a href="appointment.html" class="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition">Book Appointment</a>
+            </nav>
+        </div>
+        
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white shadow-lg absolute w-full">
+            <div class="px-4 py-3 space-y-3">
+                <a href="index.html#home" class="block text-gray-700 hover:text-blue-600 transition">Home</a>
+                <a href="about.html" class="block text-gray-700 hover:text-blue-600 transition">About</a>
+                <a href="services.html" class="block text-gray-700 hover:text-blue-600 transition">Services</a>
+                <a href="doctors.html" class="block text-gray-700 hover:text-blue-600 transition">Our Team</a>
+                <a href="contact.html" class="block text-gray-700 hover:text-blue-600 transition">Contact</a>
+                <a href="appointment.html" class="block bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition text-center">Book Appointment</a>
+            </div>
+        </div>
+    </header>
+
+       <!-- About Us Section -->
+    <section id="about" class="py-16 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-gray-800 mb-4">About MediScan</h2>
+                <div class="w-20 h-1 bg-blue-600 mx-auto"></div>
+            </div>
+            
+            <div class="flex flex-col md:flex-row items-center">
+                <div class="md:w-1/2 mb-10 md:mb-0">
+                    <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/b13b9c68-60a3-4625-8606-9b7f205a4580.png" alt="Friendly medical staff in lab coats discussing test results in a modern laboratory" class="rounded-lg shadow-lg w-full h-auto">
+                </div>
+                <div class="md:w-1/2 md:pl-12">
+                    <h3 class="text-2xl font-bold text-gray-800 mb-4">Your Trusted Diagnostic Partner</h3>
+                    <p class="text-gray-600 mb-4">MediScan Diagnostic Center has been serving the community for over 15 years with accurate, reliable, and timely diagnostic services. We are committed to providing the highest quality medical testing using advanced technology and expert analysis.</p>
+                    <p class="text-gray-600 mb-6">Our team of board-certified pathologists, radiologists, and technicians work together to ensure precise results that help your physician make the best treatment decisions for your health.</p>
+                    
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                        <div class="flex items-start">
+                            <i class="fas fa-microscope text-blue-600 text-2xl mr-3 mt-1"></i>
+                            <div>
+                                <h4 class="font-bold text-gray-800 mb-1">Advanced Technology</h4>
+                                <p class="text-gray-600">Cutting-edge diagnostic equipment for precise results</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <i class="fas fa-clock text-blue-600 text-2xl mr-3 mt-1"></i>
+                            <div>
+                                <h4 class="font-bold text-gray-800 mb-1">Fast Results</h4>
+                                <p class="text-gray-600">Quick turnaround time with online report access</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <i class="fas fa-user-md text-blue-600 text-2xl mr-3 mt-1"></i>
+                            <div>
+                                <h4 class="font-bold text-gray-800 mb-1">Expert Staff</h4>
+                                <p class="text-gray-600">Experienced professionals with specialized training</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <i class="fas fa-heart text-blue-600 text-2xl mr-3 mt-1"></i>
+                            <div>
+                                <h4 class="font-bold text-gray-800 mb-1">Patient Care</h4>
+                                <p class="text-gray-600">Compassionate service focused on your needs</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-gray-200 py-6 mt-12">
+      <div class="container mx-auto px-4 text-center">
+        <div class="mb-2">
+          <a href="https://facebook.com/" target="_blank" class="inline-block mx-2 text-blue-400 hover:text-white text-xl"><i class="fab fa-facebook-f"></i></a>
+          <a href="https://twitter.com/" target="_blank" class="inline-block mx-2 text-blue-400 hover:text-white text-xl"><i class="fab fa-twitter"></i></a>
+          <a href="https://instagram.com/" target="_blank" class="inline-block mx-2 text-pink-400 hover:text-white text-xl"><i class="fab fa-instagram"></i></a>
+          <a href="https://linkedin.com/" target="_blank" class="inline-block mx-2 text-blue-400 hover:text-white text-xl"><i class="fab fa-linkedin-in"></i></a>
+        </div>
+        &copy; 2025 MediScan Diagnostic Center. All rights reserved.
+      </div>
+    </footer>
+</body>
+</html>
