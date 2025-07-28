@@ -1,443 +1,664 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>MediScan Diagnostic Center | Accurate Healthcare Testing</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="styles.css">
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link rel="stylesheet" href="styles.css" />
     <script src="https://cdn.tailwindcss.com"></script>
-</head>
-<body>
+  </head>
+  <body>
     <!-- Header/Navigation -->
     <header class="bg-white shadow-md sticky top-0 z-50">
-        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
-            <div class="flex items-center">
-                <i class="fas fa-heartbeat text-3xl text-blue-600 mr-2"></i>
-                <h1 class="text-2xl font-bold text-blue-600">MediScan</h1>
-            </div>
-            <button id="mobile-menu-button" class="md:hidden text-blue-600">
-                <i class="fas fa-bars text-2xl"></i>
-            </button>
-            <nav class="hidden md:flex space-x-8">
-                <a href="index.html" class="text-blue-600 font-medium hover:text-blue-800 transition">Home</a>
-                <a href="about.html" class="text-gray-700 font-medium hover:text-blue-600 transition">About</a>
-                <a href="#services" class="text-gray-700 font-medium hover:text-blue-600 transition">Services</a>
-                <a href="#doctors" class="text-gray-700 font-medium hover:text-blue-600 transition">Our Team</a>
-                <a href="#contact" class="text-gray-700 font-medium hover:text-blue-600 transition">Contact</a>
-                <a href="Book appointment.html" class="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition">Book Appointment</a>
-            </nav>
+      <div
+        class="container mx-auto px-4 py-3 flex justify-between items-center"
+      >
+        <div class="flex items-center">
+          <i class="fas fa-heartbeat text-3xl text-blue-600 mr-2"></i>
+          <h1 class="text-2xl font-bold text-blue-600">MediScan</h1>
         </div>
-        
-        <!-- Mobile Menu -->
-        <div id="mobile-menu" class="hidden md:hidden bg-white shadow-lg absolute w-full">
-            <div class="px-4 py-3 space-y-3">
-                <a href="index.html" class="block text-gray-700 hover:text-blue-600 transition">Home</a>
-                <a href="about.html" class="block text-gray-700 hover:text-blue-600 transition">About</a>
-                <a href="#services" class="block text-gray-700 hover:text-blue-600 transition">Services</a>
-                <a href="#doctors" class="block text-gray-700 hover:text-blue-600 transition">Our Team</a>
-                <a href="#contact" class="block text-gray-700 hover:text-blue-600 transition">Contact</a>
-                <a href="Book appointment.html" class="block bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition text-center">Book Appointment</a>
-            </div>
+        <button id="mobile-menu-button" class="md:hidden text-blue-600">
+          <i class="fas fa-bars text-2xl"></i>
+        </button>
+        <nav class="hidden md:flex space-x-8">
+          <a
+            href="index.html"
+            class="group relative text-blue-600 font-semibold transition"
+          >
+            Home
+            <span
+              class="absolute left-0 -bottom-1 w-full h-0.5 bg-blue-600 scale-x-100 group-hover:scale-x-100 transition-transform duration-300 origin-left rounded-full"
+            ></span>
+          </a>
+          <a
+            href="about.html"
+            class="group relative text-gray-700 font-medium hover:text-blue-600 transition"
+          >
+            About
+            <span
+              class="absolute left-0 -bottom-1 w-full h-0.5 bg-blue-600 scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left rounded-full"
+            ></span>
+          </a>
+          <a
+            href="#services"
+            class="group relative text-gray-700 font-medium hover:text-blue-600 transition"
+          >
+            Services
+            <span
+              class="absolute left-0 -bottom-1 w-full h-0.5 bg-blue-600 scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left rounded-full"
+            ></span>
+          </a>
+          <a
+            href="#doctors"
+            class="group relative text-gray-700 font-medium hover:text-blue-600 transition"
+          >
+            Our Team
+            <span
+              class="absolute left-0 -bottom-1 w-full h-0.5 bg-blue-600 scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left rounded-full"
+            ></span>
+          </a>
+          <a
+            href="#contact"
+            class="group relative text-gray-700 font-medium hover:text-blue-600 transition"
+          >
+            Contact
+            <span
+              class="absolute left-0 -bottom-1 w-full h-0.5 bg-blue-600 scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left rounded-full"
+            ></span>
+          </a>
+          <a
+            href="Book appointment.html"
+            class="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition font-semibold shadow-md"
+          >
+            Book Appointment
+          </a>
+        </nav>
+      </div>
+
+      <!-- Mobile Menu -->
+      <div
+        id="mobile-menu"
+        class="hidden md:hidden bg-white shadow-lg absolute w-full"
+      >
+        <div class="px-4 py-3 space-y-3">
+          <a
+            href="index.html"
+            class="block text-gray-700 hover:text-blue-600 transition"
+            >Home</a
+          >
+          <a
+            href="about.html"
+            class="block text-gray-700 hover:text-blue-600 transition"
+            >About</a
+          >
+          <a
+            href="#services"
+            class="block text-gray-700 hover:text-blue-600 transition"
+            >Services</a
+          >
+          <a
+            href="#doctors"
+            class="block text-gray-700 hover:text-blue-600 transition"
+            >Our Team</a
+          >
+          <a
+            href="#contact"
+            class="block text-gray-700 hover:text-blue-600 transition"
+            >Contact</a
+          >
+          <a
+            href="Book appointment.html"
+            class="block bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition text-center"
+            >Book Appointment</a
+          >
         </div>
+      </div>
     </header>
 
     <!-- Hero Section -->
     <section id="home" class="hero text-white py-20 bg-blue-600">
-        <div class="container mx-auto px-4 flex flex-col md:flex-row items-center">
-            <div class="md:w-1/2 mb-10 md:mb-0">
-                <h2 class="text-4xl md:text-5xl font-bold mb-4">Accurate Diagnostics for Better Healthcare</h2>
-                <p class="text-xl mb-8">State-of-the-art diagnostic services with fast results and compassionate care.</p>
-                <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
-                    <a href="#appointment" class="bg-white text-blue-600 px-6 py-3 rounded-md font-medium text-center hover:bg-gray-100 transition">Book Appointment</a>
-                    <a href="#services" class="border-2 border-white text-white px-6 py-3 rounded-md font-medium text-center hover:bg-white hover:text-blue-600 transition">Our Services</a>
-                </div>
-            </div>
-            <div class="md:w-1/2">
-                <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/2c8edc13-d7a7-4c3b-aa79-89ef4e01289c.png" alt="Modern medical laboratory with advanced diagnostic equipment and technicians working" class="rounded-lg shadow-xl w-full h-auto">
-            </div>
+      <div
+        class="container mx-auto px-4 flex flex-col md:flex-row items-center"
+      >
+        <div class="md:w-1/2 mb-10 md:mb-0">
+          <h2 class="text-4xl md:text-5xl font-bold mb-4">
+            Accurate Diagnostics for Better Healthcare
+          </h2>
+          <p class="text-xl mb-8">
+            State-of-the-art diagnostic services with fast results and
+            compassionate care.
+          </p>
+          <div
+            class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4"
+          >
+            <a
+              href="#appointment"
+              class="bg-white text-blue-600 px-6 py-3 rounded-md font-medium text-center hover:bg-gray-100 transition"
+              >Book Appointment</a
+            >
+            <a
+              href="#services"
+              class="border-2 border-white text-white px-6 py-3 rounded-md font-medium text-center hover:bg-white hover:text-blue-600 transition"
+              >Our Services</a
+            >
+          </div>
         </div>
-    </section>
-
-    <!-- About Us Section -->
-    <section id="about" class="py-16 bg-gray-50">
-        <div class="container mx-auto px-4">
-            <div class="text-center mb-12">
-                <h2 class="text-3xl font-bold text-gray-800 mb-4">About MediScan</h2>
-                <div class="w-20 h-1 bg-blue-600 mx-auto"></div>
-            </div>
-            
-            <div class="flex flex-col md:flex-row items-center">
-                <div class="md:w-1/2 mb-10 md:mb-0">
-                    <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/b13b9c68-60a3-4625-8606-9b7f205a4580.png" alt="Friendly medical staff in lab coats discussing test results in a modern laboratory" class="rounded-lg shadow-lg w-full h-auto">
-                </div>
-                <div class="md:w-1/2 md:pl-12">
-                    <h3 class="text-2xl font-bold text-gray-800 mb-4">Your Trusted Diagnostic Partner</h3>
-                    <p class="text-gray-600 mb-4">MediScan Diagnostic Center has been serving the community for over 15 years with accurate, reliable, and timely diagnostic services. We are committed to providing the highest quality medical testing using advanced technology and expert analysis.</p>
-                    <p class="text-gray-600 mb-6">Our team of board-certified pathologists, radiologists, and technicians work together to ensure precise results that help your physician make the best treatment decisions for your health.</p>
-                    
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                        <div class="flex items-start">
-                            <i class="fas fa-microscope text-blue-600 text-2xl mr-3 mt-1"></i>
-                            <div>
-                                <h4 class="font-bold text-gray-800 mb-1">Advanced Technology</h4>
-                                <p class="text-gray-600">Cutting-edge diagnostic equipment for precise results</p>
-                            </div>
-                        </div>
-                        <div class="flex items-start">
-                            <i class="fas fa-clock text-blue-600 text-2xl mr-3 mt-1"></i>
-                            <div>
-                                <h4 class="font-bold text-gray-800 mb-1">Fast Results</h4>
-                                <p class="text-gray-600">Quick turnaround time with online report access</p>
-                            </div>
-                        </div>
-                        <div class="flex items-start">
-                            <i class="fas fa-user-md text-blue-600 text-2xl mr-3 mt-1"></i>
-                            <div>
-                                <h4 class="font-bold text-gray-800 mb-1">Expert Staff</h4>
-                                <p class="text-gray-600">Experienced professionals with specialized training</p>
-                            </div>
-                        </div>
-                        <div class="flex items-start">
-                            <i class="fas fa-heart text-blue-600 text-2xl mr-3 mt-1"></i>
-                            <div>
-                                <h4 class="font-bold text-gray-800 mb-1">Patient Care</h4>
-                                <p class="text-gray-600">Compassionate service focused on your needs</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <div class="md:w-1/2">
+          <img
+            src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/2c8edc13-d7a7-4c3b-aa79-89ef4e01289c.png"
+            alt="Modern medical laboratory with advanced diagnostic equipment and technicians working"
+            class="rounded-lg shadow-xl w-full h-auto"
+          />
         </div>
+      </div>
     </section>
 
     <!-- Services Section -->
     <section id="services" class="py-16 bg-white">
-        <div class="container mx-auto px-4">
-            <div class="text-center mb-12">
-                <h2 class="text-3xl font-bold text-gray-800 mb-4">Our Services</h2>
-                <p class="text-gray-600 max-w-2xl mx-auto">Comprehensive diagnostic services to meet all your healthcare needs</p>
-                <div class="w-20 h-1 bg-blue-600 mx-auto"></div>
-            </div>
-            
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-                <!-- Service Card 1 -->
-                <div class="service-card bg-white rounded-lg shadow-md overflow-hidden border-t-4 border-blue-600">
-                    <div class="p-6">
-                        <div class="bg-blue-50 text-blue-600 w-12 h-12 rounded-full flex items-center justify-center mb-4">
-                            <i class="fas fa-flask text-xl"></i>
-                        </div>
-                        <h3 class="text-xl font-bold text-gray-800 mb-2">Laboratory Tests</h3>
-                        <p class="text-gray-600 mb-4">Complete blood tests, biochemistry, microbiology, and specialized lab work with accurate results.</p>
-                        <div class="flex flex-wrap gap-2">
-                            <span class="bg-blue-100 text-blue-800 text-xs px-3 py-1 rounded-full">Hematology</span>
-                            <span class="bg-blue-100 text-blue-800 text-xs px-3 py-1 rounded-full">Serology</span>
-                            <span class="bg-blue-100 text-blue-800 text-xs px-3 py-1 rounded-full">Parasitology</span>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Service Card 2 -->
-                <div class="service-card bg-white rounded-lg shadow-md overflow-hidden border-t-4 border-blue-600">
-                    <div class="p-6">
-                        <div class="bg-blue-50 text-blue-600 w-12 h-12 rounded-full flex items-center justify-center mb-4">
-                            <i class="fas fa-x-ray text-xl"></i>
-                        </div>
-                        <h3 class="text-xl font-bold text-gray-800 mb-2">Radiology & Imaging</h3>
-                        <p class="text-gray-600 mb-4">Advanced imaging services including X-ray, CT scans, MRI, and ultrasound with expert interpretation.</p>
-                        <div class="flex flex-wrap gap-2">
-                            <span class="bg-blue-100 text-blue-800 text-xs px-3 py-1 rounded-full">X-Ray</span>
-                            <span class="bg-blue-100 text-blue-800 text-xs px-3 py-1 rounded-full">Ultrasound</span>
-                            <span class="bg-blue-100 text-blue-800 text-xs px-3 py-1 rounded-full">CT Scan</span>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Service Card 3 -->
-                <div class="service-card bg-white rounded-lg shadow-md overflow-hidden border-t-4 border-blue-600">
-                    <div class="p-6">
-                        <div class="bg-blue-50 text-blue-600 w-12 h-12 rounded-full flex items-center justify-center mb-4">
-                            <i class="fas fa-dna text-xl"></i>
-                        </div>
-                        <h3 class="text-xl font-bold text-gray-800 mb-2">Genetic Testing</h3>
-                        <p class="text-gray-600 mb-4">Comprehensive genetic testing and molecular diagnostics for inherited conditions and risk assessment.</p>
-                        <div class="flex flex-wrap gap-2">
-                            <span class="bg-blue-100 text-blue-800 text-xs px-3 py-1 rounded-full">DNA Testing</span>
-                            <span class="bg-blue-100 text-blue-800 text-xs px-3 py-1 rounded-full">Paternity</span>
-                            <span class="bg-blue-100 text-blue-800 text-xs px-3 py-1 rounded-full">Carrier Screening</span>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Service Card 4 -->
-                <div class="service-card bg-white rounded-lg shadow-md overflow-hidden border-t-4 border-blue-600">
-                    <div class="p-6">
-                        <div class="bg-blue-50 text-blue-600 w-12 h-12 rounded-full flex items-center justify-center mb-4">
-                            <i class="fas fa-heartbeat text-xl"></i>
-                        </div>
-                        <h3 class="text-xl font-bold text-gray-800 mb-2">Cardiac Diagnostics</h3>
-                        <p class="text-gray-600 mb-4">Complete cardiac workup including stress tests, echocardiography, and Holter monitoring.</p>
-                        <div class="flex flex-wrap gap-2">
-                            <span class="bg-blue-100 text-blue-800 text-xs px-3 py-1 rounded-full">ECG</span>
-                            <span class="bg-blue-100 text-blue-800 text-xs px-3 py-1 rounded-full">Echo</span>
-                            <span class="bg-blue-100 text-blue-800 text-xs px-3 py-1 rounded-full">Stress Test</span>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Service Card 5 -->
-                <div class="service-card bg-white rounded-lg shadow-md overflow-hidden border-t-4 border-blue-600">
-                    <div class="p-6">
-                        <div class="bg-blue-50 text-blue-600 w-12 h-12 rounded-full flex items-center justify-center mb-4">
-                            <i class="fas fa-allergies text-xl"></i>
-                        </div>
-                        <h3 class="text-xl font-bold text-gray-800 mb-2">Allergy Testing</h3>
-                        <p class="text-gray-600 mb-4">Comprehensive allergy panels to identify environmental and food allergies with precision.</p>
-                        <div class="flex flex-wrap gap-2">
-                            <span class="bg-blue-100 text-blue-800 text-xs px-3 py-1 rounded-full">Skin Testing</span>
-                            <span class="bg-blue-100 text-blue-800 text-xs px-3 py-1 rounded-full">Blood Testing</span>
-                            <span class="bg-blue-100 text-blue-800 text-xs px-3 py-1 rounded-full">Food Allergies</span>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Service Card 6 -->
-                <div class="service-card bg-white rounded-lg shadow-md overflow-hidden border-t-4 border-blue-600">
-                    <div class="p-6">
-                        <div class="bg-blue-50 text-blue-600 w-12 h-12 rounded-full flex items-center justify-center mb-4">
-                            <i class="fas fa-procedures text-xl"></i>
-                        </div>
-                        <h3 class="text-xl font-bold text-gray-800 mb-2">Specialized Testing</h3>
-                        <p class="text-gray-600 mb-4">Specialized diagnostic services including sleep studies, pulmonary function tests, and more.</p>
-                        <div class="flex flex-wrap gap-2">
-                            <span class="bg-blue-100 text-blue-800 text-xs px-3 py-1 rounded-full">Sleep Study</span>
-                            <span class="bg-blue-100 text-blue-800 text-xs px-3 py-1 rounded-full">Pulmonary</span>
-                            <span class="bg-blue-100 text-blue-800 text-xs px-3 py-1 rounded-full">Neurological</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
+      <div class="container mx-auto px-4">
+        <div class="text-center mb-12">
+          <h2 class="text-3xl font-bold text-gray-800 mb-4">Our Services</h2>
+          <p class="text-gray-600 max-w-2xl mx-auto">
+            Comprehensive diagnostic services to meet all your healthcare needs
+          </p>
+          <div class="w-20 h-1 bg-blue-600 mx-auto"></div>
         </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+          <!-- Service Card 1 -->
+          <div
+            class="service-card bg-white rounded-lg shadow-md overflow-hidden border-t-4 border-blue-600"
+          >
+            <div class="p-6">
+              <div
+                class="bg-blue-50 text-blue-600 w-12 h-12 rounded-full flex items-center justify-center mb-4"
+              >
+                <i class="fas fa-flask text-xl"></i>
+              </div>
+              <h3 class="text-xl font-bold text-gray-800 mb-2">
+                Laboratory Tests
+              </h3>
+              <p class="text-gray-600 mb-4">
+                Complete blood tests, biochemistry, microbiology, and
+                specialized lab work with accurate results.
+              </p>
+              <div class="flex flex-wrap gap-2">
+                <span
+                  class="bg-blue-100 text-blue-800 text-xs px-3 py-1 rounded-full"
+                  >Hematology</span
+                >
+                <span
+                  class="bg-blue-100 text-blue-800 text-xs px-3 py-1 rounded-full"
+                  >Serology</span
+                >
+                <span
+                  class="bg-blue-100 text-blue-800 text-xs px-3 py-1 rounded-full"
+                  >Parasitology</span
+                >
+              </div>
+            </div>
+          </div>
+
+          <!-- Service Card 2 -->
+          <div
+            class="service-card bg-white rounded-lg shadow-md overflow-hidden border-t-4 border-blue-600"
+          >
+            <div class="p-6">
+              <div
+                class="bg-blue-50 text-blue-600 w-12 h-12 rounded-full flex items-center justify-center mb-4"
+              >
+                <i class="fas fa-x-ray text-xl"></i>
+              </div>
+              <h3 class="text-xl font-bold text-gray-800 mb-2">
+                Radiology & Imaging
+              </h3>
+              <p class="text-gray-600 mb-4">
+                Advanced imaging services including X-ray, CT scans, MRI, and
+                ultrasound with expert interpretation.
+              </p>
+              <div class="flex flex-wrap gap-2">
+                <span
+                  class="bg-blue-100 text-blue-800 text-xs px-3 py-1 rounded-full"
+                  >X-Ray</span
+                >
+                <span
+                  class="bg-blue-100 text-blue-800 text-xs px-3 py-1 rounded-full"
+                  >Ultrasound</span
+                >
+                <span
+                  class="bg-blue-100 text-blue-800 text-xs px-3 py-1 rounded-full"
+                  >CT Scan</span
+                >
+              </div>
+            </div>
+          </div>
+
+          <!-- Service Card 3 -->
+          <div
+            class="service-card bg-white rounded-lg shadow-md overflow-hidden border-t-4 border-blue-600"
+          >
+            <div class="p-6">
+              <div
+                class="bg-blue-50 text-blue-600 w-12 h-12 rounded-full flex items-center justify-center mb-4"
+              >
+                <i class="fas fa-dna text-xl"></i>
+              </div>
+              <h3 class="text-xl font-bold text-gray-800 mb-2">
+                Genetic Testing
+              </h3>
+              <p class="text-gray-600 mb-4">
+                Comprehensive genetic testing and molecular diagnostics for
+                inherited conditions and risk assessment.
+              </p>
+              <div class="flex flex-wrap gap-2">
+                <span
+                  class="bg-blue-100 text-blue-800 text-xs px-3 py-1 rounded-full"
+                  >DNA Testing</span
+                >
+                <span
+                  class="bg-blue-100 text-blue-800 text-xs px-3 py-1 rounded-full"
+                  >Paternity</span
+                >
+                <span
+                  class="bg-blue-100 text-blue-800 text-xs px-3 py-1 rounded-full"
+                  >Carrier Screening</span
+                >
+              </div>
+            </div>
+          </div>
+
+          <!-- Service Card 4 -->
+          <div
+            class="service-card bg-white rounded-lg shadow-md overflow-hidden border-t-4 border-blue-600"
+          >
+            <div class="p-6">
+              <div
+                class="bg-blue-50 text-blue-600 w-12 h-12 rounded-full flex items-center justify-center mb-4"
+              >
+                <i class="fas fa-heartbeat text-xl"></i>
+              </div>
+              <h3 class="text-xl font-bold text-gray-800 mb-2">
+                Cardiac Diagnostics
+              </h3>
+              <p class="text-gray-600 mb-4">
+                Complete cardiac workup including stress tests,
+                echocardiography, and Holter monitoring.
+              </p>
+              <div class="flex flex-wrap gap-2">
+                <span
+                  class="bg-blue-100 text-blue-800 text-xs px-3 py-1 rounded-full"
+                  >ECG</span
+                >
+                <span
+                  class="bg-blue-100 text-blue-800 text-xs px-3 py-1 rounded-full"
+                  >Echo</span
+                >
+                <span
+                  class="bg-blue-100 text-blue-800 text-xs px-3 py-1 rounded-full"
+                  >Stress Test</span
+                >
+              </div>
+            </div>
+          </div>
+
+          <!-- Service Card 5 -->
+          <div
+            class="service-card bg-white rounded-lg shadow-md overflow-hidden border-t-4 border-blue-600"
+          >
+            <div class="p-6">
+              <div
+                class="bg-blue-50 text-blue-600 w-12 h-12 rounded-full flex items-center justify-center mb-4"
+              >
+                <i class="fas fa-allergies text-xl"></i>
+              </div>
+              <h3 class="text-xl font-bold text-gray-800 mb-2">
+                Allergy Testing
+              </h3>
+              <p class="text-gray-600 mb-4">
+                Comprehensive allergy panels to identify environmental and food
+                allergies with precision.
+              </p>
+              <div class="flex flex-wrap gap-2">
+                <span
+                  class="bg-blue-100 text-blue-800 text-xs px-3 py-1 rounded-full"
+                  >Skin Testing</span
+                >
+                <span
+                  class="bg-blue-100 text-blue-800 text-xs px-3 py-1 rounded-full"
+                  >Blood Testing</span
+                >
+                <span
+                  class="bg-blue-100 text-blue-800 text-xs px-3 py-1 rounded-full"
+                  >Food Allergies</span
+                >
+              </div>
+            </div>
+          </div>
+
+          <!-- Service Card 6 -->
+          <div
+            class="service-card bg-white rounded-lg shadow-md overflow-hidden border-t-4 border-blue-600"
+          >
+            <div class="p-6">
+              <div
+                class="bg-blue-50 text-blue-600 w-12 h-12 rounded-full flex items-center justify-center mb-4"
+              >
+                <i class="fas fa-procedures text-xl"></i>
+              </div>
+              <h3 class="text-xl font-bold text-gray-800 mb-2">
+                Specialized Testing
+              </h3>
+              <p class="text-gray-600 mb-4">
+                Specialized diagnostic services including sleep studies,
+                pulmonary function tests, and more.
+              </p>
+              <div class="flex flex-wrap gap-2">
+                <span
+                  class="bg-blue-100 text-blue-800 text-xs px-3 py-1 rounded-full"
+                  >Sleep Study</span
+                >
+                <span
+                  class="bg-blue-100 text-blue-800 text-xs px-3 py-1 rounded-full"
+                  >Pulmonary</span
+                >
+                <span
+                  class="bg-blue-100 text-blue-800 text-xs px-3 py-1 rounded-full"
+                  >Neurological</span
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </section>
 
     <!-- Doctors Section -->
     <section id="doctors" class="py-16 bg-gray-50">
-        <div class="container mx-auto px-4">
-            <div class="text-center mb-12">
-                <h2 class="text-3xl font-bold text-gray-800 mb-4">Meet Our Specialists</h2>
-                <p class="text-gray-600 max-w-2xl mx-auto">Our team of board-certified professionals dedicated to your health</p>
-                <div class="w-20 h-1 bg-blue-600 mx-auto"></div>
-            </div>
-            
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-                <!-- Doctor 1 -->
-                <div class="doctor-card bg-white rounded-lg shadow-md overflow-hidden">
-                    <img src="Image/Sankarjpg.jpg" alt="Dr. Sarah Johnson - Board Certified Pathologist with 15 years experience in clinical diagnostics" class="w-full h-64 object-cover">
-                    <div class="p-6">
-                        <h3 class="text-xl font-bold text-gray-800">Dr. Sankar Narayan Das</h3>
-                        <p class="text-blue-600 font-medium mb-3">Medicine</p>
-                        <p class="text-gray-600 text-sm mb-4">MBBS, FCPS, MD, FRCP (Glasgow, UK)Medicine Specialist Head of Medicine Dept. & Principal (Rtd.) 
-                        Mymensingh Medical College
-                        Senior Consultant, Labaid Specialized Hospital</p>
-                        <div class="flex space-x-3">
-                            <a href="#" class="text-blue-600 hover:text-blue-800"><i class="fab fa-linkedin-in"></i></a>
-                            <a href="#" class="text-blue-600 hover:text-blue-800"><i class="fas fa-envelope"></i></a>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Doctor 2 -->
-                <div class="doctor-card bg-white rounded-lg shadow-md overflow-hidden">
-                    <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/e3af508b-d415-4939-b352-df7405eb499c.png" alt="Dr. Michael Chen - Radiologist specializing in advanced imaging techniques with 10 years experience" class="w-full h-64 object-cover">
-                    <div class="p-6">
-                        <h3 class="text-xl font-bold text-gray-800">Dr. Michael Chen</h3>
-                        <p class="text-blue-600 font-medium mb-3">Radiologist</p>
-                        <p class="text-gray-600 text-sm mb-4">Specializing in advanced imaging techniques with 10 years of diagnostic experience.</p>
-                        <div class="flex space-x-3">
-                            <a href="#" class="text-blue-600 hover:text-blue-800"><i class="fab fa-linkedin-in"></i></a>
-                            <a href="#" class="text-blue-600 hover:text-blue-800"><i class="fas fa-envelope"></i></a>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Doctor 3 -->
-                <div class="doctor-card bg-white rounded-lg shadow-md overflow-hidden">
-                    <img src="Shakib.jpg">
-                    <div class="p-6">
-                        <h3 class="text-xl font-bold text-gray-800">Dr. Ananya Patel</h3>
-                        <p class="text-blue-600 font-medium mb-3">Cardiologist</p>
-                        <p class="text-gray-600 text-sm mb-4">Specializing in preventive cardiology and heart disease management with 12 years of experience.</p>
-                        <div class="flex space-x-3">
-                            <a href="#" class="text-blue-600 hover:text-blue-800"><i class="fab fa-linkedin-in"></i></a>
-                            <a href="#" class="text-blue-600 hover:text-blue-800"><i class="fas fa-envelope"></i></a>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Doctor 4 -->
-                <div class="doctor-card bg-white rounded-lg shadow-md overflow-hidden">
-                    <img src="Ruhan.jpg" alt="Dr. James Wilson - Neurologist specializing in diagnostic neurology and neuromuscular disorders" class="w-full h-64 object-cover">
-                    <div class="p-6">
-                        <h3 class="text-xl font-bold text-gray-800">Dr. Ruhan Mirza(Akhi r Jamay</h3>
-                        <p class="text-blue-600 font-medium mb-3">Nerology</p>
-                        <p class="text-gray-600 text-sm mb-4">Specializing in diagnostic neurology and neuromuscular disorders with 8 years of experience.</p>
-                        <div class="flex space-x-3">
-                            <a href="#" class="text-blue-600 hover:text-blue-800"><i class="fab fa-linkedin-in"></i></a>
-                            <a href="#" class="text-blue-600 hover:text-blue-800"><i class="fas fa-envelope"></i></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
+      <div class="container mx-auto px-4">
+        <div class="text-center mb-12">
+          <h2 class="text-3xl font-bold text-gray-800 mb-4">
+            Meet Our Specialists
+          </h2>
+          <p class="text-gray-600 max-w-2xl mx-auto">
+            Our team of board-certified professionals dedicated to your health
+          </p>
+          <div class="w-20 h-1 bg-blue-600 mx-auto"></div>
         </div>
-    </section>
-    
-<section id="testimonials" class="py-16 bg-blue-50">
-  <div class="container mx-auto px-4">
-    <div class="text-center mb-12">
-      <h2 class="text-3xl font-bold text-gray-800 mb-4">What Our Patients Say</h2>
-      <div class="w-20 h-1 bg-blue-600 mx-auto"></div>
-    </div>
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-      <div class="bg-white rounded-lg shadow-md p-6">
-        <p class="text-gray-700 mb-4">"Excellent service and very professional staff. Got my reports on time!"</p>
-        <div class="flex items-center">
-          <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Patient" class="w-12 h-12 rounded-full mr-3">
-          <div>
-            <h4 class="font-bold text-gray-800">Rina Akter</h4>
-            <span class="text-blue-600 text-sm">Dhaka</span>
-          </div>
-        </div>
-      </div>
-      <div class="bg-white rounded-lg shadow-md p-6">
-        <p class="text-gray-700 mb-4">"Modern lab and very friendly doctors. Highly recommended!"</p>
-        <div class="flex items-center">
-          <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Patient" class="w-12 h-12 rounded-full mr-3">
-          <div>
-            <h4 class="font-bold text-gray-800">Sazzad Hossain</h4>
-            <span class="text-blue-600 text-sm">Chattogram</span>
-          </div>
-        </div>
-      </div>
-      <div class="bg-white rounded-lg shadow-md p-6">
-        <p class="text-gray-700 mb-4">"Very clean and organized. The appointment process was easy."</p>
-        <div class="flex items-center">
-          <img src="https://randomuser.me/api/portraits/women/65.jpg" alt="Patient" class="w-12 h-12 rounded-full mr-3">
-          <div>
-            <h4 class="font-bold text-gray-800">Mousumi Rahman</h4>
-            <span class="text-blue-600 text-sm">Sylhet</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
 
-<section id="faq" class="py-16 bg-white">
-  <div class="container mx-auto px-4">
-    <div class="text-center mb-12">
-      <h2 class="text-3xl font-bold text-gray-800 mb-4">Frequently Asked Questions</h2>
-      <div class="w-20 h-1 bg-blue-600 mx-auto"></div>
-    </div>
-    <div class="max-w-2xl mx-auto space-y-6">
-      <div class="bg-blue-50 rounded-lg p-5">
-        <h4 class="font-bold text-gray-800 mb-2">How do I book an appointment?</h4>
-        <p class="text-gray-600">You can book online using our appointment form or call us directly at the given number.</p>
-      </div>
-      <div class="bg-blue-50 rounded-lg p-5">
-        <h4 class="font-bold text-gray-800 mb-2">Do you accept walk-in patients?</h4>
-        <p class="text-gray-600">Yes, but we recommend booking in advance for faster service.</p>
-      </div>
-      <div class="bg-blue-50 rounded-lg p-5">
-        <h4 class="font-bold text-gray-800 mb-2">How will I get my test reports?</h4>
-        <p class="text-gray-600">Reports are available online and can also be collected from our center.</p>
-      </div>
-    </div>
-  </div>
-</section>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+          <!-- Doctor 1 -->
+          <div
+            class="doctor-card bg-white rounded-lg shadow-md overflow-hidden"
+          >
+            <img
+              src="Image/Urmi.jpg"
+              alt="Dr. Sarah Johnson - Board Certified Pathologist with 15 years experience in clinical diagnostics"
+              class="w-full h-64 object-cover"
+            />
+            <div class="p-6">
+              <h3 class="text-xl font-bold text-gray-800">Dr. Urmi Sengu</h3>
+              <p class="text-blue-600 font-medium mb-3">Medicine</p>
+              <p class="text-gray-600 text-sm mb-4">
+                MBBS, FCPS, MD, FRCP (Glasgow, UK)Medicine Specialist Head of
+                Medicine Dept. & Principal (Rtd.)
+              </p>
+              <div class="flex space-x-3">
+                <a href="#" class="text-blue-600 hover:text-blue-800"
+                  ><i class="fab fa-linkedin-in"></i
+                ></a>
+                <a href="#" class="text-blue-600 hover:text-blue-800"
+                  ><i class="fas fa-envelope"></i
+                ></a>
+              </div>
+            </div>
+          </div>
 
-    <!-- Appointment Section -->
-    <section id="appointment" class="py-16 bg-blue-600">
-        <div class="container mx-auto px-4">
-            <div class="text-center mb-12">
-                <h2 class="text-3xl font-bold text-white mb-4">Book an Appointment</h2>
-                <p class="text-gray-100 max-w-2xl mx-auto">Schedule your visit online or call us at +1 (555) 123-4567</p>
-                <div class="w-20 h-1 bg-white mx-auto"></div>
+          <!-- Doctor 2 -->
+          <div
+            class="doctor-card bg-white rounded-lg shadow-md overflow-hidden"
+          >
+            <img
+              src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/e3af508b-d415-4939-b352-df7405eb499c.png"
+              alt="Dr. Michael Chen - Radiologist specializing in advanced imaging techniques with 10 years experience"
+              class="w-full h-64 object-cover"
+            />
+            <div class="p-6">
+              <h3 class="text-xl font-bold text-gray-800">Dr. Michael Chen</h3>
+              <p class="text-blue-600 font-medium mb-3">Radiologist</p>
+              <p class="text-gray-600 text-sm mb-4">
+                Specializing in advanced imaging techniques with 10 years of
+                diagnostic experience.
+              </p>
+              <div class="flex space-x-3">
+                <a href="#" class="text-blue-600 hover:text-blue-800"
+                  ><i class="fab fa-linkedin-in"></i
+                ></a>
+                <a href="#" class="text-blue-600 hover:text-blue-800"
+                  ><i class="fas fa-envelope"></i
+                ></a>
+              </div>
             </div>
-            
-            <div class="max-w-2xl mx-auto bg-white rounded-lg shadow-lg p-8">
-                <form id="appointment-form">
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-                        <div>
-                            <label for="name" class="block text-gray-700 font-medium mb-2">Full Name *</label>
-                            <input type="text" id="name" name="name" required class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-600">
-                        </div>
-                        <div>
-                            <label for="email" class="block text-gray-700 font-medium mb-2">Email *</label>
-                            <input type="email" id="email" name="email" required class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-600">
-                        </div>
-                        <div>
-                            <label for="phone" class="block text-gray-700 font-medium mb-2">Phone *</label>
-                            <input type="tel" id="phone" name="phone" required class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-600">
-                        </div>
-                        <div>
-                            <label for="service" class="block text-gray-700 font-medium mb-2">Service *</label>
-                            <select id="service" name="service" required class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-600">
-                                <option value="" disabled selected>Select a service</option>
-                                <option value="lab">Laboratory Tests</option>
-                                <option value="radiology">Radiology & Imaging</option>
-                                <!-- ...existing code... -->
-                                <option value="genetic">Genetic Testing</option>
-                                <option value="cardiac">Cardiac Diagnostics</option>
-                                <option value="allergy">Allergy Testing</option>
-                                <option value="specialized">Specialized Testing</option>
-                            </select>
-                        </div>
-                        <div>
-                            <label for="date" class="block text-gray-700 font-medium mb-2">Preferred Date *</label>
-                            <input type="date" id="date" name="date" required class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-600">
-                        </div>
-                        <div>
-                            <label for="time" class="block text-gray-700 font-medium mb-2">Preferred Time *</label>
-                            <input type="time" id="time" name="time" required class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-600">
-                        </div>
-                    </div>
-                    <div class="mb-6">
-                        <label for="message" class="block text-gray-700 font-medium mb-2">Additional Message</label>
-                        <textarea id="message" name="message" rows="3" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-600"></textarea>
-                    </div>
-                    <button type="submit" class="w-full bg-blue-600 text-white py-3 rounded-md font-bold hover:bg-blue-700 transition">Book Appointment</button>
-                </form>
+          </div>
+
+          <!-- Doctor 3 -->
+          <div
+            class="doctor-card bg-white rounded-lg shadow-md overflow-hidden"
+          >
+            <img
+              src="Image/Shakib.jpg"
+              alt="Dr. Ananya Patel - Cardiologist with expertise in preventive cardiology and heart disease management"
+              class="w-full h-64 object-cover"
+            />
+            <div class="p-6">
+              <h3 class="text-xl font-bold text-gray-800">Dr. Ananya Patel</h3>
+              <p class="text-blue-600 font-medium mb-3">Cardiologist</p>
+              <p class="text-gray-600 text-sm mb-4">
+                Specializing in preventive cardiology and heart disease
+                management with 12 years of experience.
+              </p>
+              <div class="flex space-x-3">
+                <a href="#" class="text-blue-600 hover:text-blue-800"
+                  ><i class="fab fa-linkedin-in"></i
+                ></a>
+                <a href="#" class="text-blue-600 hover:text-blue-800"
+                  ><i class="fas fa-envelope"></i
+                ></a>
+              </div>
             </div>
+          </div>
+
+          <!-- Doctor 4 -->
+          <div
+            class="doctor-card bg-white rounded-lg shadow-md overflow-hidden"
+          >
+            <img
+              src="Image/Ruhan.jpg"
+              alt="Dr. James Wilson - Neurologist specializing in diagnostic neurology and neuromuscular disorders"
+              class="w-full h-64 object-cover"
+            />
+            <div class="p-6">
+              <h3 class="text-xl font-bold text-gray-800">Dr. Ruhan Mirza</h3>
+              <p class="text-blue-600 font-medium mb-3">Nerology</p>
+              <p class="text-gray-600 text-sm mb-4">
+                Specializing in diagnostic neurology and neuromuscular disorders
+                with 8 years of experience.
+              </p>
+              <div class="flex space-x-3">
+                <a href="#" class="text-blue-600 hover:text-blue-800"
+                  ><i class="fab fa-linkedin-in"></i
+                ></a>
+                <a href="#" class="text-blue-600 hover:text-blue-800"
+                  ><i class="fas fa-envelope"></i
+                ></a>
+              </div>
+            </div>
+          </div>
         </div>
+      </div>
     </section>
-    <button id="backToTop" title="Go to top" class="fixed bottom-8 right-8 bg-blue-600 text-white p-3 rounded-full shadow-lg hidden z-50">
-    <i class="fas fa-arrow-up"></i>
+
+    <section id="testimonials" class="py-16 bg-blue-50">
+      <div class="container mx-auto px-4">
+        <div class="text-center mb-12">
+          <h2 class="text-3xl font-bold text-gray-800 mb-4">
+            What Our Patients Say
+          </h2>
+          <div class="w-20 h-1 bg-blue-600 mx-auto"></div>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div class="bg-white rounded-lg shadow-md p-6">
+            <p class="text-gray-700 mb-4">
+              "Excellent service and very professional staff. Got my reports on
+              time!"
+            </p>
+            <div class="flex items-center">
+              <img
+                src="https://randomuser.me/api/portraits/women/44.jpg"
+                alt="Patient"
+                class="w-12 h-12 rounded-full mr-3"
+              />
+              <div>
+                <h4 class="font-bold text-gray-800">Rina Akter</h4>
+                <span class="text-blue-600 text-sm">Dhaka</span>
+              </div>
+            </div>
+          </div>
+          <div class="bg-white rounded-lg shadow-md p-6">
+            <p class="text-gray-700 mb-4">
+              "Modern lab and very friendly doctors. Highly recommended!"
+            </p>
+            <div class="flex items-center">
+              <img
+                src="https://randomuser.me/api/portraits/men/32.jpg"
+                alt="Patient"
+                class="w-12 h-12 rounded-full mr-3"
+              />
+              <div>
+                <h4 class="font-bold text-gray-800">Sazzad Hossain</h4>
+                <span class="text-blue-600 text-sm">Chattogram</span>
+              </div>
+            </div>
+          </div>
+          <div class="bg-white rounded-lg shadow-md p-6">
+            <p class="text-gray-700 mb-4">
+              "Very clean and organized. The appointment process was easy."
+            </p>
+            <div class="flex items-center">
+              <img
+                src="https://randomuser.me/api/portraits/women/65.jpg"
+                alt="Patient"
+                class="w-12 h-12 rounded-full mr-3"
+              />
+              <div>
+                <h4 class="font-bold text-gray-800">Mousumi Rahman</h4>
+                <span class="text-blue-600 text-sm">Sylhet</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="faq" class="py-16 bg-white">
+      <div class="container mx-auto px-4">
+        <div class="text-center mb-12">
+          <h2 class="text-3xl font-bold text-gray-800 mb-4">
+            Frequently Asked Questions
+          </h2>
+          <div class="w-20 h-1 bg-blue-600 mx-auto"></div>
+        </div>
+        <div class="max-w-2xl mx-auto space-y-6">
+          <div class="bg-blue-50 rounded-lg p-5">
+            <h4 class="font-bold text-gray-800 mb-2">
+              How do I book an appointment?
+            </h4>
+            <p class="text-gray-600">
+              You can book online using our appointment form or call us directly
+              at the given number.
+            </p>
+          </div>
+          <div class="bg-blue-50 rounded-lg p-5">
+            <h4 class="font-bold text-gray-800 mb-2">
+              Do you accept walk-in patients?
+            </h4>
+            <p class="text-gray-600">
+              Yes, but we recommend booking in advance for faster service.
+            </p>
+          </div>
+          <div class="bg-blue-50 rounded-lg p-5">
+            <h4 class="font-bold text-gray-800 mb-2">
+              How will I get my test reports?
+            </h4>
+            <p class="text-gray-600">
+              Reports are available online and can also be collected from our
+              center.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+    <button
+      id="backToTop"
+      title="Go to top"
+      class="fixed bottom-8 right-8 bg-blue-600 text-white p-3 rounded-full shadow-lg hidden z-50"
+    >
+      <i class="fas fa-arrow-up"></i>
     </button>
-    
-<section id="location" class="py-16 bg-gray-50">
-  <div class="container mx-auto px-4">
-    <div class="text-center mb-8">
-      <h2 class="text-3xl font-bold text-gray-800 mb-4">Our Location</h2>
-      <div class="w-20 h-1 bg-blue-600 mx-auto"></div>
-    </div>
-    <div class="flex justify-center">
-      <iframe
-        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3651.902123456789!2d90.3912345!3d23.7508765!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3755b85c1234567%3A0xabcdef123456789!2sDhaka%20Medical%20College!5e0!3m2!1sen!2sbd!4v1680000000000!5m2!1sen!2sbd"
-        width="100%" height="350" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-    </div>
-  </div>
-</section>
-<footer class="bg-gray-900 text-gray-200 py-6 mt-12">
-  <div class="container mx-auto px-4 text-center">
-    <div class="mb-2">
-      <a href="https://facebook.com/" target="_blank" class="inline-block mx-2 text-blue-400 hover:text-white text-xl"><i class="fab fa-facebook-f"></i></a>
-      <a href="https://twitter.com/" target="_blank" class="inline-block mx-2 text-blue-400 hover:text-white text-xl"><i class="fab fa-twitter"></i></a>
-      <a href="https://instagram.com/" target="_blank" class="inline-block mx-2 text-pink-400 hover:text-white text-xl"><i class="fab fa-instagram"></i></a>
-      <a href="https://linkedin.com/" target="_blank" class="inline-block mx-2 text-blue-400 hover:text-white text-xl"><i class="fab fa-linkedin-in"></i></a>
-    </div>
-    &copy; 2025 MediScan Diagnostic Center. All rights reserved.
-  </div>
-</footer>
-<script src="script.js"></script>
-</body>
+
+    <section id="location" class="py-16 bg-gray-50">
+      <div class="container mx-auto px-4">
+        <div class="text-center mb-8">
+          <h2 class="text-3xl font-bold text-gray-800 mb-4">Our Location</h2>
+          <div class="w-20 h-1 bg-blue-600 mx-auto"></div>
+        </div>
+        <div class="flex justify-center">
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3651.902123456789!2d90.3912345!3d23.7508765!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3755b85c1234567%3A0xabcdef123456789!2sDhaka%20Medical%20College!5e0!3m2!1sen!2sbd!4v1680000000000!5m2!1sen!2sbd"
+            width="100%"
+            height="350"
+            style="border: 0"
+            allowfullscreen=""
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+          ></iframe>
+        </div>
+      </div>
+    </section>
+    <footer class="bg-gray-900 text-gray-200 py-6 mt-12">
+      <div class="container mx-auto px-4 text-center">
+        <div class="mb-2">
+          <a
+            href="https://facebook.com/"
+            target="_blank"
+            class="inline-block mx-2 text-blue-400 hover:text-white text-xl"
+            ><i class="fab fa-facebook-f"></i
+          ></a>
+          <a
+            href="https://twitter.com/"
+            target="_blank"
+            class="inline-block mx-2 text-blue-400 hover:text-white text-xl"
+            ><i class="fab fa-twitter"></i
+          ></a>
+          <a
+            href="https://instagram.com/"
+            target="_blank"
+            class="inline-block mx-2 text-pink-400 hover:text-white text-xl"
+            ><i class="fab fa-instagram"></i
+          ></a>
+          <a
+            href="https://linkedin.com/"
+            target="_blank"
+            class="inline-block mx-2 text-blue-400 hover:text-white text-xl"
+            ><i class="fab fa-linkedin-in"></i
+          ></a>
+        </div>
+        &copy; 2025 MediScan Diagnostic Center. All rights reserved.
+      </div>
+    </footer>
+    <script src="script.js"></script>
+  </body>
 </html>
