@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="bn">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>যোগাযোগ করুন – MediScan</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@3.3.2/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body class="bg-gray-100 min-h-screen flex items-center justify-center p-4">
+    <div class="bg-white shadow-2xl rounded-2xl p-8 max-w-lg w-full">
+      <h1 class="text-3xl font-bold text-center text-blue-700 mb-6">
+        যোগাযোগ করুন
+      </h1>
+      <form id="contactForm" class="space-y-4">
+        <div>
+          <label class="block text-gray-700 font-medium">নাম</label>
+          <input
+            type="text"
+            name="name"
+            required
+            placeholder="আপনার নাম"
+            class="w-full border border-gray-300 p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+        </div>
+        <div>
+          <label class="block text-gray-700 font-medium">ইমেইল</label>
+          <input
+            type="email"
+            name="email"
+            required
+            placeholder="example@email.com"
+            class="w-full border border-gray-300 p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+        </div>
+        <div>
+          <label class="block text-gray-700 font-medium">বার্তা</label>
+          <textarea
+            name="message"
+            rows="4"
+            required
+            placeholder="আপনার বার্তা লিখুন"
+            class="w-full border border-gray-300 p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+          ></textarea>
+        </div>
+        <button
+          type="submit"
+          class="w-full bg-blue-600 text-white py-3 rounded-lg font-semibold hover:bg-blue-700 transition duration-300"
+        >
+          বার্তা পাঠান
+        </button>
+      </form>
+      <div
+        id="statusMessage"
+        class="mt-4 text-center text-sm font-medium text-green-600"
+      ></div>
+    </div>
+
+    <script>
+      const form = document.getElementById("contactForm");
+      const status = document.getElementById("statusMessage");
+
+      form.addEventListener("submit", async function (e) {
+        e.preventDefault();
+        status.textContent = "পাঠানো হচ্ছে...";
+
+        const formData = new FormData(form);
+        const data = Object.fromEntries(formData.entries());
+
+        try {
+          const response = await fetch("/api/contact", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(data),
+          });
+
+          if (response.ok) {
+            status.textContent = "✅ বার্তা সফলভাবে পাঠানো হয়েছে!";
+            form.reset();
+          } else {
+            status.textContent = "❌ পাঠাতে সমস্যা হয়েছে, পরে চেষ্টা করুন।";
+          }
+        } catch (error) {
+          status.textContent = "❌ সার্ভারে সমস্যা হয়েছে।";
+        }
+      });
+    </script>
+  </body>
+</html>
