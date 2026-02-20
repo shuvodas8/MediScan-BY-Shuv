@@ -1,39 +1,29 @@
 <!DOCTYPE html>
-<html lang="bn">
+<html lang="en">
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>যোগাযোগ করুন – MediScan</title>
+    <title>Contact Us – MediScan</title>
     
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
-    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
 
     <style>
         body {
-            font-family: 'Hind Siliguri', sans-serif;
+            font-family: 'Inter', sans-serif;
             background-color: #f8fafc;
-        }
-        .nav-link {
-            transition: color 0.3s ease;
-        }
-        .nav-link:hover {
-            color: #2563eb;
         }
         .glass-card {
             background: rgba(255, 255, 255, 1);
             border-radius: 24px;
             box-shadow: 0 10px 40px rgba(0, 0, 0, 0.05);
         }
-        /* Navbar shadow */
-        nav {
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-        }
     </style>
 </head>
 <body class="bg-blue-50">
 
-    <nav class="bg-white sticky top-0 z-50 py-4 px-6 md:px-12 flex justify-between items-center">
+    <nav class="bg-white sticky top-0 z-50 py-4 px-6 md:px-12 flex justify-between items-center shadow-sm">
         <div class="flex items-center gap-2">
             <svg class="w-8 h-8 text-blue-600" fill="currentColor" viewBox="0 0 20 20">
                 <path d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" />
@@ -42,11 +32,11 @@
         </div>
 
         <div class="hidden md:flex items-center gap-8 font-semibold text-gray-600">
-            <a href="index.html" class="nav-link">Home</a>
-            <a href="about.html" class="nav-link">About</a>
-            <a href="services.html" class="nav-link text-blue-600">Services</a>
-            <a href="team.html" class="nav-link">Our Team</a>
-            <a href="contact.html" class="nav-link text-blue-600 border-b-2 border-blue-600">Contact</a>
+            <a href="index.html" class="hover:text-blue-600 transition">Home</a>
+            <a href="about.html" class="hover:text-blue-600 transition">About</a>
+            <a href="services.html" class="hover:text-blue-600 transition">Services</a>
+            <a href="team.html" class="hover:text-blue-600 transition">Our Team</a>
+            <a href="contact.html" class="text-blue-600 border-b-2 border-blue-600">Contact</a>
         </div>
 
         <a href="appointment.html" class="bg-blue-600 text-white px-6 py-2.5 rounded-lg font-bold hover:bg-blue-700 transition duration-300">
@@ -58,24 +48,24 @@
         <div class="glass-card p-8 md:p-12 max-w-xl w-full animate__animated animate__fadeInUp">
             
             <div class="text-center mb-10">
-                <h1 class="text-4xl font-extrabold text-blue-800 mb-3">যোগাযোগ করুন</h1>
-                <p class="text-gray-500 text-lg">আপনার যেকোনো প্রশ্ন বা মতামতের জন্য আমাদের লিখুন।</p>
+                <h1 class="text-4xl font-extrabold text-blue-800 mb-3">Contact Us</h1>
+                <p class="text-gray-500 text-lg">Have a question? We'd love to hear from you.</p>
             </div>
 
             <form id="contactForm" class="space-y-6">
                 <div>
-                    <label class="block text-gray-800 font-bold mb-2 ml-1">আপনার নাম</label>
+                    <label class="block text-gray-800 font-bold mb-2 ml-1">Your Name</label>
                     <input
                         type="text"
                         name="name"
                         required
-                        placeholder="উদা: আব্দুল্লাহ আল মামুন"
+                        placeholder="e.g. John Doe"
                         class="w-full border border-gray-200 p-4 rounded-2xl focus:outline-none focus:ring-2 focus:ring-blue-500 bg-gray-50 transition-all shadow-sm"
                     />
                 </div>
 
                 <div>
-                    <label class="block text-gray-800 font-bold mb-2 ml-1">ইমেইল ঠিকানা</label>
+                    <label class="block text-gray-800 font-bold mb-2 ml-1">Email Address</label>
                     <input
                         type="email"
                         name="email"
@@ -86,12 +76,12 @@
                 </div>
 
                 <div>
-                    <label class="block text-gray-800 font-bold mb-2 ml-1">আপনার বার্তা</label>
+                    <label class="block text-gray-800 font-bold mb-2 ml-1">Message</label>
                     <textarea
                         name="message"
                         rows="4"
                         required
-                        placeholder="এখানে আপনার বার্তাটি বিস্তারিত লিখুন..."
+                        placeholder="Write your message here..."
                         class="w-full border border-gray-200 p-4 rounded-2xl focus:outline-none focus:ring-2 focus:ring-blue-500 bg-gray-50 transition-all shadow-sm"
                     ></textarea>
                 </div>
@@ -100,7 +90,7 @@
                     type="submit"
                     class="w-full bg-blue-600 text-white py-4 rounded-2xl font-bold text-xl shadow-lg hover:bg-blue-700 transform hover:-translate-y-1 transition duration-300"
                 >
-                    বার্তা পাঠান
+                    Send Message
                 </button>
             </form>
 
@@ -115,7 +105,7 @@
         form.addEventListener("submit", async function (e) {
             e.preventDefault();
             status.className = "mt-6 text-center text-blue-600 animate__animated animate__fadeIn";
-            status.textContent = "⏳ পাঠানো হচ্ছে...";
+            status.textContent = "⏳ Sending...";
 
             const formData = new FormData(form);
             const data = Object.fromEntries(formData.entries());
@@ -129,24 +119,16 @@
 
                 if (response.ok) {
                     status.className = "mt-6 text-center text-green-600 animate__animated animate__bounceIn";
-                    status.innerHTML = "✅ বার্তা সফলভাবে পাঠানো হয়েছে!";
+                    status.innerHTML = "✅ Message sent successfully!";
                     form.reset();
                 } else {
                     status.className = "mt-6 text-center text-red-600 animate__animated animate__shakeX";
-                    status.textContent = "❌ পাঠাতে সমস্যা হয়েছে।";
+                    status.textContent = "❌ Failed to send message.";
                 }
             } catch (error) {
-                status.textContent = "❌ সার্ভারে সমস্যা হয়েছে।";
+                status.textContent = "❌ Server error occurred.";
             }
         });
-    </script>
-
-    <script>
-        window.__lc = window.__lc || {};
-        window.__lc.license = 19516214;
-        window.__lc.integration_name = "manual_onboarding";
-        window.__lc.product_name = "livechat";
-        ;(function(n,t,c){function i(n){return e._h?e._h.apply(null,n):e._q.push(n)}var e={_q:[],_h:null,_v:"2.0",on:function(){i(["on",c.call(arguments)])},once:function(){i(["once",c.call(arguments)])},off:function(){i(["off",c.call(arguments)])},get:function(){if(!e._h)throw new Error("[LiveChatWidget] You can't use getters before load.");return i(["get",c.call(arguments)])},call:function(){i(["call",c.call(arguments)])},init:function(){var n=t.createElement("script");n.async=!0,n.type="text/javascript",n.src="https://cdn.livechatinc.com/tracking.js",t.head.appendChild(n)}};!n.__lc.asyncInit&&e.init(),n.LiveChatWidget=n.LiveChatWidget||e}(window,document,[].slice))
     </script>
 </body>
 </html>
