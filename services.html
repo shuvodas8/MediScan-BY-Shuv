@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Contact Us – MediScan</title>
+    <title>Our Services – MediScan</title>
     
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
@@ -14,14 +14,28 @@
             font-family: 'Inter', sans-serif;
             background-color: #f8fafc;
         }
-        .glass-card {
-            background: rgba(255, 255, 255, 1);
+        .service-card {
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            background: white;
             border-radius: 24px;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.05);
+        }
+        .service-card:hover {
+            transform: translateY(-12px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+        }
+        .icon-box {
+            width: 70px;
+            height: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 20px;
+            margin-bottom: 24px;
+            font-size: 30px;
         }
     </style>
 </head>
-<body class="bg-blue-50">
+<body>
 
     <nav class="bg-white sticky top-0 z-50 py-4 px-6 md:px-12 flex justify-between items-center shadow-sm">
         <div class="flex items-center gap-2">
@@ -34,9 +48,9 @@
         <div class="hidden md:flex items-center gap-8 font-semibold text-gray-600">
             <a href="index.html" class="hover:text-blue-600 transition">Home</a>
             <a href="about.html" class="hover:text-blue-600 transition">About</a>
-            <a href="services.html" class="hover:text-blue-600 transition">Services</a>
+            <a href="services.html" class="text-blue-600 border-b-2 border-blue-600">Services</a>
             <a href="team.html" class="hover:text-blue-600 transition">Our Team</a>
-            <a href="contact.html" class="text-blue-600 border-b-2 border-blue-600">Contact</a>
+            <a href="contact.html" class="hover:text-blue-600 transition">Contact</a>
         </div>
 
         <a href="appointment.html" class="bg-blue-600 text-white px-6 py-2.5 rounded-lg font-bold hover:bg-blue-700 transition duration-300">
@@ -44,91 +58,32 @@
         </a>
     </nav>
 
-    <main class="min-h-[calc(100vh-80px)] flex items-center justify-center p-6">
-        <div class="glass-card p-8 md:p-12 max-w-xl w-full animate__animated animate__fadeInUp">
-            
-            <div class="text-center mb-10">
-                <h1 class="text-4xl font-extrabold text-blue-800 mb-3">Contact Us</h1>
-                <p class="text-gray-500 text-lg">Have a question? We'd love to hear from you.</p>
+    <section class="py-20 px-6 max-w-7xl mx-auto">
+        <div class="text-center mb-16 animate__animated animate__fadeIn">
+            <h1 class="text-5xl font-extrabold text-blue-900 mb-4">Our Medical Services</h1>
+            <p class="text-gray-500 max-w-2xl mx-auto text-xl">We provide advanced healthcare solutions using modern technology and expert medical professionals.</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
+            <div class="p-10 shadow-sm border border-gray-100 service-card animate__animated animate__fadeInUp">
+                <div class="icon-box bg-blue-50 text-blue-600">🩺</div>
+                <h3 class="text-2xl font-bold text-blue-900 mb-4">General Checkup</h3>
+                <p class="text-gray-600 leading-relaxed text-lg">Regular health monitoring and expert consultations with our experienced general practitioners.</p>
             </div>
 
-            <form id="contactForm" class="space-y-6">
-                <div>
-                    <label class="block text-gray-800 font-bold mb-2 ml-1">Your Name</label>
-                    <input
-                        type="text"
-                        name="name"
-                        required
-                        placeholder="e.g. John Doe"
-                        class="w-full border border-gray-200 p-4 rounded-2xl focus:outline-none focus:ring-2 focus:ring-blue-500 bg-gray-50 transition-all shadow-sm"
-                    />
-                </div>
+            <div class="p-10 shadow-sm border border-gray-100 service-card animate__animated animate__fadeInUp animate__delay-1s">
+                <div class="icon-box bg-blue-50 text-blue-600">🔬</div>
+                <h3 class="text-2xl font-bold text-blue-900 mb-4">Advanced Lab Test</h3>
+                <p class="text-gray-600 leading-relaxed text-lg">State-of-the-art pathology labs ensuring 100% accurate and fast diagnostic reports.</p>
+            </div>
 
-                <div>
-                    <label class="block text-gray-800 font-bold mb-2 ml-1">Email Address</label>
-                    <input
-                        type="email"
-                        name="email"
-                        required
-                        placeholder="example@email.com"
-                        class="w-full border border-gray-200 p-4 rounded-2xl focus:outline-none focus:ring-2 focus:ring-blue-500 bg-gray-50 transition-all shadow-sm"
-                    />
-                </div>
-
-                <div>
-                    <label class="block text-gray-800 font-bold mb-2 ml-1">Message</label>
-                    <textarea
-                        name="message"
-                        rows="4"
-                        required
-                        placeholder="Write your message here..."
-                        class="w-full border border-gray-200 p-4 rounded-2xl focus:outline-none focus:ring-2 focus:ring-blue-500 bg-gray-50 transition-all shadow-sm"
-                    ></textarea>
-                </div>
-
-                <button
-                    type="submit"
-                    class="w-full bg-blue-600 text-white py-4 rounded-2xl font-bold text-xl shadow-lg hover:bg-blue-700 transform hover:-translate-y-1 transition duration-300"
-                >
-                    Send Message
-                </button>
-            </form>
-
-            <div id="statusMessage" class="mt-6 text-center font-bold"></div>
+            <div class="p-10 shadow-sm border border-gray-100 service-card animate__animated animate__fadeInUp animate__delay-2s">
+                <div class="icon-box bg-blue-50 text-blue-600">🚑</div>
+                <h3 class="text-2xl font-bold text-blue-900 mb-4">Emergency Care</h3>
+                <p class="text-gray-600 leading-relaxed text-lg">24/7 emergency support and ambulance services equipped with life-saving technology.</p>
+            </div>
         </div>
-    </main>
+    </section>
 
-    <script>
-        const form = document.getElementById("contactForm");
-        const status = document.getElementById("statusMessage");
-
-        form.addEventListener("submit", async function (e) {
-            e.preventDefault();
-            status.className = "mt-6 text-center text-blue-600 animate__animated animate__fadeIn";
-            status.textContent = "⏳ Sending...";
-
-            const formData = new FormData(form);
-            const data = Object.fromEntries(formData.entries());
-
-            try {
-                const response = await fetch("/api/contact", {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify(data),
-                });
-
-                if (response.ok) {
-                    status.className = "mt-6 text-center text-green-600 animate__animated animate__bounceIn";
-                    status.innerHTML = "✅ Message sent successfully!";
-                    form.reset();
-                } else {
-                    status.className = "mt-6 text-center text-red-600 animate__animated animate__shakeX";
-                    status.textContent = "❌ Failed to send message.";
-                }
-            } catch (error) {
-                status.textContent = "❌ Server error occurred.";
-            }
-        });
-    </script>
 </body>
 </html>
