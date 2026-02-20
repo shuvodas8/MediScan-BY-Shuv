@@ -12,72 +12,101 @@
     <style>
         body {
             font-family: 'Hind Siliguri', sans-serif;
-            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+            background-color: #f8fafc;
+        }
+        .nav-link {
+            transition: color 0.3s ease;
+        }
+        .nav-link:hover {
+            color: #2563eb;
         }
         .glass-card {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 1);
+            border-radius: 24px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.05);
         }
-        .input-focus:focus {
-            transform: translateY(-2px);
-            transition: all 0.3s ease;
+        /* Navbar shadow */
+        nav {
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
         }
     </style>
 </head>
-<body class="min-h-screen flex items-center justify-center p-6">
+<body class="bg-blue-50">
 
-    <div class="glass-card shadow-2xl rounded-3xl p-8 max-w-lg w-full animate__animated animate__fadeInUp">
-        
-        <div class="text-center mb-8">
-            <h1 class="text-4xl font-bold text-blue-800 mb-2">যোগাযোগ করুন</h1>
-            <p class="text-gray-500">আপনার যেকোনো প্রশ্ন বা মতামতের জন্য আমাদের লিখুন।</p>
+    <nav class="bg-white sticky top-0 z-50 py-4 px-6 md:px-12 flex justify-between items-center">
+        <div class="flex items-center gap-2">
+            <svg class="w-8 h-8 text-blue-600" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" />
+            </svg>
+            <span class="text-2xl font-bold text-blue-700 tracking-tight">MediScan</span>
         </div>
 
-        <form id="contactForm" class="space-y-5">
-            <div class="animate__animated animate__fadeInLeft animate__delay-1s">
-                <label class="block text-gray-700 font-semibold mb-1 ml-1">আপনার নাম</label>
-                <input
-                    type="text"
-                    name="name"
-                    required
-                    placeholder="উদা: আব্দুল্লাহ আল মামুন"
-                    class="w-full border border-gray-200 p-4 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 bg-gray-50 input-focus transition-all shadow-sm"
-                />
+        <div class="hidden md:flex items-center gap-8 font-semibold text-gray-600">
+            <a href="index.html" class="nav-link">Home</a>
+            <a href="about.html" class="nav-link">About</a>
+            <a href="services.html" class="nav-link text-blue-600">Services</a>
+            <a href="team.html" class="nav-link">Our Team</a>
+            <a href="contact.html" class="nav-link text-blue-600 border-b-2 border-blue-600">Contact</a>
+        </div>
+
+        <a href="appointment.html" class="bg-blue-600 text-white px-6 py-2.5 rounded-lg font-bold hover:bg-blue-700 transition duration-300">
+            Book Appointment
+        </a>
+    </nav>
+
+    <main class="min-h-[calc(100vh-80px)] flex items-center justify-center p-6">
+        <div class="glass-card p-8 md:p-12 max-w-xl w-full animate__animated animate__fadeInUp">
+            
+            <div class="text-center mb-10">
+                <h1 class="text-4xl font-extrabold text-blue-800 mb-3">যোগাযোগ করুন</h1>
+                <p class="text-gray-500 text-lg">আপনার যেকোনো প্রশ্ন বা মতামতের জন্য আমাদের লিখুন।</p>
             </div>
 
-            <div class="animate__animated animate__fadeInRight animate__delay-1s">
-                <label class="block text-gray-700 font-semibold mb-1 ml-1">ইমেইল ঠিকানা</label>
-                <input
-                    type="email"
-                    name="email"
-                    required
-                    placeholder="example@email.com"
-                    class="w-full border border-gray-200 p-4 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 bg-gray-50 input-focus transition-all shadow-sm"
-                />
-            </div>
+            <form id="contactForm" class="space-y-6">
+                <div>
+                    <label class="block text-gray-800 font-bold mb-2 ml-1">আপনার নাম</label>
+                    <input
+                        type="text"
+                        name="name"
+                        required
+                        placeholder="উদা: আব্দুল্লাহ আল মামুন"
+                        class="w-full border border-gray-200 p-4 rounded-2xl focus:outline-none focus:ring-2 focus:ring-blue-500 bg-gray-50 transition-all shadow-sm"
+                    />
+                </div>
 
-            <div class="animate__animated animate__fadeInLeft animate__delay-1s">
-                <label class="block text-gray-700 font-semibold mb-1 ml-1">আপনার বার্তা</label>
-                <textarea
-                    name="message"
-                    rows="4"
-                    required
-                    placeholder="এখানে আপনার বার্তাটি বিস্তারিত লিখুন..."
-                    class="w-full border border-gray-200 p-4 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 bg-gray-50 input-focus transition-all shadow-sm"
-                ></textarea>
-            </div>
+                <div>
+                    <label class="block text-gray-800 font-bold mb-2 ml-1">ইমেইল ঠিকানা</label>
+                    <input
+                        type="email"
+                        name="email"
+                        required
+                        placeholder="example@email.com"
+                        class="w-full border border-gray-200 p-4 rounded-2xl focus:outline-none focus:ring-2 focus:ring-blue-500 bg-gray-50 transition-all shadow-sm"
+                    />
+                </div>
 
-            <button
-                type="submit"
-                class="w-full bg-gradient-to-r from-blue-600 to-blue-800 text-white py-4 rounded-xl font-bold text-lg hover:shadow-lg transform hover:-translate-y-1 transition duration-300 animate__animated animate__pulse animate__infinite animate__slow"
-            >
-                বার্তা পাঠান
-            </button>
-        </form>
+                <div>
+                    <label class="block text-gray-800 font-bold mb-2 ml-1">আপনার বার্তা</label>
+                    <textarea
+                        name="message"
+                        rows="4"
+                        required
+                        placeholder="এখানে আপনার বার্তাটি বিস্তারিত লিখুন..."
+                        class="w-full border border-gray-200 p-4 rounded-2xl focus:outline-none focus:ring-2 focus:ring-blue-500 bg-gray-50 transition-all shadow-sm"
+                    ></textarea>
+                </div>
 
-        <div id="statusMessage" class="mt-6 text-center text-sm font-bold"></div>
-    </div>
+                <button
+                    type="submit"
+                    class="w-full bg-blue-600 text-white py-4 rounded-2xl font-bold text-xl shadow-lg hover:bg-blue-700 transform hover:-translate-y-1 transition duration-300"
+                >
+                    বার্তা পাঠান
+                </button>
+            </form>
+
+            <div id="statusMessage" class="mt-6 text-center font-bold"></div>
+        </div>
+    </main>
 
     <script>
         const form = document.getElementById("contactForm");
@@ -85,8 +114,8 @@
 
         form.addEventListener("submit", async function (e) {
             e.preventDefault();
-            status.className = "mt-6 text-center text-sm font-bold text-blue-600 animate__animated animate__fadeIn";
-            status.textContent = "⏳ পাঠানো হচ্ছে, অনুগ্রহ করে অপেক্ষা করুন...";
+            status.className = "mt-6 text-center text-blue-600 animate__animated animate__fadeIn";
+            status.textContent = "⏳ পাঠানো হচ্ছে...";
 
             const formData = new FormData(form);
             const data = Object.fromEntries(formData.entries());
@@ -99,15 +128,14 @@
                 });
 
                 if (response.ok) {
-                    status.className = "mt-6 text-center text-sm font-bold text-green-600 animate__animated animate__bounceIn";
-                    status.innerHTML = "✅ বার্তা সফলভাবে পাঠানো হয়েছে! আমরা শীঘ্রই যোগাযোগ করব।";
+                    status.className = "mt-6 text-center text-green-600 animate__animated animate__bounceIn";
+                    status.innerHTML = "✅ বার্তা সফলভাবে পাঠানো হয়েছে!";
                     form.reset();
                 } else {
-                    status.className = "mt-6 text-center text-sm font-bold text-red-600 animate__animated animate__shakeX";
-                    status.textContent = "❌ পাঠাতে সমস্যা হয়েছে, পরে চেষ্টা করুন।";
+                    status.className = "mt-6 text-center text-red-600 animate__animated animate__shakeX";
+                    status.textContent = "❌ পাঠাতে সমস্যা হয়েছে।";
                 }
             } catch (error) {
-                status.className = "mt-6 text-center text-sm font-bold text-red-600 animate__animated animate__shakeX";
                 status.textContent = "❌ সার্ভারে সমস্যা হয়েছে।";
             }
         });
@@ -120,7 +148,5 @@
         window.__lc.product_name = "livechat";
         ;(function(n,t,c){function i(n){return e._h?e._h.apply(null,n):e._q.push(n)}var e={_q:[],_h:null,_v:"2.0",on:function(){i(["on",c.call(arguments)])},once:function(){i(["once",c.call(arguments)])},off:function(){i(["off",c.call(arguments)])},get:function(){if(!e._h)throw new Error("[LiveChatWidget] You can't use getters before load.");return i(["get",c.call(arguments)])},call:function(){i(["call",c.call(arguments)])},init:function(){var n=t.createElement("script");n.async=!0,n.type="text/javascript",n.src="https://cdn.livechatinc.com/tracking.js",t.head.appendChild(n)}};!n.__lc.asyncInit&&e.init(),n.LiveChatWidget=n.LiveChatWidget||e}(window,document,[].slice))
     </script>
-    <noscript><a href="https://www.livechat.com/chat-with/19516214/" rel="nofollow">Chat with us</a>, powered by <a href="https://www.livechat.com/?welcome" rel="noopener nofollow" target="_blank">LiveChat</a></noscript>
-
 </body>
 </html>
