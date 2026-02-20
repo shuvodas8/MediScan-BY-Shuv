@@ -6,8 +6,15 @@
     <title>Our Team - MediScan</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .doctor-card { transition: all 0.3s ease; }
+        .doctor-card:hover { transform: translateY(-10px); }
+    </style>
 </head>
 <body class="bg-gray-50">
+
     <nav class="bg-white shadow-md py-4 px-6 flex justify-between items-center sticky top-0 z-50">
         <div class="flex items-center gap-2">
             <i class="fas fa-heartbeat text-blue-600 text-2xl"></i>
@@ -20,43 +27,33 @@
             <a href="team.html" class="text-blue-600 border-b-2 border-blue-600">Our Team</a>
             <a href="contact.html" class="hover:text-blue-600">Contact</a>
         </div>
-        <a href="appointment.html" class="bg-blue-600 text-white px-6 py-2 rounded-lg font-bold">Book Appointment</a>
+        <a href="appointment.html" class="bg-blue-600 text-white px-6 py-2 rounded-lg font-bold hover:bg-blue-700 transition">Book Appointment</a>
     </nav>
 
     <section class="py-16 px-6 max-w-7xl mx-auto">
         <div class="text-center mb-16">
-            <h1 class="text-4xl font-extrabold text-gray-900 mb-4">Meet Our Specialists</h1>
-            <p class="text-gray-600 max-w-2xl mx-auto">Our team of world-class doctors and medical professionals are here to provide the best care for you.</p>
+            <h1 class="text-4xl font-extrabold text-gray-900 mb-4">Meet Our 4 Specialists</h1>
+            <p class="text-gray-600 max-w-2xl mx-auto text-lg">Our team of experienced doctors is dedicated to providing you with the best medical diagnostic services.</p>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
-            <div class="bg-white rounded-2xl shadow-lg overflow-hidden border border-gray-100 transition-transform hover:-translate-y-2">
-                <img src="Urmi.jpg" alt="Dr. Urmi" class="w-full h-72 object-cover">
-                <div class="p-6 text-center">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+            
+            <div class="bg-white rounded-2xl shadow-md overflow-hidden border border-gray-100 doctor-card">
+                <img src="Urmi.jpg" alt="Dr. Urmi Sengu" class="w-full h-64 object-cover">
+                <div class="p-5 text-center">
                     <h3 class="text-xl font-bold text-gray-800">Dr. Urmi Sengu</h3>
-                    <p class="text-blue-600 font-medium mb-4">Medicine Specialist</p>
-                    <p class="text-gray-500 text-sm italic">MBBS, FCPS, MD, FRCP (Glasgow, UK)</p>
+                    <p class="text-blue-600 font-semibold mb-2">Medicine Specialist</p>
+                    <p class="text-gray-500 text-xs leading-relaxed">MBBS, FCPS, MD, FRCP (Glasgow, UK). Head of Medicine Dept.</p>
                 </div>
             </div>
 
-            <div class="bg-white rounded-2xl shadow-lg overflow-hidden border border-gray-100 transition-transform hover:-translate-y-2">
-                <img src="Shakib.jpg" alt="Dr. Ananya" class="w-full h-72 object-cover">
-                <div class="p-6 text-center">
-                    <h3 class="text-xl font-bold text-gray-800">Dr. Ananya Patel</h3>
-                    <p class="text-blue-600 font-medium mb-4">Cardiologist</p>
-                    <p class="text-gray-500 text-sm">Specializing in heart disease management with 12 years of experience.</p>
+            <div class="bg-white rounded-2xl shadow-md overflow-hidden border border-gray-100 doctor-card">
+                <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/e3af508b-d415-4939-b352-df7405eb499c.png" alt="Dr. Michael Chen" class="w-full h-64 object-cover">
+                <div class="p-5 text-center">
+                    <h3 class="text-xl font-bold text-gray-800">Dr. Michael Chen</h3>
+                    <p class="text-blue-600 font-semibold mb-2">Radiologist</p>
+                    <p class="text-gray-500 text-xs">Expert in advanced imaging techniques with 10 years of experience.</p>
                 </div>
             </div>
 
-            <div class="bg-white rounded-2xl shadow-lg overflow-hidden border border-gray-100 transition-transform hover:-translate-y-2">
-                <img src="Ruhan.jpg" alt="Dr. Ruhan" class="w-full h-72 object-cover">
-                <div class="p-6 text-center">
-                    <h3 class="text-xl font-bold text-gray-800">Dr. Ruhan Mirza</h3>
-                    <p class="text-blue-600 font-medium mb-4">Neurologist</p>
-                    <p class="text-gray-500 text-sm">Expert in diagnostic neurology and neuromuscular disorders.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-</body>
-</html>
+            <div class="bg-white rounded-2xl shadow-md overflow-hidden border border
