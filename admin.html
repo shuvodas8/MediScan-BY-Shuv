@@ -95,12 +95,9 @@ const storage = firebase.storage();
 
 // LOGIN
 function login(){
-  auth.signInWithEmailAndPassword(email.value,password.value)
-  .then(()=>{
-    loginPage.classList.add('hidden');
-    dashboard.classList.remove('hidden');
-    loadData();
-  })
+  document.getElementById('loginPage').style.display='none';
+  document.getElementById('dashboard').style.display='block';
+}
 }
 
 // NAVIGATION
