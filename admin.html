@@ -3,175 +3,125 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>MediScan Advanced Admin</title>
+  <title>MediScan Pro Admin</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
-<body class="bg-gray-100">
+<body class="bg-gradient-to-br from-gray-900 to-gray-800 text-white">
 
-<!-- LOGIN -->
-<div id="loginPage" class="flex items-center justify-center h-screen">
-  <div class="bg-white p-8 rounded-2xl shadow-lg w-96">
-    <h2 class="text-2xl font-bold mb-4">Admin Login</h2>
-    <input id="email" type="email" placeholder="Email" class="w-full mb-3 p-2 border rounded" />
-    <input id="password" type="password" placeholder="Password" class="w-full mb-3 p-2 border rounded" />
-    <button onclick="login()" class="w-full bg-blue-500 text-white p-2 rounded">Login</button>
-  </div>
-</div>
+<div class="flex min-h-screen">
 
-<!-- DASHBOARD -->
-<div id="dashboard" class="hidden">
-  <div class="flex flex-col md:flex-row">
+  <!-- Sidebar -->
+  <aside class="w-64 bg-black/40 backdrop-blur-xl p-5 hidden md:block">
+    <h1 class="text-2xl font-bold mb-8">🧬 MediScan</h1>
+    <nav class="space-y-4">
+      <button onclick="show('dashboard')" class="block w-full text-left hover:text-blue-400">Dashboard</button>
+      <button onclick="show('patients')" class="block w-full text-left hover:text-blue-400">Patients</button>
+      <button onclick="show('tests')" class="block w-full text-left hover:text-blue-400">Tests</button>
+    </nav>
+  </aside>
 
-    <!-- Sidebar -->
-    <div class="w-full md:w-64 bg-gray-900 text-white min-h-screen p-4">
-      <h2 class="text-xl font-bold mb-6">MediScan</h2>
-      <ul>
-        <li onclick="showSection('analytics')" class="mb-3 cursor-pointer">Dashboard</li>
-        <li onclick="showSection('patients')" class="mb-3 cursor-pointer">Patients</li>
-        <li onclick="showSection('tests')" class="mb-3 cursor-pointer">Tests</li>
-        <li onclick="showSection('reports')" class="mb-3 cursor-pointer">Reports</li>
-      </ul>
+  <!-- Main -->
+  <main class="flex-1 p-6">
+
+    <!-- Topbar -->
+    <div class="flex justify-between items-center mb-6">
+      <h2 class="text-xl font-semibold">Admin Dashboard</h2>
+      <span class="text-sm text-gray-400">Welcome, Admin</span>
     </div>
 
-    <!-- Content -->
-    <div class="flex-1 p-6">
+    <!-- Dashboard Cards -->
+    <div id="dashboard" class="grid md:grid-cols-3 gap-6">
+      <div class="bg-white/10 backdrop-blur-xl p-5 rounded-2xl shadow">
+        <h3>Total Patients</h3>
+        <p class="text-3xl font-bold" id="patientCount">0</p>
+      </div>
+      <div class="bg-white/10 backdrop-blur-xl p-5 rounded-2xl shadow">
+        <h3>Total Tests</h3>
+        <p class="text-3xl font-bold" id="testCount">0</p>
+      </div>
+      <div class="bg-white/10 backdrop-blur-xl p-5 rounded-2xl shadow">
+        <h3>Revenue</h3>
+        <p class="text-3xl font-bold">৳0</p>
+      </div>
 
-      <!-- Analytics -->
-      <div id="analytics">
-        <h2 class="text-xl font-bold mb-4">Analytics</h2>
+      <div class="col-span-3 bg-white/10 p-5 rounded-2xl">
         <canvas id="chart"></canvas>
       </div>
-
-      <!-- Patients -->
-      <div id="patients" class="hidden">
-        <h2 class="text-xl font-bold mb-4">Patients</h2>
-        <input id="searchPatient" placeholder="Search" class="border p-2 mb-2" onkeyup="searchPatients()" />
-        <input id="patientName" placeholder="Name" class="border p-2" />
-        <input id="patientAge" placeholder="Age" class="border p-2" />
-        <button onclick="addPatient()" class="bg-green-500 text-white px-3 py-2">Add</button>
-        <ul id="patientList" class="mt-4"></ul>
-      </div>
-
-      <!-- Tests -->
-      <div id="tests" class="hidden">
-        <h2 class="text-xl font-bold mb-4">Tests</h2>
-        <input id="testName" placeholder="Test" class="border p-2" />
-        <input id="testPrice" placeholder="Price" class="border p-2" />
-        <button onclick="addTest()" class="bg-green-500 text-white px-3 py-2">Add</button>
-        <ul id="testList" class="mt-4"></ul>
-      </div>
-
-      <!-- Reports Upload -->
-      <div id="reports" class="hidden">
-        <h2 class="text-xl font-bold mb-4">Upload Report</h2>
-        <input type="file" id="fileUpload" class="mb-2" />
-        <button onclick="uploadFile()" class="bg-blue-500 text-white px-3 py-2">Upload</button>
-        <p id="uploadStatus"></p>
-      </div>
-
     </div>
-  </div>
+
+    <!-- Patients -->
+    <div id="patients" class="hidden">
+      <h2 class="text-xl mb-4">Patients</h2>
+      <input id="pName" placeholder="Name" class="p-2 text-black" />
+      <input id="pAge" placeholder="Age" class="p-2 text-black" />
+      <button onclick="addPatient()" class="bg-blue-500 px-4 py-2 rounded">Add</button>
+      <ul id="pList" class="mt-4"></ul>
+    </div>
+
+    <!-- Tests -->
+    <div id="tests" class="hidden">
+      <h2 class="text-xl mb-4">Tests</h2>
+      <input id="tName" placeholder="Test" class="p-2 text-black" />
+      <input id="tPrice" placeholder="Price" class="p-2 text-black" />
+      <button onclick="addTest()" class="bg-green-500 px-4 py-2 rounded">Add</button>
+      <ul id="tList" class="mt-4"></ul>
+    </div>
+
+  </main>
 </div>
 
-<!-- Firebase -->
-<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-storage.js"></script>
-
 <script>
-const firebaseConfig = {
-  apiKey: "YOUR_API_KEY",
-  authDomain: "YOUR_DOMAIN",
-  projectId: "YOUR_PROJECT_ID",
-  storageBucket: "YOUR_BUCKET"
-};
-// Dummy Data (test)
-document.getElementById('patientList').innerHTML = `
-  <li>Rahim (25)</li>
-  <li>Karim (30)</li>
-`;
-
-document.getElementById('testList').innerHTML = `
-  <li>Blood Test - 500৳</li>
-  <li>X-Ray - 800৳</li>
-`;
-
-  firebase.initializeApp(firebaseConfig);
-const auth = firebase.auth();
-const db = firebase.firestore();
-const storage = firebase.storage();
-
-// LOGIN
-function login(){
-  console.log("Login clicked"); // debug
-  document.getElementById('loginPage').style.display='none';
-  document.getElementById('dashboard').style.display='block';
-}
-
-// NAVIGATION
-function showSection(id){
-  ['analytics','patients','tests','reports'].forEach(s=>document.getElementById(s).classList.add('hidden'));
+function show(id){
+  ['dashboard','patients','tests'].forEach(s=>document.getElementById(s).classList.add('hidden'));
   document.getElementById(id).classList.remove('hidden');
 }
 
-// PATIENTS
+// Dummy advanced data
+let patients = [];
+let tests = [];
+
 function addPatient(){
-  db.collection('patients').add({name:patientName.value,age:patientAge.value})
+  let name = pName.value;
+  let age = pAge.value;
+  patients.push({name,age});
+  renderPatients();
 }
 
-function loadData(){
-  db.collection('patients').onSnapshot(s=>{
-    patientList.innerHTML='';
-    let count=0;
-    s.forEach(d=>{
-      count++;
-      let li=document.createElement('li');
-      li.innerText=d.data().name;
-      patientList.appendChild(li);
-    })
-    renderChart(count);
+function renderPatients(){
+  pList.innerHTML='';
+  patients.forEach(p=>{
+    let li=document.createElement('li');
+    li.innerText=p.name+' ('+p.age+')';
+    pList.appendChild(li);
   })
-
-  db.collection('tests').onSnapshot(s=>{
-    testList.innerHTML='';
-    s.forEach(d=>{
-      let li=document.createElement('li');
-      li.innerText=d.data().name+'-'+d.data().price;
-      testList.appendChild(li);
-    })
-  })
+  patientCount.innerText=patients.length;
+  renderChart();
 }
 
-// SEARCH
-function searchPatients(){
-  let val=searchPatient.value.toLowerCase();
-  [...patientList.children].forEach(li=>{
-    li.style.display=li.innerText.toLowerCase().includes(val)?'':'none';
-  })
-}
-
-// TEST
 function addTest(){
-  db.collection('tests').add({name:testName.value,price:testPrice.value})
+  let name=tName.value;
+  let price=tPrice.value;
+  tests.push({name,price});
+  renderTests();
 }
 
-// FILE UPLOAD
-function uploadFile(){
-  let file=fileUpload.files[0];
-  let ref=storage.ref('reports/'+file.name);
-  ref.put(file).then(()=>uploadStatus.innerText='Uploaded');
+function renderTests(){
+  tList.innerHTML='';
+  tests.forEach(t=>{
+    let li=document.createElement('li');
+    li.innerText=t.name+' - '+t.price;
+    tList.appendChild(li);
+  })
+  testCount.innerText=tests.length;
 }
 
-// CHART
-function renderChart(count){
+function renderChart(){
   new Chart(document.getElementById('chart'),{
-    type:'bar',
-    data:{labels:['Patients'],datasets:[{data:[count]}]}
+    type:'line',
+    data:{labels:['Patients'],datasets:[{data:[patients.length]}]}
   })
 }
-
 </script>
 
 </body>
