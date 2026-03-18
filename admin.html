@@ -87,8 +87,18 @@ const firebaseConfig = {
   projectId: "YOUR_PROJECT_ID",
   storageBucket: "YOUR_BUCKET"
 };
+// Dummy Data (test)
+document.getElementById('patientList').innerHTML = `
+  <li>Rahim (25)</li>
+  <li>Karim (30)</li>
+`;
 
-firebase.initializeApp(firebaseConfig);
+document.getElementById('testList').innerHTML = `
+  <li>Blood Test - 500৳</li>
+  <li>X-Ray - 800৳</li>
+`;
+
+  firebase.initializeApp(firebaseConfig);
 const auth = firebase.auth();
 const db = firebase.firestore();
 const storage = firebase.storage();
