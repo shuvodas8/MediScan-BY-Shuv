@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MediScan Advanced Admin</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body class="bg-gray-100">
+
+<!-- LOGIN -->
+<div id="loginPage" class="flex items-center justify-center h-screen">
+  <div class="bg-white p-8 rounded-2xl shadow-lg w-96">
+    <h2 class="text-2xl font-bold mb-4">Admin Login</h2>
+    <input id="email" type="email" placeholder="Email" class="w-full mb-3 p-2 border rounded" />
+    <input id="password" type="password" placeholder="Password" class="w-full mb-3 p-2 border rounded" />
+    <button onclick="login()" class="w-full bg-blue-500 text-white p-2 rounded">Login</button>
+  </div>
+</div>
+
+<!-- DASHBOARD -->
+<div id="dashboard" class="hidden">
+  <div class="flex flex-col md:flex-row">
+
+    <!-- Sidebar -->
+    <div class="w-full md:w-64 bg-gray-900 text-white min-h-screen p-4">
+      <h2 class="text-xl font-bold mb-6">MediScan</h2>
+      <ul>
+        <li onclick="showSection('analytics')" class="mb-3 cursor-pointer">Dashboard</li>
+        <li onclick="showSection('patients')" class="mb-3 cursor-pointer">Patients</li>
+        <li onclick="showSection('tests')" class="mb-3 cursor-pointer">Tests</li>
+        <li onclick="showSection('reports')" class="mb-3 cursor-pointer">Reports</li>
+      </ul>
+    </div>
+
+    <!-- Content -->
+    <div class="flex-1 p-6">
+
+      <!-- Analytics -->
+      <div id="analytics">
+        <h2 class="text-xl font-bold mb-4">Analytics</h2>
+        <canvas id="chart"></canvas>
+      </div>
+
+      <!-- Patients -->
+      <div id="patients" class="hidden">
+        <h2 class="text-xl font-bold mb-4">Patients</h2>
+        <input id="searchPatient" placeholder="Search" class="border p-2 mb-2" onkeyup="searchPatients()" />
+        <input id="patientName" placeholder="Name" class="border p-2" />
+        <input id="patientAge" placeholder="Age" class="border p-2" />
+        <button onclick="addPatient()" class="bg-green-500 text-white px-3 py-2">Add</button>
+        <ul id="patientList" class="mt-4"></ul>
+      </div>
+
+      <!-- Tests -->
+      <div id="tests" class="hidden">
+        <h2 class="text-xl font-bold mb-4">Tests</h2>
+        <input id="testName" placeholder="Test" class="border p-2" />
+        <input id="testPrice" placeholder="Price" class="border p-2" />
+        <button onclick="addTest()" class="bg-green-500 text-white px-3 py-2">Add</button>
+        <ul id="testList" class="mt-4"></ul>
+      </div>
+
+      <!-- Reports Upload -->
+      <div id="reports" class="hidden">
+        <h2 class="text-xl font-bold mb-4">Upload Report</h2>
+        <input type="file" id="fileUpload" class="mb-2" />
+        <button onclick="uploadFile()" class="bg-blue-500 text-white px-3 py-2">Upload</button>
+        <p id="uploadStatus"></p>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- Firebase -->
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-storage.js"></script>
+
+<script>
+const firebaseConfig = {
+  apiKey: "YOUR_API_KEY",
+  authDomain: "YOUR_DOMAIN",
+  projectId: "YOUR_PROJECT_ID",
+  storageBucket: "YOUR_BUCKET"
+};
+
+firebase.initializeApp(firebaseConfig);
+const auth = firebase.auth();
+const db = firebase.firestore();
+const storage = firebase.storage();
+
+// LOGIN
+function login(){
+  auth.signInWithEmailAndPassword(email.value,password.value)
+  .then(()=>{
+    loginPage.classList.add('hidden');
+    dashboard.classList.remove('hidden');
+    loadData();
+  })
+}
+
+// NAVIGATION
+function showSection(id){
+  ['analytics','patients','tests','reports'].forEach(s=>document.getElementById(s).classList.add('hidden'));
+  document.getElementById(id).classList.remove('hidden');
+}
+
+// PATIENTS
+function addPatient(){
+  db.collection('patients').add({name:patientName.value,age:patientAge.value})
+}
+
+function loadData(){
+  db.collection('patients').onSnapshot(s=>{
+    patientList.innerHTML='';
+    let count=0;
+    s.forEach(d=>{
+      count++;
+      let li=document.createElement('li');
+      li.innerText=d.data().name;
+      patientList.appendChild(li);
+    })
+    renderChart(count);
+  })
+
+  db.collection('tests').onSnapshot(s=>{
+    testList.innerHTML='';
+    s.forEach(d=>{
+      let li=document.createElement('li');
+      li.innerText=d.data().name+'-'+d.data().price;
+      testList.appendChild(li);
+    })
+  })
+}
+
+// SEARCH
+function searchPatients(){
+  let val=searchPatient.value.toLowerCase();
+  [...patientList.children].forEach(li=>{
+    li.style.display=li.innerText.toLowerCase().includes(val)?'':'none';
+  })
+}
+
+// TEST
+function addTest(){
+  db.collection('tests').add({name:testName.value,price:testPrice.value})
+}
+
+// FILE UPLOAD
+function uploadFile(){
+  let file=fileUpload.files[0];
+  let ref=storage.ref('reports/'+file.name);
+  ref.put(file).then(()=>uploadStatus.innerText='Uploaded');
+}
+
+// CHART
+function renderChart(count){
+  new Chart(document.getElementById('chart'),{
+    type:'bar',
+    data:{labels:['Patients'],datasets:[{data:[count]}]}
+  })
+}
+
+</script>
+
+</body>
+</html>
