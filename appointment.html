@@ -38,31 +38,37 @@
             </div>
 
             <div class="bg-white shadow-2xl shadow-blue-100 rounded-[2.5rem] p-8 md:p-12 border border-gray-50">
-                <form action="#" class="space-y-8">
+                <form id="apt-form" class="space-y-8" onsubmit="submitAppointment(event)">
                     
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div>
                             <label class="block text-sm font-bold text-slate-700 mb-2 uppercase tracking-wide">Full Name</label>
-                            <input type="text" placeholder="John Doe" class="w-full px-6 py-4 rounded-2xl bg-slate-50 border border-transparent focus:border-blue-500 focus:bg-white transition-all outline-none">
+                            <input id="f-name" type="text" placeholder="John Doe" required class="w-full px-6 py-4 rounded-2xl bg-slate-50 border border-transparent focus:border-blue-500 focus:bg-white transition-all outline-none">
                         </div>
                         <div>
                             <label class="block text-sm font-bold text-slate-700 mb-2 uppercase tracking-wide">Email Address</label>
-                            <input type="email" placeholder="john@example.com" class="w-full px-6 py-4 rounded-2xl bg-slate-50 border border-transparent focus:border-blue-500 focus:bg-white transition-all outline-none">
+                            <input id="f-email" type="email" placeholder="john@example.com" class="w-full px-6 py-4 rounded-2xl bg-slate-50 border border-transparent focus:border-blue-500 focus:bg-white transition-all outline-none">
                         </div>
                     </div>
 
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div>
                             <label class="block text-sm font-bold text-slate-700 mb-2 uppercase tracking-wide">Phone Number</label>
-                            <input type="tel" placeholder="+880 1XXX XXXXXX" class="w-full px-6 py-4 rounded-2xl bg-slate-50 border border-transparent focus:border-blue-500 focus:bg-white transition-all outline-none">
+                            <input id="f-phone" type="tel" placeholder="+880 1XXX XXXXXX" required class="w-full px-6 py-4 rounded-2xl bg-slate-50 border border-transparent focus:border-blue-500 focus:bg-white transition-all outline-none">
                         </div>
                         <div>
                             <label class="block text-sm font-bold text-slate-700 mb-2 uppercase tracking-wide">Select Service</label>
-                            <select class="w-full px-6 py-4 rounded-2xl bg-slate-50 border border-transparent focus:border-blue-500 focus:bg-white transition-all outline-none appearance-none">
-                                <option>General Checkup</option>
-                                <option>Pathology Test</option>
-                                <option>Radiology / X-Ray</option>
-                                <option>Cardiology Consultation</option>
+                            <select id="f-service" required class="w-full px-6 py-4 rounded-2xl bg-slate-50 border border-transparent focus:border-blue-500 focus:bg-white transition-all outline-none appearance-none">
+                                <option value="">— Select service —</option>
+                                <option value="General Checkup">General Checkup</option>
+                                <option value="Blood CBC">Blood CBC (Pathology)</option>
+                                <option value="X-Ray Chest">Radiology / X-Ray</option>
+                                <option value="ECG">Cardiology / ECG</option>
+                                <option value="MRI Brain">MRI Brain</option>
+                                <option value="CT Scan Chest">CT Scan</option>
+                                <option value="Ultrasound">Ultrasound</option>
+                                <option value="Full Body Checkup">Full Body Checkup</option>
+                                <option value="Thyroid Panel">Thyroid Panel</option>
                             </select>
                         </div>
                     </div>
@@ -70,21 +76,21 @@
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div>
                             <label class="block text-sm font-bold text-slate-700 mb-2 uppercase tracking-wide">Preferred Date</label>
-                            <input type="date" class="w-full px-6 py-4 rounded-2xl bg-slate-50 border border-transparent focus:border-blue-500 focus:bg-white transition-all outline-none">
+                            <input id="f-date" type="date" required class="w-full px-6 py-4 rounded-2xl bg-slate-50 border border-transparent focus:border-blue-500 focus:bg-white transition-all outline-none">
                         </div>
                         <div>
                             <label class="block text-sm font-bold text-slate-700 mb-2 uppercase tracking-wide">Preferred Time</label>
-                            <input type="time" class="w-full px-6 py-4 rounded-2xl bg-slate-50 border border-transparent focus:border-blue-500 focus:bg-white transition-all outline-none">
+                            <input id="f-time" type="time" value="09:00" class="w-full px-6 py-4 rounded-2xl bg-slate-50 border border-transparent focus:border-blue-500 focus:bg-white transition-all outline-none">
                         </div>
                     </div>
 
                     <div>
                         <label class="block text-sm font-bold text-slate-700 mb-2 uppercase tracking-wide">Additional Note (Optional)</label>
-                        <textarea placeholder="Tell us about your symptoms..." class="w-full px-6 py-4 rounded-2xl bg-slate-50 border border-transparent focus:border-blue-500 focus:bg-white transition-all outline-none h-32"></textarea>
+                        <textarea id="f-note" placeholder="Tell us about your symptoms..." class="w-full px-6 py-4 rounded-2xl bg-slate-50 border border-transparent focus:border-blue-500 focus:bg-white transition-all outline-none h-32"></textarea>
                     </div>
 
-                    <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-5 rounded-2xl shadow-xl shadow-blue-200 transition-all active:scale-[0.98]">
-                        Confirm Appointment
+                    <button type="submit" id="submit-btn" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-5 rounded-2xl shadow-xl shadow-blue-200 transition-all active:scale-[0.98]">
+                        ✅ Confirm Appointment
                     </button>
                 </form>
             </div>
@@ -121,7 +127,90 @@ s0.parentNode.insertBefore(s1,s0);
 </script>
 <!--End of Tawk.to Script-->
 
+
+    <!-- SUCCESS MESSAGE (hidden by default) -->
+    <div id="success-msg" class="hidden fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
+      <div class="bg-white rounded-3xl p-10 max-w-md w-full text-center shadow-2xl">
+        <div class="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4 text-5xl">✅</div>
+        <h2 class="text-2xl font-bold text-green-700 mb-2">Appointment Booked!</h2>
+        <p class="text-slate-500 mb-1">আপনার appointment সফলভাবে জমা হয়েছে।</p>
+        <p class="text-slate-400 text-sm mb-5">আমাদের team শীঘ্রই confirm করবে।</p>
+        <div id="booking-summary" class="bg-slate-50 rounded-2xl p-4 text-left text-sm text-slate-600 space-y-1 mb-6"></div>
+        <a href="index.html" class="inline-block bg-blue-600 text-white font-bold px-8 py-3 rounded-2xl hover:bg-blue-700 transition">← Back to Home</a>
+      </div>
+    </div>
+
+    <script>
+    function submitAppointment(e) {
+      e.preventDefault();
+      var name    = document.getElementById('f-name').value.trim();
+      var phone   = document.getElementById('f-phone').value.trim();
+      var email   = document.getElementById('f-email').value.trim();
+      var service = document.getElementById('f-service').value;
+      var date    = document.getElementById('f-date').value;
+      var time    = document.getElementById('f-time').value || '09:00';
+      var note    = document.getElementById('f-note').value.trim();
+
+      if(!name || !phone || !service || !date) {
+        alert('অনুগ্রহ করে সব * চিহ্নিত field পূরণ করুন।');
+        return;
+      }
+
+      // Build appointment object — same format as admin panel
+      var newApt = {
+        id: 'WEB-' + Date.now(),
+        pat: name,
+        phone: phone,
+        email: email,
+        test: service,
+        doc: 'Unassigned',
+        date: date,
+        time: time,
+        note: note,
+        stat: 'Pending',
+        source: 'website'
+      };
+
+      // Load existing admin data from localStorage
+      var LS_KEY = 'mediscan_v1';
+      var raw = localStorage.getItem(LS_KEY);
+      var data = raw ? JSON.parse(raw) : {apts:[],pats:[],docs:[],svcs:[],reps:[],invs:[]};
+
+      // Add new appointment at top
+      data.apts.unshift(newApt);
+
+      // Also add as new patient if not already exists
+      var exists = data.pats.some(function(p){ return p.phone === phone; });
+      if(!exists && data.pats) {
+        var today = new Date().toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'});
+        data.pats.unshift({
+          id: 'P-WEB-' + Date.now(),
+          name: name,
+          age: '—',
+          gen: '—',
+          phone: phone,
+          blood: '—',
+          visit: today,
+          stat: 'Active'
+        });
+      }
+
+      // Save back to localStorage
+      localStorage.setItem(LS_KEY, JSON.stringify(data));
+
+      // Show success message
+      var summary = document.getElementById('booking-summary');
+      summary.innerHTML =
+        '<div class="flex justify-between py-1 border-b border-slate-100"><span class="text-slate-400">নাম</span><span class="font-semibold">' + name + '</span></div>' +
+        '<div class="flex justify-between py-1 border-b border-slate-100"><span class="text-slate-400">ফোন</span><span class="font-semibold">' + phone + '</span></div>' +
+        '<div class="flex justify-between py-1 border-b border-slate-100"><span class="text-slate-400">সেবা</span><span class="font-semibold">' + service + '</span></div>' +
+        '<div class="flex justify-between py-1 border-b border-slate-100"><span class="text-slate-400">তারিখ</span><span class="font-semibold">' + date + '</span></div>' +
+        '<div class="flex justify-between py-1"><span class="text-slate-400">সময়</span><span class="font-semibold">' + time + '</span></div>';
+
+      document.getElementById('success-msg').classList.remove('hidden');
+      document.getElementById('apt-form').reset();
+    }
+    </script>
+
 </body>
 </html>
-
-
