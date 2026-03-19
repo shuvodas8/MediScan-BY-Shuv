@@ -1,0 +1,850 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MediScan — Admin Panel</title>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#050b1a;--bg2:#0a1628;--bg3:#0f1f38;
+  --glass:rgba(255,255,255,0.04);--glass2:rgba(255,255,255,0.08);
+  --border:rgba(255,255,255,0.08);--border2:rgba(255,255,255,0.15);
+  --green:#00e5a0;--green2:#00b87a;--green3:rgba(0,229,160,0.15);--green4:rgba(0,229,160,0.07);
+  --blue:#4d9fff;--blue2:rgba(77,159,255,0.15);
+  --amber:#ffb347;--amber2:rgba(255,179,71,0.15);
+  --red:#ff6b6b;--red2:rgba(255,107,107,0.15);
+  --purple:#a78bfa;--purple2:rgba(167,139,250,0.15);
+  --text:#f0f6ff;--text2:rgba(240,246,255,0.65);--text3:rgba(240,246,255,0.35);
+  --sw:250px;--th:60px;--r:14px;--r2:10px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden}
+::-webkit-scrollbar{width:4px}
+::-webkit-scrollbar-thumb{background:rgba(0,229,160,0.25);border-radius:99px}
+#particles{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden}
+.particle{position:absolute;border-radius:50%;pointer-events:none;animation:floatUp linear infinite;opacity:0}
+@keyframes floatUp{0%{transform:translateY(110vh) translateX(0);opacity:0}10%{opacity:0.6}90%{opacity:0.2}100%{transform:translateY(-50px) translateX(var(--dx));opacity:0}}
+.orb{position:fixed;border-radius:50%;filter:blur(100px);pointer-events:none;z-index:0}
+
+/* LOGIN */
+#login-screen{position:fixed;inset:0;z-index:9999;display:flex;align-items:center;justify-content:center;background:var(--bg)}
+.lcard{position:relative;z-index:1;width:420px;background:var(--bg2);border:1px solid var(--border2);border-radius:24px;padding:2.5rem;animation:slideUp .7s cubic-bezier(.16,1,.3,1) both;overflow:hidden}
+@keyframes slideUp{from{opacity:0;transform:translateY(28px) scale(.96)}to{opacity:1;transform:translateY(0) scale(1)}}
+.lcard::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--green),transparent);animation:scan 3s linear infinite}
+@keyframes scan{0%{transform:translateX(-100%)}100%{transform:translateX(100%)}}
+.lglow{position:absolute;top:-80px;left:50%;transform:translateX(-50%);width:200px;height:200px;border-radius:50%;background:radial-gradient(circle,rgba(0,229,160,0.12),transparent 70%);pointer-events:none}
+.llogo{font-family:'Playfair Display',serif;font-size:30px;color:var(--green);display:flex;align-items:center;gap:10px;margin-bottom:4px}
+.lpulse{width:11px;height:11px;border-radius:50%;background:var(--green);animation:pulse 2s ease-in-out infinite}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(0,229,160,.5)}50%{box-shadow:0 0 0 8px rgba(0,229,160,0)}}
+.lsub{font-size:12.5px;color:var(--text3);margin-bottom:2rem}
+.llabel{font-size:11px;font-weight:600;color:var(--text2);display:block;margin-bottom:6px;letter-spacing:.06em;text-transform:uppercase}
+.linput{width:100%;padding:11px 14px;background:var(--glass);border:1px solid var(--border);border-radius:var(--r2);font-size:14px;font-family:'Outfit',sans-serif;color:var(--text);transition:all .2s;margin-bottom:1rem}
+.linput:focus{outline:none;border-color:var(--green);background:var(--glass2);box-shadow:0 0 0 3px rgba(0,229,160,.08)}
+.linput::placeholder{color:var(--text3)}
+.lbtn{width:100%;padding:13px;background:linear-gradient(135deg,var(--green),var(--green2));color:#000;border:none;border-radius:var(--r2);font-size:14px;font-weight:700;font-family:'Outfit',sans-serif;cursor:pointer;letter-spacing:.04em;transition:all .25s}
+.lbtn:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,229,160,.4)}
+.lerr{font-size:12px;color:var(--red);margin-top:10px;display:none;animation:shake .3s ease}
+@keyframes shake{0%,100%{transform:translateX(0)}30%{transform:translateX(-8px)}70%{transform:translateX(8px)}}
+.lhint{font-size:11px;color:var(--text3);text-align:center;margin-top:.75rem}
+
+/* APP */
+#app{display:none;position:relative;z-index:1}
+
+/* SIDEBAR */
+.sidebar{position:fixed;left:0;top:0;bottom:0;width:var(--sw);background:var(--bg2);border-right:1px solid var(--border);display:flex;flex-direction:column;z-index:200}
+.slogo-wrap{padding:1.4rem 1.25rem 1rem;border-bottom:1px solid var(--border)}
+.slogo{font-family:'Playfair Display',serif;font-size:22px;color:var(--green);display:flex;align-items:center;gap:8px}
+.slogo-sub{font-size:10.5px;color:var(--text3);letter-spacing:.08em;text-transform:uppercase;margin-top:2px}
+.snav{flex:1;overflow-y:auto;padding:.5rem 0}
+.snav::-webkit-scrollbar{width:0}
+.nsec{font-size:10px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--text3);padding:.9rem 1.25rem .3rem}
+.ni{display:flex;align-items:center;gap:11px;padding:9px 1.25rem;font-size:13.5px;color:var(--text2);cursor:pointer;border-left:2px solid transparent;transition:all .18s;user-select:none}
+.ni:hover{color:var(--text);background:var(--glass)}
+.ni.on{color:var(--green);border-left-color:var(--green);background:var(--green4);font-weight:600}
+.niw{width:30px;height:30px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0;background:var(--glass);transition:all .18s}
+.ni.on .niw{background:var(--green3)}
+.nbadge{margin-left:auto;font-size:10px;font-weight:700;padding:2px 7px;border-radius:99px;background:var(--red2);color:var(--red)}
+.sfoot{padding:1rem 1.25rem;border-top:1px solid var(--border)}
+.ucard{display:flex;align-items:center;gap:10px;padding:9px;border-radius:var(--r2);background:var(--glass);border:1px solid var(--border)}
+.uav{width:36px;height:36px;border-radius:10px;background:linear-gradient(135deg,var(--green),var(--green2));display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:#000;flex-shrink:0}
+.uname{font-size:13px;font-weight:600}
+.urole{font-size:10.5px;color:var(--text3)}
+.lout{margin-left:auto;background:none;border:none;font-size:17px;color:var(--text3);cursor:pointer;padding:4px;border-radius:6px;transition:all .2s}
+.lout:hover{color:var(--red);background:var(--red2)}
+
+/* TOPBAR */
+.topbar{position:fixed;left:var(--sw);right:0;top:0;height:var(--th);background:rgba(10,22,40,.85);border-bottom:1px solid var(--border);backdrop-filter:blur(16px);display:flex;align-items:center;justify-content:space-between;padding:0 1.5rem;z-index:100}
+.ptitle{font-size:17px;font-weight:700}
+.pbread{font-size:11px;color:var(--text3);margin-top:1px}
+.tright{display:flex;align-items:center;gap:8px}
+.tsearch{display:flex;align-items:center;gap:8px;background:var(--glass);border:1px solid var(--border);border-radius:var(--r2);padding:7px 12px;transition:all .2s}
+.tsearch:focus-within{border-color:var(--green)}
+.tsearch input{background:none;border:none;outline:none;font-size:13px;font-family:'Outfit',sans-serif;color:var(--text);width:150px}
+.tsearch input::placeholder{color:var(--text3)}
+.ibtn{width:36px;height:36px;border-radius:var(--r2);background:var(--glass);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:15px;position:relative}
+.dot{width:7px;height:7px;background:var(--red);border-radius:50%;position:absolute;top:5px;right:5px;border:2px solid var(--bg2)}
+.dbadge{font-size:12px;color:var(--text2);background:var(--glass);border:1px solid var(--border);padding:6px 12px;border-radius:var(--r2)}
+
+/* MAIN */
+.main{margin-left:var(--sw);margin-top:var(--th);padding:1.5rem;min-height:calc(100vh - var(--th))}
+
+/* PANELS — KEY FIX */
+.panel{display:none}
+.panel.on{display:block;animation:pin .35s cubic-bezier(.16,1,.3,1) both}
+@keyframes pin{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+
+/* CARDS */
+.card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);padding:1.25rem;position:relative;overflow:hidden;transition:border-color .2s}
+.card:hover{border-color:var(--border2)}
+.cshine{position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.05),transparent)}
+.ch{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.2rem}
+.ct{font-size:14px;font-weight:600;display:flex;align-items:center;gap:8px}
+.mb{margin-bottom:1.25rem}
+.g2{display:grid;grid-template-columns:1.55fr 1fr;gap:14px;margin-bottom:1.25rem}
+.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:1.25rem}
+.g4{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:1.25rem}
+
+/* STAT CARDS */
+.sg{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:1.25rem}
+.sc{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);padding:1.2rem;position:relative;overflow:hidden;transition:all .3s cubic-bezier(.16,1,.3,1);cursor:default}
+.sc:hover{transform:translateY(-3px);border-color:var(--border2)}
+.sc::before{content:'';position:absolute;inset:0;opacity:0;transition:opacity .3s;border-radius:var(--r)}
+.sc:hover::before{opacity:1}
+.sc.gr::before{background:radial-gradient(circle at 50% 0,rgba(0,229,160,.09),transparent 70%)}
+.sc.bl::before{background:radial-gradient(circle at 50% 0,rgba(77,159,255,.09),transparent 70%)}
+.sc.am::before{background:radial-gradient(circle at 50% 0,rgba(255,179,71,.09),transparent 70%)}
+.sc.pu::before{background:radial-gradient(circle at 50% 0,rgba(167,139,250,.09),transparent 70%)}
+.stop{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:.9rem}
+.siw{width:42px;height:42px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:20px}
+.gr .siw{background:var(--green3)}.bl .siw{background:var(--blue2)}.am .siw{background:var(--amber2)}.pu .siw{background:var(--purple2)}
+.strend{font-size:11px;font-weight:600;padding:3px 8px;border-radius:99px}
+.up{background:var(--green3);color:var(--green)}.dn{background:var(--red2);color:var(--red)}
+.sval{font-size:27px;font-weight:700;letter-spacing:-.02em;margin-bottom:2px}
+.slbl{font-size:12px;color:var(--text3)}
+.spark{height:36px;display:flex;align-items:flex-end;gap:3px;margin-top:.6rem}
+.spk{flex:1;border-radius:3px 3px 0 0;min-height:3px}
+@keyframes spkIn{from{height:0;opacity:0}to{opacity:1}}
+
+/* TABLE */
+.tw{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th{text-align:left;padding:9px 10px 9px 0;font-size:10.5px;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:.1em;border-bottom:1px solid var(--border);white-space:nowrap}
+th:first-child{padding-left:0}
+td{padding:11px 10px 11px 0;border-bottom:1px solid var(--border);color:var(--text2);vertical-align:middle}
+td:first-child{padding-left:0;color:var(--text);font-weight:500}
+tr:last-child td{border-bottom:none}
+tr:hover td{background:rgba(255,255,255,0.015)}
+.avc{display:flex;align-items:center;gap:9px}
+.mav{width:30px;height:30px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0}
+
+/* BADGES */
+.bdg{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:600;padding:3px 9px;border-radius:99px;white-space:nowrap}
+.bdg::before{content:'';width:5px;height:5px;border-radius:50%;flex-shrink:0}
+.bg{background:var(--green3);color:var(--green)}.bg::before{background:var(--green)}
+.ba{background:var(--amber2);color:var(--amber)}.ba::before{background:var(--amber)}
+.br{background:var(--red2);color:var(--red)}.br::before{background:var(--red)}
+.bb{background:var(--blue2);color:var(--blue)}.bb::before{background:var(--blue)}
+.bp{background:var(--purple2);color:var(--purple)}.bp::before{background:var(--purple)}
+.bgr{background:var(--glass);color:var(--text3)}.bgr::before{background:var(--text3)}
+
+/* BUTTONS */
+.btn{display:inline-flex;align-items:center;gap:7px;padding:9px 15px;border-radius:var(--r2);font-size:13px;font-weight:500;font-family:'Outfit',sans-serif;cursor:pointer;transition:all .2s;border:1px solid var(--border);background:var(--glass);color:var(--text2)}
+.btn:hover{background:var(--glass2);color:var(--text);border-color:var(--border2)}
+.btn:active{transform:scale(.98)}
+.btnp{background:linear-gradient(135deg,var(--green),var(--green2))!important;color:#000!important;border-color:transparent!important;font-weight:700!important}
+.btnp:hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(0,229,160,.35)}
+.btnsm{padding:5px 11px;font-size:11px;border-radius:7px}
+.btnd{background:var(--red2)!important;color:var(--red)!important;border-color:transparent!important}
+.btnd:hover{background:var(--red)!important;color:#fff!important}
+
+/* PROGRESS */
+.pr{display:flex;align-items:center;gap:12px;margin-bottom:13px}
+.plbl{font-size:12px;color:var(--text2);width:78px;flex-shrink:0}
+.ptrk{flex:1;height:6px;background:var(--glass);border-radius:99px;overflow:hidden}
+.pfil{height:100%;border-radius:99px;transition:width 1.4s cubic-bezier(.16,1,.3,1)}
+.ppct{font-size:12px;color:var(--text3);width:32px;text-align:right}
+
+/* SCHEDULE */
+.si{display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid var(--border);transition:all .15s}
+.si:last-child{border-bottom:none}
+.sdot{width:9px;height:9px;border-radius:50%;flex-shrink:0}
+.sname{font-size:13px;font-weight:600}
+.smeta{font-size:11px;color:var(--text3);margin-top:1px}
+.stime{margin-left:auto;font-size:12px;color:var(--text3);white-space:nowrap;display:flex;flex-direction:column;align-items:flex-end;gap:4px}
+
+/* ACTIVITY */
+.ai{display:flex;gap:12px;padding:10px 0;border-bottom:1px solid var(--border)}
+.ai:last-child{border-bottom:none}
+.aico{width:34px;height:34px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0}
+.atxt{font-size:13px;line-height:1.55}
+.atxt span{color:var(--green);font-weight:600}
+.atm{font-size:11px;color:var(--text3);margin-top:2px}
+
+/* DOCTOR CARDS */
+.dc{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);padding:1.25rem;transition:all .3s}
+.dc:hover{border-color:var(--green);transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,229,160,.08)}
+.dav{width:50px;height:50px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:700;margin-bottom:.75rem}
+
+/* REPORT STAT */
+.rst{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);padding:1.25rem;text-align:center;transition:all .3s}
+.rst:hover{border-color:var(--border2);transform:translateY(-2px)}
+.rnum{font-size:30px;font-weight:700;margin-bottom:4px}
+.rlbl{font-size:12px;color:var(--text3)}
+
+/* FORMS */
+.fg{margin-bottom:1rem}
+.fl{font-size:12px;font-weight:500;color:var(--text2);display:block;margin-bottom:6px;letter-spacing:.04em}
+.fi{width:100%;padding:11px 14px;background:var(--glass);border:1px solid var(--border);border-radius:var(--r2);font-size:13px;font-family:'Outfit',sans-serif;color:var(--text);transition:all .2s}
+.fi:focus{outline:none;border-color:var(--green);background:var(--glass2);box-shadow:0 0 0 3px rgba(0,229,160,.07)}
+.fi::placeholder{color:var(--text3)}
+.fi option{background:var(--bg2);color:var(--text)}
+.fr{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+
+/* MODAL */
+.mo{position:fixed;inset:0;z-index:9000;background:rgba(0,0,0,.7);backdrop-filter:blur(8px);display:none;align-items:center;justify-content:center}
+.mo.op{display:flex;animation:mfade .2s ease}
+@keyframes mfade{from{opacity:0}to{opacity:1}}
+.mbox{background:var(--bg2);border:1px solid var(--border2);border-radius:20px;padding:2rem;width:490px;max-width:95vw;max-height:90vh;overflow-y:auto;box-shadow:0 24px 80px rgba(0,0,0,.6);animation:min .3s cubic-bezier(.16,1,.3,1) both;position:relative}
+.mbox::before{content:'';position:absolute;top:0;left:2rem;right:2rem;height:1px;background:linear-gradient(90deg,transparent,rgba(0,229,160,.35),transparent)}
+@keyframes min{from{opacity:0;transform:scale(.94) translateY(-14px)}to{opacity:1;transform:scale(1) translateY(0)}}
+.mh{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.5rem}
+.mt2{font-size:16px;font-weight:700}
+.mc{background:var(--glass);border:1px solid var(--border);border-radius:8px;width:28px;height:28px;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:16px;color:var(--text2);transition:all .2s}
+.mc:hover{background:var(--red2);color:var(--red);border-color:transparent}
+.mf{display:flex;gap:10px;margin-top:1.5rem}
+
+/* TOAST */
+.toast{position:fixed;bottom:1.5rem;right:1.5rem;z-index:9999;display:none;align-items:center;gap:10px;background:var(--bg3);border:1px solid var(--border2);border-radius:12px;padding:12px 18px;font-size:13px;font-weight:500;box-shadow:0 12px 40px rgba(0,0,0,.5);animation:tin .3s cubic-bezier(.16,1,.3,1)}
+.toast.sh{display:flex}
+@keyframes tin{from{opacity:0;transform:translateY(12px) scale(.95)}to{opacity:1;transform:translateY(0) scale(1)}}
+
+/* SEARCH ROW */
+.sr{display:flex;align-items:center;gap:10px;margin-bottom:1.2rem}
+.sf{flex:1;display:flex;align-items:center;gap:8px;background:var(--glass);border:1px solid var(--border);border-radius:var(--r2);padding:9px 14px;transition:all .2s}
+.sf:focus-within{border-color:var(--green)}
+.sf input{background:none;border:none;outline:none;font-size:13px;font-family:'Outfit',sans-serif;color:var(--text);width:100%}
+.sf input::placeholder{color:var(--text3)}
+
+/* SETTINGS TOGGLE */
+.tr2{display:flex;align-items:center;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--border)}
+.tr2:last-child{border-bottom:none}
+.tlbl{font-size:13px;color:var(--text2)}
+.tsub{font-size:11px;color:var(--text3);margin-top:2px}
+.tgl{position:relative;width:40px;height:22px;border-radius:99px;background:var(--glass2);border:1px solid var(--border);cursor:pointer;transition:all .3s;flex-shrink:0}
+.tgl.on{background:var(--green);border-color:var(--green)}
+.tgl::after{content:'';position:absolute;top:2px;left:2px;width:16px;height:16px;border-radius:50%;background:#fff;transition:all .3s}
+.tgl.on::after{transform:translateX(18px)}
+
+@media(max-width:1100px){.sg{grid-template-columns:repeat(2,1fr)}.g2{grid-template-columns:1fr}.g3{grid-template-columns:repeat(2,1fr)}}
+</style>
+</head>
+<body>
+
+<div id="particles"></div>
+<div class="orb" style="width:500px;height:500px;background:rgba(0,229,160,0.05);top:-150px;left:-150px;animation:orbP 9s ease-in-out infinite"></div>
+<div class="orb" style="width:400px;height:400px;background:rgba(77,159,255,0.04);bottom:-100px;right:-100px;animation:orbP 11s ease-in-out infinite reverse"></div>
+<style>@keyframes orbP{0%,100%{transform:scale(1)}50%{transform:scale(1.15)}}</style>
+
+<!-- LOGIN -->
+<div id="login-screen">
+  <div class="lcard">
+    <div class="lglow"></div>
+    <div class="llogo"><div class="lpulse"></div>MediScan</div>
+    <div class="lsub">Admin Control Center &middot; Secure Access</div>
+    <label class="llabel">Username</label>
+    <input class="linput" type="text" id="lu" placeholder="admin" autocomplete="off">
+    <label class="llabel">Password</label>
+    <input class="linput" type="password" id="lp" placeholder="admin123" onkeydown="if(event.key==='Enter')doLogin()">
+    <div class="lerr" id="lerr">⚠ Invalid credentials. Please try again.</div>
+    <button class="lbtn" onclick="doLogin()">ACCESS DASHBOARD →</button>
+    <div class="lhint">Default &nbsp;·&nbsp; admin / admin123</div>
+  </div>
+</div>
+
+<!-- APP -->
+<div id="app">
+  <!-- SIDEBAR -->
+  <div class="sidebar">
+    <div class="slogo-wrap">
+      <div class="slogo">🩺 MediScan</div>
+      <div class="slogo-sub">Admin Panel</div>
+    </div>
+    <div class="snav">
+      <div class="nsec">Overview</div>
+      <div class="ni on" id="nav-dashboard" onclick="goPage('dashboard')"><div class="niw">📊</div>Dashboard</div>
+      <div class="ni" id="nav-appointments" onclick="goPage('appointments')"><div class="niw">📅</div>Appointments<div class="nbadge" id="nbadge-apt">7</div></div>
+      <div class="ni" id="nav-patients" onclick="goPage('patients')"><div class="niw">👥</div>Patients</div>
+      <div class="ni" id="nav-reports" onclick="goPage('reports')"><div class="niw">📋</div>Lab Reports<div class="nbadge">14</div></div>
+      <div class="nsec">Management</div>
+      <div class="ni" id="nav-doctors" onclick="goPage('doctors')"><div class="niw">👨‍⚕️</div>Doctors</div>
+      <div class="ni" id="nav-services" onclick="goPage('services')"><div class="niw">🧬</div>Services</div>
+      <div class="ni" id="nav-billing" onclick="goPage('billing')"><div class="niw">💳</div>Billing</div>
+      <div class="nsec">System</div>
+      <div class="ni" id="nav-settings" onclick="goPage('settings')"><div class="niw">⚙️</div>Settings</div>
+    </div>
+    <div class="sfoot">
+      <div class="ucard">
+        <div class="uav">DA</div>
+        <div><div class="uname">Dr. Admin</div><div class="urole">Super Administrator</div></div>
+        <button class="lout" onclick="doLogout()" title="Logout">⏻</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOPBAR -->
+  <div class="topbar">
+    <div><div class="ptitle" id="ptitle">Dashboard</div><div class="pbread" id="pbread">MediScan / Overview</div></div>
+    <div class="tright">
+      <div class="tsearch"><span style="color:var(--text3)">🔍</span><input type="text" placeholder="Quick search..."></div>
+      <div class="dbadge" id="datebadge"></div>
+      <div class="ibtn">🔔<div class="dot"></div></div>
+    </div>
+  </div>
+
+  <!-- MAIN -->
+  <div class="main">
+
+    <!-- DASHBOARD -->
+    <div id="panel-dashboard" class="panel on">
+      <div class="sg">
+        <div class="sc gr"><div class="cshine"></div><div class="stop"><div class="siw">👥</div><div class="strend up">↑ 12%</div></div><div class="sval" id="sv1">0</div><div class="slbl">Total Patients</div><div class="spark" id="sp1"></div></div>
+        <div class="sc bl"><div class="cshine"></div><div class="stop"><div class="siw">📅</div><div class="strend up">↑ 4 new</div></div><div class="sval" id="sv2">0</div><div class="slbl">Today's Appointments</div><div class="spark" id="sp2"></div></div>
+        <div class="sc am"><div class="cshine"></div><div class="stop"><div class="siw">📋</div><div class="strend dn">3 overdue</div></div><div class="sval" id="sv3">0</div><div class="slbl">Pending Reports</div><div class="spark" id="sp3"></div></div>
+        <div class="sc pu"><div class="cshine"></div><div class="stop"><div class="siw">💰</div><div class="strend up">↑ 8%</div></div><div class="sval">৳<span id="sv4">0</span>K</div><div class="slbl">Monthly Revenue</div><div class="spark" id="sp4"></div></div>
+      </div>
+      <div class="g2">
+        <div class="card mb"><div class="cshine"></div><div class="ch"><div class="ct">📅 Recent Appointments</div><button class="btn btnsm" onclick="goPage('appointments')">View all →</button></div><div class="tw"><table><thead><tr><th>Patient</th><th>Test</th><th>Doctor</th><th>Status</th></tr></thead><tbody id="dapt"></tbody></table></div></div>
+        <div class="card mb"><div class="cshine"></div><div class="ch"><div class="ct">🧬 Services Split</div></div><div id="progs"></div></div>
+      </div>
+      <div class="g2">
+        <div class="card mb"><div class="cshine"></div><div class="ch"><div class="ct">🗓 Today's Schedule</div><span class="bdg bg">5 Patients</span></div><div id="dsched"></div></div>
+        <div class="card mb"><div class="cshine"></div><div class="ch"><div class="ct">⚡ Recent Activity</div></div><div id="dact"></div></div>
+      </div>
+    </div>
+
+    <!-- APPOINTMENTS -->
+    <div id="panel-appointments" class="panel">
+      <div class="sr">
+        <div class="sf"><span style="color:var(--text3)">🔍</span><input type="text" id="apt-search" placeholder="Search by patient or test..." oninput="renderApts()"></div>
+        <select class="btn" id="apt-filter" onchange="renderApts()" style="padding:9px 14px"><option value="">All Status</option><option>Done</option><option>Pending</option><option>Processing</option><option>Cancelled</option></select>
+        <button class="btn btnp" onclick="openMo('mo-apt')">+ New Appointment</button>
+      </div>
+      <div class="card"><div class="cshine"></div><div class="tw"><table><thead><tr><th>ID</th><th>Patient</th><th>Test</th><th>Doctor</th><th>Date</th><th>Time</th><th>Status</th><th>Action</th></tr></thead><tbody id="aptb"></tbody></table></div></div>
+    </div>
+
+    <!-- PATIENTS -->
+    <div id="panel-patients" class="panel">
+      <div class="sr">
+        <div class="sf"><span style="color:var(--text3)">🔍</span><input type="text" id="pat-search" placeholder="Search by name or phone..." oninput="renderPats()"></div>
+        <button class="btn btnp" onclick="openMo('mo-pat')">+ Add Patient</button>
+      </div>
+      <div class="card"><div class="cshine"></div><div class="tw"><table><thead><tr><th>ID</th><th>Patient</th><th>Age</th><th>Gender</th><th>Phone</th><th>Blood</th><th>Last Visit</th><th>Status</th><th>Action</th></tr></thead><tbody id="patb"></tbody></table></div></div>
+    </div>
+
+    <!-- REPORTS -->
+    <div id="panel-reports" class="panel">
+      <div class="g4 mb">
+        <div class="rst"><div class="rnum" style="color:var(--green)">1,204</div><div class="rlbl">Total Reports</div></div>
+        <div class="rst"><div class="rnum" style="color:var(--amber)">14</div><div class="rlbl">Pending</div></div>
+        <div class="rst"><div class="rnum" style="color:var(--blue)">1,187</div><div class="rlbl">Delivered</div></div>
+        <div class="rst"><div class="rnum" style="color:var(--purple)">4.2h</div><div class="rlbl">Avg. Turnaround</div></div>
+      </div>
+      <div class="card"><div class="cshine"></div><div class="ch"><div class="ct">⏳ Pending Reports</div><button class="btn btnsm">Export CSV</button></div><div class="tw"><table><thead><tr><th>Report ID</th><th>Patient</th><th>Test</th><th>Ordered</th><th>Due</th><th>Status</th><th>Action</th></tr></thead><tbody id="repb"></tbody></table></div></div>
+    </div>
+
+    <!-- DOCTORS -->
+    <div id="panel-doctors" class="panel">
+      <div style="display:flex;justify-content:flex-end;margin-bottom:1.2rem"><button class="btn btnp" onclick="openMo('mo-doc')">+ Add Doctor</button></div>
+      <div class="g3" id="docgrid"></div>
+    </div>
+
+    <!-- SERVICES -->
+    <div id="panel-services" class="panel">
+      <div style="display:flex;justify-content:flex-end;margin-bottom:1.2rem"><button class="btn btnp" onclick="openMo('mo-svc')">+ Add Service</button></div>
+      <div class="card"><div class="cshine"></div><div class="tw"><table><thead><tr><th>Service</th><th>Category</th><th>Price (৳)</th><th>Duration</th><th>Tests/Month</th><th>Status</th><th>Action</th></tr></thead><tbody id="svcb"></tbody></table></div></div>
+    </div>
+
+    <!-- BILLING -->
+    <div id="panel-billing" class="panel">
+      <div class="g3 mb">
+        <div class="rst"><div class="rnum" style="color:var(--green)">৳3.2L</div><div class="rlbl">This Month</div></div>
+        <div class="rst"><div class="rnum" style="color:var(--blue)">৳28.4L</div><div class="rlbl">This Year</div></div>
+        <div class="rst"><div class="rnum" style="color:var(--amber)">৳12,400</div><div class="rlbl">Pending Due</div></div>
+      </div>
+      <div class="card"><div class="cshine"></div><div class="ch"><div class="ct">💳 Recent Invoices</div><button class="btn btnsm btnp" onclick="openMo('mo-inv')">+ New Invoice</button></div><div class="tw"><table><thead><tr><th>Invoice #</th><th>Patient</th><th>Services</th><th>Amount (৳)</th><th>Date</th><th>Status</th></tr></thead><tbody id="invb"></tbody></table></div></div>
+    </div>
+
+    <!-- SETTINGS -->
+    <div id="panel-settings" class="panel">
+      <div class="g2">
+        <div>
+          <div class="card mb"><div class="cshine"></div><div class="ch"><div class="ct">🏥 Clinic Information</div></div>
+            <div class="fg"><label class="fl">Clinic Name</label><input class="fi" type="text" value="MediScan Healthcare"></div>
+            <div class="fr"><div class="fg"><label class="fl">Phone</label><input class="fi" type="text" value="+880 1700-000000"></div><div class="fg"><label class="fl">Email</label><input class="fi" type="email" value="info@mediscan.com"></div></div>
+            <div class="fg"><label class="fl">Address</label><input class="fi" type="text" value="Mymensingh, Bangladesh"></div>
+            <button class="btn btnp" onclick="toast('✅ Clinic info saved!')">Save Changes</button>
+          </div>
+          <div class="card mb"><div class="cshine"></div><div class="ch"><div class="ct">🔑 Admin Account</div></div>
+            <div class="fg"><label class="fl">Full Name</label><input class="fi" type="text" value="Dr. Admin"></div>
+            <div class="fg"><label class="fl">Email</label><input class="fi" type="email" value="admin@mediscan.com"></div>
+            <div class="fr"><div class="fg"><label class="fl">Current Password</label><input class="fi" type="password" placeholder="••••••••"></div><div class="fg"><label class="fl">New Password</label><input class="fi" type="password" placeholder="••••••••"></div></div>
+            <button class="btn btnp" onclick="toast('✅ Account updated!')">Update Account</button>
+          </div>
+        </div>
+        <div>
+          <div class="card mb"><div class="cshine"></div><div class="ch"><div class="ct">🔔 Notifications</div></div><div id="tglwrap"></div></div>
+          <div class="card mb"><div class="cshine"></div><div class="ch"><div class="ct">🎨 Preferences</div></div>
+            <div class="fg"><label class="fl">Language</label><select class="fi"><option>English</option><option>বাংলা (Bengali)</option></select></div>
+            <div class="fg"><label class="fl">Timezone</label><select class="fi"><option>Asia/Dhaka (GMT+6)</option><option>UTC</option></select></div>
+            <div class="fg"><label class="fl">Date Format</label><select class="fi"><option>DD/MM/YYYY</option><option>MM/DD/YYYY</option></select></div>
+            <button class="btn btnp" onclick="toast('✅ Preferences saved!')">Save Preferences</button>
+          </div>
+          <div class="card mb"><div class="cshine"></div><div class="ch"><div class="ct">💾 Data Management</div></div>
+            <div style="font-size:13px;color:var(--text2);margin-bottom:1rem;line-height:1.6">আপনার সব data এই browser এ LocalStorage এ save আছে। Backup নিতে বা reset করতে নিচের বাটন ব্যবহার করুন।</div>
+            <div id="ls-status" style="font-size:12px;color:var(--green);margin-bottom:1rem;padding:8px 12px;background:var(--green4);border-radius:var(--r2);border:1px solid var(--green3)">✅ LocalStorage Active — Data auto-save চালু আছে</div>
+            <div style="display:flex;gap:10px;flex-wrap:wrap">
+              <button class="btn btnp" onclick="exportData()" style="flex:1">📥 Backup Download করুন</button>
+              <button class="btn btnd" onclick="clearAllData()" style="flex:1">🗑 সব Data Reset করুন</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- MODALS -->
+<div class="mo" id="mo-apt"><div class="mbox">
+  <div class="mh"><div class="mt2">📅 Book Appointment</div><button class="mc" onclick="closeMo('mo-apt')">✕</button></div>
+  <div class="fr"><div class="fg"><label class="fl">Patient Name</label><input class="fi" type="text" id="a-pat" placeholder="Full name"></div><div class="fg"><label class="fl">Date</label><input class="fi" type="date" id="a-date"></div></div>
+  <div class="fr"><div class="fg"><label class="fl">Test Type</label><select class="fi" id="a-test"><option>Blood CBC</option><option>MRI Brain</option><option>CT Scan</option><option>X-Ray Chest</option><option>ECG</option><option>Ultrasound</option><option>Thyroid Panel</option><option>Lipid Profile</option><option>Full Body Checkup</option></select></div><div class="fg"><label class="fl">Doctor</label><select class="fi" id="a-doc"><option>Dr. Kamal Ahmed</option><option>Dr. Sonia Omar</option><option>Dr. Rafi Ahmed</option></select></div></div>
+  <div class="fr"><div class="fg"><label class="fl">Time</label><input class="fi" type="time" id="a-time" value="09:00"></div><div class="fg"><label class="fl">Status</label><select class="fi" id="a-stat"><option>Pending</option><option>Processing</option><option>Done</option></select></div></div>
+  <div class="mf"><button class="btn btnp" style="flex:1" onclick="addApt()">Book Appointment</button><button class="btn" onclick="closeMo('mo-apt')">Cancel</button></div>
+</div></div>
+
+<div class="mo" id="mo-pat"><div class="mbox">
+  <div class="mh"><div class="mt2">👤 Add New Patient</div><button class="mc" onclick="closeMo('mo-pat')">✕</button></div>
+  <div class="fr"><div class="fg"><label class="fl">Full Name</label><input class="fi" type="text" id="p-name" placeholder="Patient full name"></div><div class="fg"><label class="fl">Age</label><input class="fi" type="number" id="p-age" placeholder="Age"></div></div>
+  <div class="fr"><div class="fg"><label class="fl">Gender</label><select class="fi" id="p-gen"><option>Male</option><option>Female</option><option>Other</option></select></div><div class="fg"><label class="fl">Blood Group</label><select class="fi" id="p-blood"><option>A+</option><option>A-</option><option>B+</option><option>B-</option><option>O+</option><option>O-</option><option>AB+</option><option>AB-</option></select></div></div>
+  <div class="fg"><label class="fl">Phone</label><input class="fi" type="tel" id="p-phone" placeholder="01700-000000"></div>
+  <div class="fg"><label class="fl">Address</label><input class="fi" type="text" id="p-addr" placeholder="City, District"></div>
+  <div class="mf"><button class="btn btnp" style="flex:1" onclick="addPat()">Add Patient</button><button class="btn" onclick="closeMo('mo-pat')">Cancel</button></div>
+</div></div>
+
+<div class="mo" id="mo-doc"><div class="mbox">
+  <div class="mh"><div class="mt2">👨‍⚕️ Add Doctor</div><button class="mc" onclick="closeMo('mo-doc')">✕</button></div>
+  <div class="fr"><div class="fg"><label class="fl">Doctor Name</label><input class="fi" type="text" id="d-name" placeholder="Dr. Full Name"></div><div class="fg"><label class="fl">Speciality</label><input class="fi" type="text" id="d-spec" placeholder="e.g. Radiologist"></div></div>
+  <div class="fr"><div class="fg"><label class="fl">Experience</label><input class="fi" type="text" id="d-exp" placeholder="e.g. 10 years"></div><div class="fg"><label class="fl">Status</label><select class="fi" id="d-stat"><option>On duty</option><option>On leave</option><option>Part-time</option></select></div></div>
+  <div class="fg"><label class="fl">Phone</label><input class="fi" type="tel" id="d-phone" placeholder="01700-000000"></div>
+  <div class="mf"><button class="btn btnp" style="flex:1" onclick="addDoc()">Add Doctor</button><button class="btn" onclick="closeMo('mo-doc')">Cancel</button></div>
+</div></div>
+
+<div class="mo" id="mo-svc"><div class="mbox">
+  <div class="mh"><div class="mt2">🧬 Add Service</div><button class="mc" onclick="closeMo('mo-svc')">✕</button></div>
+  <div class="fr"><div class="fg"><label class="fl">Service Name</label><input class="fi" type="text" id="s-name" placeholder="Service name"></div><div class="fg"><label class="fl">Category</label><select class="fi" id="s-cat"><option>Pathology</option><option>Radiology</option><option>Cardiology</option><option>General</option><option>Neurology</option></select></div></div>
+  <div class="fr"><div class="fg"><label class="fl">Price (৳)</label><input class="fi" type="number" id="s-price" placeholder="0"></div><div class="fg"><label class="fl">Duration</label><input class="fi" type="text" id="s-dur" placeholder="e.g. 30 min"></div></div>
+  <div class="mf"><button class="btn btnp" style="flex:1" onclick="addSvc()">Add Service</button><button class="btn" onclick="closeMo('mo-svc')">Cancel</button></div>
+</div></div>
+
+<div class="mo" id="mo-inv"><div class="mbox">
+  <div class="mh"><div class="mt2">💳 New Invoice</div><button class="mc" onclick="closeMo('mo-inv')">✕</button></div>
+  <div class="fg"><label class="fl">Patient Name</label><input class="fi" type="text" id="i-pat" placeholder="Patient name"></div>
+  <div class="fg"><label class="fl">Services</label><input class="fi" type="text" id="i-svc" placeholder="e.g. Blood CBC, ECG"></div>
+  <div class="fg"><label class="fl">Amount (৳)</label><input class="fi" type="number" id="i-amt" placeholder="0"></div>
+  <div class="mf"><button class="btn btnp" style="flex:1" onclick="addInv()">Create Invoice</button><button class="btn" onclick="closeMo('mo-inv')">Cancel</button></div>
+</div></div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+// DATA
+// ══════════════════════════════════════════
+//  LOCAL STORAGE — AUTO SAVE & LOAD
+// ══════════════════════════════════════════
+var LS_KEY='mediscan_v1';
+
+var DEFAULT_DATA={
+  apts:[
+    {id:'APT-1201',pat:'Rahim Uddin',test:'MRI Brain',doc:'Dr. Kamal Ahmed',date:'2026-03-19',time:'09:00',stat:'Done'},
+    {id:'APT-1202',pat:'Nasrin Begum',test:'Blood CBC',doc:'Dr. Sonia Omar',date:'2026-03-19',time:'10:30',stat:'Pending'},
+    {id:'APT-1203',pat:'Jamal Hossain',test:'ECG',doc:'Dr. Rafi Ahmed',date:'2026-03-19',time:'11:00',stat:'Processing'},
+    {id:'APT-1204',pat:'Tahmina Akter',test:'X-Ray Chest',doc:'Dr. Kamal Ahmed',date:'2026-03-18',time:'09:30',stat:'Done'},
+    {id:'APT-1205',pat:'Sumon Islam',test:'CT Scan',doc:'Dr. Sonia Omar',date:'2026-03-18',time:'14:00',stat:'Cancelled'},
+    {id:'APT-1206',pat:'Rafi Ahmed',test:'Ultrasound',doc:'Dr. Rafi Ahmed',date:'2026-03-17',time:'11:30',stat:'Done'},
+  ],
+  pats:[
+    {id:'P-001',name:'Rahim Uddin',age:45,gen:'Male',phone:'01712-000001',blood:'B+',visit:'19 Mar 2026',stat:'Active'},
+    {id:'P-002',name:'Nasrin Begum',age:32,gen:'Female',phone:'01812-000002',blood:'O+',visit:'19 Mar 2026',stat:'Active'},
+    {id:'P-003',name:'Jamal Hossain',age:58,gen:'Male',phone:'01912-000003',blood:'A+',visit:'18 Mar 2026',stat:'Follow-up'},
+    {id:'P-004',name:'Tahmina Akter',age:27,gen:'Female',phone:'01711-000004',blood:'AB+',visit:'17 Mar 2026',stat:'Active'},
+    {id:'P-005',name:'Sumon Islam',age:61,gen:'Male',phone:'01611-000005',blood:'O-',visit:'15 Mar 2026',stat:'Critical'},
+  ],
+  docs:[
+    {name:'Dr. Kamal Ahmed',spec:'Radiologist',exp:'12 years',stat:'On duty',apts:14,rating:4.9,phone:'01700-111111',color:'#00e5a0'},
+    {name:'Dr. Sonia Omar',spec:'Pathologist',exp:'9 years',stat:'On duty',apts:18,rating:4.8,phone:'01700-222222',color:'#4d9fff'},
+    {name:'Dr. Rafi Ahmed',spec:'Cardiologist',exp:'15 years',stat:'On leave',apts:6,rating:4.9,phone:'01700-333333',color:'#a78bfa'},
+  ],
+  svcs:[
+    {name:'Full Body Checkup',cat:'General',price:3500,dur:'2 hrs',mo:48,stat:'Active'},
+    {name:'MRI Brain',cat:'Radiology',price:8000,dur:'1 hr',mo:32,stat:'Active'},
+    {name:'CT Scan Chest',cat:'Radiology',price:6500,dur:'45 min',mo:27,stat:'Active'},
+    {name:'Blood CBC',cat:'Pathology',price:600,dur:'30 min',mo:120,stat:'Active'},
+    {name:'ECG',cat:'Cardiology',price:1200,dur:'20 min',mo:65,stat:'Active'},
+    {name:'Ultrasound',cat:'Radiology',price:2000,dur:'30 min',mo:40,stat:'Limited'},
+    {name:'Thyroid Panel',cat:'Pathology',price:1800,dur:'45 min',mo:38,stat:'Active'},
+  ],
+  reps:[
+    {id:'R-5521',pat:'Nasrin Begum',test:'Blood CBC',ord:'Today 9:00 AM',due:'Today 3:00 PM',stat:'In Lab'},
+    {id:'R-5518',pat:'Jamal Hossain',test:'ECG',ord:'Today 8:00 AM',due:'Today 1:00 PM',stat:'Processing'},
+    {id:'R-5510',pat:'Rafiqul Islam',test:'Thyroid Panel',ord:'Yesterday',due:'Today 10:00 AM',stat:'Overdue'},
+    {id:'R-5502',pat:'Sumon Islam',test:'Lipid Profile',ord:'Yesterday',due:'Today 12:00 PM',stat:'In Lab'},
+  ],
+  invs:[
+    {id:'INV-2501',pat:'Rahim Uddin',svc:'MRI Brain, Blood CBC',amt:8600,date:'19 Mar 2026',stat:'Paid'},
+    {id:'INV-2500',pat:'Tahmina Akter',svc:'X-Ray Chest',amt:1500,date:'18 Mar 2026',stat:'Paid'},
+    {id:'INV-2499',pat:'Sumon Islam',svc:'CT Scan',amt:6500,date:'18 Mar 2026',stat:'Pending'},
+    {id:'INV-2498',pat:'Rafi Ahmed',svc:'Ultrasound, ECG',amt:3200,date:'17 Mar 2026',stat:'Paid'},
+  ],
+};
+
+// Load from localStorage, fallback to defaults
+function lsLoad(){
+  try{
+    var raw=localStorage.getItem(LS_KEY);
+    if(raw){var d=JSON.parse(raw);return d;}
+  }catch(e){}
+  return JSON.parse(JSON.stringify(DEFAULT_DATA));
+}
+
+// Save all data to localStorage
+function lsSave(){
+  try{
+    localStorage.setItem(LS_KEY,JSON.stringify({apts:apts,pats:pats,docs:docs,svcs:svcs,reps:reps,invs:invs}));
+  }catch(e){}
+}
+
+// Initialize data from localStorage
+var _data=lsLoad();
+var apts=_data.apts;
+var pats=_data.pats;
+var docs=_data.docs;
+var svcs=_data.svcs;
+var reps=_data.reps;
+var invs=_data.invs;
+var sched=[
+  {name:'Rafiqul Islam',meta:'Blood Test · Dr. Sonia',time:'9:00 AM',stat:'Waiting',c:'#00e5a0'},
+  {name:'Moriam Khatun',meta:'ECG · Dr. Rafi',time:'10:30 AM',stat:'Done',c:'#4d9fff'},
+  {name:'Zahir Hossain',meta:'CT Scan · Dr. Kamal',time:'12:00 PM',stat:'Waiting',c:'#ff6b6b'},
+  {name:'Fatema Begum',meta:'MRI · Dr. Kamal',time:'2:30 PM',stat:'Upcoming',c:'#a78bfa'},
+  {name:'Karim Mia',meta:'Blood CBC · Dr. Sonia',time:'4:00 PM',stat:'Upcoming',c:'#ffb347'},
+];
+var acts=[
+  {ico:'📋',txt:'<span>Nasrin Begum</span> lab report ready',tm:'5 min ago',bg:'var(--amber2)'},
+  {ico:'✅',txt:'Appointment <span>#APT-1204</span> marked done',tm:'22 min ago',bg:'var(--green3)'},
+  {ico:'👤',txt:'New patient <span>Karim Mia</span> registered',tm:'1 hr ago',bg:'var(--blue2)'},
+  {ico:'⚠️',txt:'Report <span>R-5510</span> is overdue',tm:'2 hrs ago',bg:'var(--red2)'},
+  {ico:'💳',txt:'Invoice <span>INV-2501</span> payment received',tm:'3 hrs ago',bg:'var(--purple2)'},
+];
+var progs=[
+  {lbl:'Pathology',pct:72,c:'var(--green)'},
+  {lbl:'Radiology',pct:55,c:'var(--blue)'},
+  {lbl:'Cardiology',pct:38,c:'var(--red)'},
+  {lbl:'MRI / CT',pct:45,c:'var(--purple)'},
+  {lbl:'Ultrasound',pct:28,c:'var(--amber)'},
+];
+var toggles=[
+  {lbl:'Email Notifications',sub:'Receive appointment alerts via email',on:true},
+  {lbl:'SMS Alerts',sub:'SMS for new bookings and cancellations',on:true},
+  {lbl:'Lab Report Ready',sub:'Notify when reports are complete',on:true},
+  {lbl:'Daily Summary',sub:'End-of-day report to your email',on:false},
+  {lbl:'Overdue Alerts',sub:'Alert when reports are past due',on:true},
+];
+
+// BADGE
+var bmap={Done:'bg',Paid:'bg',Active:'bg','On duty':'bg',Pending:'ba','On leave':'ba','Follow-up':'ba','In Lab':'ba',Limited:'ba',Processing:'bb','Part-time':'bb',Waiting:'ba',Upcoming:'bp',Cancelled:'br',Critical:'br',Overdue:'br'};
+function bdg(s){return '<span class="bdg '+(bmap[s]||'bgr')+'">'+s+'</span>';}
+
+// NAVIGATION — FIXED
+var pageMeta={
+  dashboard:{t:'Dashboard',b:'Overview'},
+  appointments:{t:'Appointments',b:'Schedule Management'},
+  patients:{t:'Patients',b:'Patient Records'},
+  reports:{t:'Lab Reports',b:'Report Tracking'},
+  doctors:{t:'Doctors',b:'Medical Staff'},
+  services:{t:'Services',b:'Service Catalogue'},
+  billing:{t:'Billing',b:'Invoices & Payments'},
+  settings:{t:'Settings',b:'System Configuration'},
+};
+
+function goPage(name){
+  // 1. Hide ALL panels
+  var all=document.getElementsByClassName('panel');
+  for(var i=0;i<all.length;i++){
+    all[i].classList.remove('on');
+  }
+  // 2. Remove active from ALL nav items
+  var navs=document.getElementsByClassName('ni');
+  for(var i=0;i<navs.length;i++){
+    navs[i].classList.remove('on');
+  }
+  // 3. Show the correct panel
+  var panel=document.getElementById('panel-'+name);
+  if(panel){panel.classList.add('on');}
+  // 4. Highlight correct nav
+  var nav=document.getElementById('nav-'+name);
+  if(nav){nav.classList.add('on');}
+  // 5. Update topbar text
+  var m=pageMeta[name];
+  if(m){
+    document.getElementById('ptitle').textContent=m.t;
+    document.getElementById('pbread').textContent='MediScan / '+m.b;
+  }
+}
+
+// LOGIN
+function doLogin(){
+  var u=document.getElementById('lu').value.trim();
+  var p=document.getElementById('lp').value.trim();
+  var e=document.getElementById('lerr');
+  if(u==='admin'&&p==='admin123'){
+    document.getElementById('login-screen').style.display='none';
+    document.getElementById('app').style.display='block';
+    initApp();
+  } else {
+    e.style.display='block';
+    setTimeout(function(){e.style.display='none';},3000);
+  }
+}
+function doLogout(){
+  document.getElementById('app').style.display='none';
+  document.getElementById('login-screen').style.display='flex';
+  document.getElementById('lu').value='';
+  document.getElementById('lp').value='';
+}
+
+// PARTICLES
+function makeParticles(){
+  var c=document.getElementById('particles');
+  for(var i=0;i<25;i++){
+    var p=document.createElement('div');
+    p.className='particle';
+    var sz=1+Math.random()*2;
+    var dur=9+Math.random()*14;
+    p.style.cssText='left:'+(Math.random()*100)+'%;width:'+sz+'px;height:'+sz+'px;background:var(--green);--dx:'+((Math.random()-0.5)*180)+'px;animation-duration:'+dur+'s;animation-delay:'+(-Math.random()*dur)+'s';
+    c.appendChild(p);
+  }
+}
+
+// COUNTER
+function counter(id,target){
+  var el=document.getElementById(id);if(!el)return;
+  var cur=0,step=Math.ceil(target/55),t=setInterval(function(){
+    cur=Math.min(cur+step,target);el.textContent=cur.toLocaleString();
+    if(cur>=target)clearInterval(t);
+  },18);
+}
+
+// SPARKLINES
+function spark(id,color){
+  var el=document.getElementById(id);if(!el)return;
+  var vals=[38,52,41,68,57,75,63,80,70,88,74,92];
+  el.innerHTML=vals.map(function(v,i){
+    return '<div class="spk" style="background:'+color+';opacity:'+(0.25+v/100*0.65)+';height:'+(v*0.36)+'px;animation:spkIn .5s '+(i*55)+'ms both"></div>';
+  }).join('');
+}
+
+// DASHBOARD
+function renderDash(){
+  var pb=document.getElementById('progs');
+  if(pb)pb.innerHTML=progs.map(function(b){
+    return '<div class="pr"><div class="plbl">'+b.lbl+'</div><div class="ptrk"><div class="pfil" data-w="'+b.pct+'" style="width:0;background:'+b.c+'"></div></div><div class="ppct">'+b.pct+'%</div></div>';
+  }).join('');
+  setTimeout(function(){
+    var f=document.querySelectorAll('.pfil');
+    for(var i=0;i<f.length;i++)f[i].style.width=f[i].dataset.w+'%';
+  },300);
+  var tb=document.getElementById('dapt');
+  if(tb)tb.innerHTML=apts.slice(0,5).map(function(a){
+    var ini=a.pat.split(' ').map(function(x){return x[0];}).slice(0,2).join('');
+    return '<tr><td><div class="avc"><div class="mav" style="background:var(--green3);color:var(--green)">'+ini+'</div>'+a.pat+'</div></td><td>'+a.test+'</td><td>'+a.doc+'</td><td>'+bdg(a.stat)+'</td></tr>';
+  }).join('');
+  var ds=document.getElementById('dsched');
+  if(ds)ds.innerHTML=sched.map(function(s){
+    return '<div class="si"><div class="sdot" style="background:'+s.c+'"></div><div><div class="sname">'+s.name+'</div><div class="smeta">'+s.meta+'</div></div><div class="stime"><span>'+s.time+'</span>'+bdg(s.stat)+'</div></div>';
+  }).join('');
+  var da=document.getElementById('dact');
+  if(da)da.innerHTML=acts.map(function(a){
+    return '<div class="ai"><div class="aico" style="background:'+a.bg+'">'+a.ico+'</div><div><div class="atxt">'+a.txt+'</div><div class="atm">'+a.tm+'</div></div></div>';
+  }).join('');
+}
+
+// APPOINTMENTS
+function renderApts(){
+  var s=(document.getElementById('apt-search')||{value:''}).value.toLowerCase();
+  var f=(document.getElementById('apt-filter')||{value:''}).value;
+  var tb=document.getElementById('aptb');if(!tb)return;
+  tb.innerHTML=apts.filter(function(a){
+    return(!s||a.pat.toLowerCase().includes(s)||a.test.toLowerCase().includes(s))&&(!f||a.stat===f);
+  }).map(function(a){
+    var ini=a.pat.split(' ').map(function(x){return x[0];}).slice(0,2).join('');
+    var idx=apts.indexOf(a);
+    return '<tr><td style="color:var(--text3);font-size:12px">'+a.id+'</td><td><div class="avc"><div class="mav" style="background:var(--green3);color:var(--green)">'+ini+'</div>'+a.pat+'</div></td><td>'+a.test+'</td><td>'+a.doc+'</td><td>'+a.date+'</td><td>'+a.time+'</td><td>'+bdg(a.stat)+'</td><td><button class="btn btnsm btnd" onclick="delApt('+idx+')">Delete</button></td></tr>';
+  }).join('');
+  document.getElementById('nbadge-apt').textContent=apts.length;
+}
+function addApt(){
+  var p=document.getElementById('a-pat').value.trim();
+  if(!p){toast('⚠ Patient name required!');return;}
+  var today=new Date().toISOString().split('T')[0];
+  apts.unshift({id:'APT-'+(Date.now()),pat:p,test:document.getElementById('a-test').value,doc:document.getElementById('a-doc').value,date:document.getElementById('a-date').value||today,time:document.getElementById('a-time').value||'09:00',stat:document.getElementById('a-stat').value});
+  document.getElementById('a-pat').value='';document.getElementById('a-date').value='';
+  lsSave();closeMo('mo-apt');renderApts();renderDash();toast('✅ Appointment booked & saved!');
+}
+function delApt(i){if(!confirm('Delete this appointment?'))return;apts.splice(i,1);lsSave();renderApts();renderDash();toast('🗑 Deleted');}
+
+// PATIENTS
+function renderPats(){
+  var s=(document.getElementById('pat-search')||{value:''}).value.toLowerCase();
+  var tb=document.getElementById('patb');if(!tb)return;
+  tb.innerHTML=pats.filter(function(p){return!s||p.name.toLowerCase().includes(s)||p.phone.includes(s);}).map(function(p){
+    var ini=p.name.split(' ').map(function(x){return x[0];}).slice(0,2).join('');
+    var idx=pats.indexOf(p);
+    return '<tr><td style="color:var(--text3);font-size:12px">'+p.id+'</td><td><div class="avc"><div class="mav" style="background:var(--purple2);color:var(--purple)">'+ini+'</div>'+p.name+'</div></td><td>'+p.age+'</td><td>'+p.gen+'</td><td>'+p.phone+'</td><td style="font-weight:700;color:var(--red)">'+p.blood+'</td><td>'+p.visit+'</td><td>'+bdg(p.stat)+'</td><td><button class="btn btnsm btnd" onclick="delPat('+idx+')">Delete</button></td></tr>';
+  }).join('');
+}
+function addPat(){
+  var n=document.getElementById('p-name').value.trim();
+  if(!n){toast('⚠ Name required!');return;}
+  var today=new Date().toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'});
+  pats.unshift({id:'P-'+String(Date.now()).slice(-4),name:n,age:document.getElementById('p-age').value||'—',gen:document.getElementById('p-gen').value,phone:document.getElementById('p-phone').value||'—',blood:document.getElementById('p-blood').value,visit:today,stat:'Active'});
+  ['p-name','p-age','p-phone','p-addr'].forEach(function(id){var el=document.getElementById(id);if(el)el.value='';});
+  lsSave();closeMo('mo-pat');renderPats();toast('✅ Patient added & saved!');
+}
+function delPat(i){if(!confirm('Delete this patient?'))return;pats.splice(i,1);lsSave();renderPats();toast('🗑 Deleted');}
+
+// REPORTS
+function renderReps(){
+  var tb=document.getElementById('repb');if(!tb)return;
+  tb.innerHTML=reps.map(function(r,i){
+    return '<tr><td style="color:var(--text3);font-size:12px">'+r.id+'</td><td>'+r.pat+'</td><td>'+r.test+'</td><td>'+r.ord+'</td><td>'+r.due+'</td><td>'+bdg(r.stat)+'</td><td><button class="btn btnsm" style="color:var(--green);border-color:var(--green3);background:var(--green4)" onclick="doneRep('+i+')">✓ Done</button></td></tr>';
+  }).join('');
+}
+function doneRep(i){reps.splice(i,1);lsSave();renderReps();toast('✅ Report delivered!');}
+
+// DOCTORS
+function renderDocs(){
+  var g=document.getElementById('docgrid');if(!g)return;
+  g.innerHTML=docs.map(function(d){
+    var ini=d.name.split(' ').slice(1).map(function(x){return x[0];}).join('');
+    return '<div class="dc"><div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:10px"><div class="dav" style="background:'+d.color+'22;color:'+d.color+'">'+ini+'</div>'+bdg(d.stat)+'</div><div style="font-size:15px;font-weight:700;margin-bottom:2px">'+d.name+'</div><div style="font-size:12px;color:var(--text3);margin-bottom:12px">'+d.spec+' · '+d.exp+'</div><div style="display:flex;gap:16px;border-top:1px solid var(--border);padding-top:10px"><div><div style="font-size:17px;font-weight:700;color:'+d.color+'">'+d.apts+'</div><div style="font-size:10px;color:var(--text3)">Appointments</div></div><div><div style="font-size:17px;font-weight:700;color:'+d.color+'">⭐ '+d.rating+'</div><div style="font-size:10px;color:var(--text3)">Rating</div></div><div><div style="font-size:12px;font-weight:600;color:var(--text2)">'+d.phone+'</div><div style="font-size:10px;color:var(--text3)">Phone</div></div></div></div>';
+  }).join('');
+}
+function addDoc(){
+  var n=document.getElementById('d-name').value.trim();
+  if(!n){toast('⚠ Name required!');return;}
+  var cols=['#00e5a0','#4d9fff','#a78bfa','#ffb347','#ff6b6b'];
+  docs.push({name:n,spec:document.getElementById('d-spec').value||'General',exp:document.getElementById('d-exp').value||'—',stat:document.getElementById('d-stat').value,apts:0,rating:5.0,phone:document.getElementById('d-phone').value||'—',color:cols[docs.length%cols.length]});
+  ['d-name','d-spec','d-exp','d-phone'].forEach(function(id){document.getElementById(id).value='';});
+  lsSave();closeMo('mo-doc');renderDocs();toast('✅ Doctor added & saved!');
+}
+
+// SERVICES
+function renderSvcs(){
+  var tb=document.getElementById('svcb');if(!tb)return;
+  tb.innerHTML=svcs.map(function(s,i){
+    return '<tr><td>'+s.name+'</td><td><span class="bdg bb">'+s.cat+'</span></td><td style="font-weight:700;color:var(--green)">৳'+s.price.toLocaleString()+'</td><td>'+s.dur+'</td><td>'+s.mo+'/mo</td><td>'+bdg(s.stat)+'</td><td><button class="btn btnsm btnd" onclick="delSvc('+i+')">Delete</button></td></tr>';
+  }).join('');
+}
+function addSvc(){
+  var n=document.getElementById('s-name').value.trim();
+  if(!n){toast('⚠ Name required!');return;}
+  svcs.push({name:n,cat:document.getElementById('s-cat').value,price:parseInt(document.getElementById('s-price').value)||0,dur:document.getElementById('s-dur').value||'—',mo:0,stat:'Active'});
+  ['s-name','s-price','s-dur'].forEach(function(id){document.getElementById(id).value='';});
+  lsSave();closeMo('mo-svc');renderSvcs();toast('✅ Service added & saved!');
+}
+function delSvc(i){if(!confirm('Delete?'))return;svcs.splice(i,1);lsSave();renderSvcs();toast('🗑 Deleted');}
+
+// BILLING
+function renderInvs(){
+  var tb=document.getElementById('invb');if(!tb)return;
+  tb.innerHTML=invs.map(function(v){
+    return '<tr><td style="color:var(--text3);font-size:12px">'+v.id+'</td><td>'+v.pat+'</td><td style="color:var(--text2)">'+v.svc+'</td><td style="font-weight:700;color:var(--green)">৳'+v.amt.toLocaleString()+'</td><td>'+v.date+'</td><td>'+bdg(v.stat)+'</td></tr>';
+  }).join('');
+}
+function addInv(){
+  var p=document.getElementById('i-pat').value.trim();
+  if(!p){toast('⚠ Patient name required!');return;}
+  var today=new Date().toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'});
+  invs.unshift({id:'INV-'+(Date.now()),pat:p,svc:document.getElementById('i-svc').value||'—',amt:parseInt(document.getElementById('i-amt').value)||0,date:today,stat:'Pending'});
+  ['i-pat','i-svc','i-amt'].forEach(function(id){document.getElementById(id).value='';});
+  lsSave();closeMo('mo-inv');renderInvs();toast('✅ Invoice created & saved!');
+}
+
+// TOGGLES
+function renderToggles(){
+  var w=document.getElementById('tglwrap');if(!w)return;
+  w.innerHTML=toggles.map(function(t,i){
+    return '<div class="tr2"><div><div class="tlbl">'+t.lbl+'</div><div class="tsub">'+t.sub+'</div></div><div class="tgl '+(t.on?'on':'')+'" onclick="this.classList.toggle(\'on\')"></div></div>';
+  }).join('');
+}
+
+// MODAL
+function openMo(id){document.getElementById(id).classList.add('op');}
+function closeMo(id){document.getElementById(id).classList.remove('op');}
+document.addEventListener('click',function(e){if(e.target.classList.contains('mo'))e.target.classList.remove('op');});
+
+// TOAST
+var toastT;
+function toast(msg){
+  var el=document.getElementById('toast');
+  el.textContent=msg;el.classList.add('sh');
+  clearTimeout(toastT);toastT=setTimeout(function(){el.classList.remove('sh');},3000);
+}
+
+// EXPORT BACKUP
+function exportData(){
+  var data={apts:apts,pats:pats,docs:docs,svcs:svcs,reps:reps,invs:invs,exported:new Date().toLocaleString()};
+  var blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});
+  var a=document.createElement('a');
+  a.href=URL.createObjectURL(blob);
+  a.download='mediscan-backup-'+new Date().toISOString().split('T')[0]+'.json';
+  a.click();
+  toast('✅ Backup downloaded!');
+}
+
+// CLEAR ALL DATA
+function clearAllData(){
+  if(!confirm('সব data মুছে যাবে! নিশ্চিত?'))return;
+  if(!confirm('সত্যিই মুছবেন? এটা undo করা যাবে না।'))return;
+  localStorage.removeItem(LS_KEY);
+  var d=JSON.parse(JSON.stringify(DEFAULT_DATA));
+  apts=d.apts;pats=d.pats;docs=d.docs;svcs=d.svcs;reps=d.reps;invs=d.invs;
+  renderDash();renderApts();renderPats();renderReps();renderDocs();renderSvcs();renderInvs();
+  toast('🗑 Data reset to defaults');
+}
+
+// INIT
+function initApp(){
+  makeParticles();
+  var now=new Date();
+  document.getElementById('datebadge').textContent=now.toLocaleDateString('en-GB',{weekday:'short',day:'numeric',month:'short'});
+  setTimeout(function(){
+    counter('sv1',pats.length);
+    counter('sv2',apts.filter(function(a){return a.date===now.toISOString().split('T')[0];}).length||apts.length);
+    counter('sv3',reps.length);
+    counter('sv4',Math.round(invs.reduce(function(s,v){return s+v.amt;},0)/1000));
+  },250);
+  spark('sp1','#00e5a0');spark('sp2','#4d9fff');spark('sp3','#ffb347');spark('sp4','#a78bfa');
+  renderDash();renderApts();renderPats();renderReps();renderDocs();renderSvcs();renderInvs();renderToggles();
+  // Update LS status
+  var lsEl=document.getElementById('ls-status');
+  if(lsEl){
+    var sz=JSON.stringify({apts:apts,pats:pats,docs:docs,svcs:svcs,reps:reps,invs:invs}).length;
+    lsEl.textContent='✅ LocalStorage Active — '+pats.length+' patients, '+apts.length+' appointments, '+invs.length+' invoices saved ('+Math.round(sz/1024*10)/10+' KB)';
+  }
+}
+</script>
+</body>
+</html>
