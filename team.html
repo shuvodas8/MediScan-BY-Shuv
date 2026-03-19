@@ -6,105 +6,388 @@
     <title>Our Team - MediScan</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
-        body { font-family: 'Inter', sans-serif; }
+        body { font-family: 'Plus Jakarta Sans', sans-serif; }
+        .doctor-card .book-btn { opacity:0; transform:translateY(8px); transition:all 0.25s ease; }
+        .doctor-card:hover .book-btn { opacity:1; transform:translateY(0); }
+        @keyframes fadeUp { from{opacity:0;transform:translateY(18px);}to{opacity:1;transform:translateY(0);} }
+        .fade-up { animation: fadeUp 0.5s ease both; }
+        .s1{animation-delay:.05s}.s2{animation-delay:.15s}.s3{animation-delay:.25s}.s4{animation-delay:.35s}
     </style>
 </head>
-<body class="bg-gray-50">
+<body class="bg-white text-slate-900">
 
-    <nav class="bg-white shadow-md py-4 px-6 flex justify-between items-center sticky top-0 z-50">
+    <!-- NAV — exact copy from index.html -->
+    <nav class="bg-white/80 backdrop-blur-md sticky top-0 z-50 border-b border-gray-100 py-4 px-6 flex justify-between items-center">
         <div class="flex items-center gap-2">
-            <i class="fas fa-heartbeat text-blue-600 text-2xl"></i>
-            <span class="text-2xl font-bold text-blue-700">MediScan</span>
+            <div class="bg-blue-600 p-2 rounded-lg text-white">
+                <i class="fas fa-heartbeat text-xl"></i>
+            </div>
+            <span class="text-2xl font-bold tracking-tight">MediScan</span>
         </div>
-        <div class="hidden md:flex gap-8 font-semibold text-gray-600">
+        <div class="hidden md:flex gap-10 font-semibold text-slate-600">
             <a href="index.html" class="hover:text-blue-600 transition">Home</a>
             <a href="about.html" class="hover:text-blue-600 transition">About</a>
             <a href="services.html" class="hover:text-blue-600 transition">Services</a>
-            <a href="team.html" class="text-blue-600 border-b-2 border-blue-600">Our Team</a>
+            <a href="team.html" class="text-blue-600">Our Team</a>
             <a href="contact.html" class="hover:text-blue-600 transition">Contact</a>
+            <a href="admin.html" style="display:inline-flex;align-items:center;gap:8px;background:linear-gradient(135deg,#3b82f6,#6366f1);color:white;padding:10px 22px;border-radius:50px;text-decoration:none;font-weight:bold;box-shadow:0 4px 15px rgba(59,130,246,0.4);transition:all 0.3s ease;margin-right:10px;">
+                <i class="fas fa-user-shield"></i> Login
+            </a>
         </div>
-        <a href="appointment.html" class="bg-blue-600 text-white px-6 py-2 rounded-lg font-bold hover:bg-blue-700 transition">Book Appointment</a>
+        <a href="appointment.html" class="bg-blue-600 text-white px-7 py-3 rounded-full font-bold shadow-lg shadow-blue-200 hover:bg-blue-700 transition">Book Now</a>
     </nav>
 
-    <section class="py-16 px-6 max-w-7xl mx-auto">
-        <div class="text-center mb-16">
-            <h1 class="text-4xl font-extrabold text-gray-900 mb-4">Meet Our Specialist Team</h1>
-            <p class="text-gray-600 max-w-2xl mx-auto text-lg">Our team of 4 highly skilled and experienced specialists is always ready to ensure your accurate diagnosis</p>
-        </div>
+    <!-- HERO -->
+    <section class="pt-20 pb-16 px-6 text-center bg-white">
+        <h1 class="text-5xl md:text-6xl font-extrabold leading-tight mb-6">
+            Meet Our <span class="text-blue-600">Specialist</span> Team
+        </h1>
+        <p class="text-slate-600 text-xl max-w-2xl mx-auto leading-relaxed">
+            Our team of 4 highly skilled and experienced specialists is always ready to ensure your accurate diagnosis
+        </p>
+    </section>
 
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-            
-            <div class="bg-white rounded-2xl shadow-lg overflow-hidden border border-gray-100 transition-transform hover:-translate-y-2">
-                <img src="Urmi.jpg" alt="Dr. Urmi Sengu" class="w-full h-64 object-cover">
+
+    <!-- SYNC NOTICE -->
+    <div id="sync-notice" style="display:none;position:fixed;bottom:1.5rem;left:50%;transform:translateX(-50%);background:#1e3a8a;color:white;padding:10px 20px;border-radius:99px;font-size:13px;font-weight:600;z-index:999;align-items:center;gap:8px;box-shadow:0 4px 20px rgba(0,0,0,0.2)">
+        🔄 Admin panel থেকে doctor info update হয়েছে!
+    </div>
+
+    <!-- DOCTORS GRID — same card style as original team.html, with extras -->
+    <section class="pb-24 px-6 max-w-7xl mx-auto">
+        <div id="doctors-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+
+            <!-- DR. URMI -->
+            <div class="doctor-card bg-white rounded-2xl shadow-lg overflow-hidden border border-gray-100 transition-transform hover:-translate-y-2 fade-up s1">
+                <div class="relative">
+                    <img src="Urmi.jpg" alt="Dr. Urmi Sengu" class="w-full h-64 object-cover">
+                    <div class="status-badge absolute top-3 right-3 bg-green-500 text-white text-xs font-bold px-2.5 py-1 rounded-full flex items-center gap-1">
+                        <span class="w-1.5 h-1.5 rounded-full bg-white inline-block"></span> Available
+                    </div>
+                </div>
                 <div class="p-5 text-center">
                     <h3 class="text-xl font-bold text-gray-800 uppercase">Dr. Urmi Sengu</h3>
                     <p class="text-blue-600 font-semibold mb-2">Medicine Specialist</p>
-                    <p class="text-gray-500 text-xs">MBBS, FCPS, MD, FRCP (Glasgow, UK). Head of Medicine Dept.</p>
+                    <p class="text-gray-500 text-xs mb-3">MBBS, FCPS, MD, FRCP (Glasgow, UK). Head of Medicine Dept.</p>
+                    <div class="bg-slate-50 rounded-xl p-3 text-left mb-4 space-y-1.5">
+                        <div class="flex items-center gap-2 text-xs text-slate-500">
+                            <i class="fas fa-stethoscope text-blue-400 w-3.5"></i>
+                            <span>General Checkup, Full Body</span>
+                        </div>
+                        <div class="flex items-center gap-2 text-xs text-slate-500">
+                            <i class="fas fa-clock text-blue-400 w-3.5"></i>
+                            <span>Sat–Thu: 9AM – 5PM</span>
+                        </div>
+                        <div class="flex items-center gap-2 text-xs text-slate-500">
+                            <i class="fas fa-star text-yellow-400 w-3.5"></i>
+                            <span class="font-bold text-slate-700">4.9</span><span>(128 reviews)</span>
+                        </div>
+                    </div>
+                    <a href="appointment.html?doctor=Dr.+Urmi+Sengu" class="book-btn block w-full bg-blue-600 hover:bg-blue-700 text-white py-2.5 rounded-xl text-sm font-bold transition">
+                        📅 Book Appointment
+                    </a>
                 </div>
             </div>
 
-            <div class="bg-white rounded-2xl shadow-lg overflow-hidden border border-gray-100 transition-transform hover:-translate-y-2">
-                <img src="Shakib.jpg" alt="Dr. Shakib" class="w-full h-64 object-cover">
+            <!-- DR. ANANNA -->
+            <div class="doctor-card bg-white rounded-2xl shadow-lg overflow-hidden border border-gray-100 transition-transform hover:-translate-y-2 fade-up s2">
+                <div class="relative">
+                    <img src="Shakib.jpg" alt="Dr. Ananna Patel" class="w-full h-64 object-cover">
+                    <div class="status-badge absolute top-3 right-3 bg-green-500 text-white text-xs font-bold px-2.5 py-1 rounded-full flex items-center gap-1">
+                        <span class="w-1.5 h-1.5 rounded-full bg-white inline-block"></span> Available
+                    </div>
+                </div>
                 <div class="p-5 text-center">
                     <h3 class="text-xl font-bold text-gray-800 uppercase">Dr. Ananna Patel</h3>
                     <p class="text-blue-600 font-semibold mb-2">Cardiologist</p>
-                    <p class="text-gray-500 text-xs">Specializing in heart disease management and cardiac diagnostics.</p>
+                    <p class="text-gray-500 text-xs mb-3">Specializing in heart disease management and cardiac diagnostics.</p>
+                    <div class="bg-slate-50 rounded-xl p-3 text-left mb-4 space-y-1.5">
+                        <div class="flex items-center gap-2 text-xs text-slate-500">
+                            <i class="fas fa-stethoscope text-blue-400 w-3.5"></i>
+                            <span>ECG, Echo, Holter Monitor</span>
+                        </div>
+                        <div class="flex items-center gap-2 text-xs text-slate-500">
+                            <i class="fas fa-clock text-blue-400 w-3.5"></i>
+                            <span>Sun–Thu: 10AM – 6PM</span>
+                        </div>
+                        <div class="flex items-center gap-2 text-xs text-slate-500">
+                            <i class="fas fa-star text-yellow-400 w-3.5"></i>
+                            <span class="font-bold text-slate-700">4.8</span><span>(96 reviews)</span>
+                        </div>
+                    </div>
+                    <a href="appointment.html?doctor=Dr.+Ananna+Patel" class="book-btn block w-full bg-blue-600 hover:bg-blue-700 text-white py-2.5 rounded-xl text-sm font-bold transition">
+                        📅 Book Appointment
+                    </a>
                 </div>
             </div>
 
-            <div class="bg-white rounded-2xl shadow-lg overflow-hidden border border-gray-100 transition-transform hover:-translate-y-2">
-                <img src="Ruhan.jpg" alt="Dr. Ruhan" class="w-full h-64 object-cover">
+            <!-- DR. RUHAN -->
+            <div class="doctor-card bg-white rounded-2xl shadow-lg overflow-hidden border border-gray-100 transition-transform hover:-translate-y-2 fade-up s3">
+                <div class="relative">
+                    <img src="Ruhan.jpg" alt="Dr. Ruhan Mirza" class="w-full h-64 object-cover">
+                    <div class="status-badge absolute top-3 right-3 bg-yellow-500 text-white text-xs font-bold px-2.5 py-1 rounded-full flex items-center gap-1">
+                        <span class="w-1.5 h-1.5 rounded-full bg-white inline-block"></span> Busy Today
+                    </div>
+                </div>
                 <div class="p-5 text-center">
                     <h3 class="text-xl font-bold text-gray-800 uppercase">Dr. Ruhan Mirza</h3>
                     <p class="text-blue-600 font-semibold mb-2">Neurologist</p>
-                    <p class="text-gray-500 text-xs">Expert in neuro-diagnostic testing and brain disorder treatment.</p>
+                    <p class="text-gray-500 text-xs mb-3">Expert in neuro-diagnostic testing and brain disorder treatment.</p>
+                    <div class="bg-slate-50 rounded-xl p-3 text-left mb-4 space-y-1.5">
+                        <div class="flex items-center gap-2 text-xs text-slate-500">
+                            <i class="fas fa-stethoscope text-blue-400 w-3.5"></i>
+                            <span>MRI Brain, EEG, NCV Test</span>
+                        </div>
+                        <div class="flex items-center gap-2 text-xs text-slate-500">
+                            <i class="fas fa-clock text-blue-400 w-3.5"></i>
+                            <span>Sat–Wed: 9AM – 4PM</span>
+                        </div>
+                        <div class="flex items-center gap-2 text-xs text-slate-500">
+                            <i class="fas fa-star text-yellow-400 w-3.5"></i>
+                            <span class="font-bold text-slate-700">4.9</span><span>(142 reviews)</span>
+                        </div>
+                    </div>
+                    <a href="appointment.html?doctor=Dr.+Ruhan+Mirza" class="book-btn block w-full bg-blue-600 hover:bg-blue-700 text-white py-2.5 rounded-xl text-sm font-bold transition">
+                        📅 Book Appointment
+                    </a>
                 </div>
             </div>
 
-            <div class="bg-white rounded-2xl shadow-lg overflow-hidden border border-gray-100 transition-transform hover:-translate-y-2">
-                <img src="Michael.jpg" alt="Dr. Michael Chen" class="w-full h-64 object-cover">
+            <!-- DR. MICHAEL -->
+            <div class="doctor-card bg-white rounded-2xl shadow-lg overflow-hidden border border-gray-100 transition-transform hover:-translate-y-2 fade-up s4">
+                <div class="relative">
+                    <img src="Michael.jpg" alt="Dr. Michael Chen" class="w-full h-64 object-cover">
+                    <div class="status-badge absolute top-3 right-3 bg-green-500 text-white text-xs font-bold px-2.5 py-1 rounded-full flex items-center gap-1">
+                        <span class="w-1.5 h-1.5 rounded-full bg-white inline-block"></span> Available
+                    </div>
+                </div>
                 <div class="p-5 text-center">
                     <h3 class="text-xl font-bold text-gray-800 uppercase">Dr. Michael Chen</h3>
                     <p class="text-blue-600 font-semibold mb-2">Radiologist</p>
-                    <p class="text-gray-500 text-xs">Senior Radiologist with expertise in MRI, CT Scan and X-Ray.</p>
+                    <p class="text-gray-500 text-xs mb-3">Senior Radiologist with expertise in MRI, CT Scan and X-Ray.</p>
+                    <div class="bg-slate-50 rounded-xl p-3 text-left mb-4 space-y-1.5">
+                        <div class="flex items-center gap-2 text-xs text-slate-500">
+                            <i class="fas fa-stethoscope text-blue-400 w-3.5"></i>
+                            <span>MRI, CT Scan, X-Ray, USG</span>
+                        </div>
+                        <div class="flex items-center gap-2 text-xs text-slate-500">
+                            <i class="fas fa-clock text-blue-400 w-3.5"></i>
+                            <span>Sun–Thu: 8AM – 5PM</span>
+                        </div>
+                        <div class="flex items-center gap-2 text-xs text-slate-500">
+                            <i class="fas fa-star text-yellow-400 w-3.5"></i>
+                            <span class="font-bold text-slate-700">4.9</span><span>(187 reviews)</span>
+                        </div>
+                    </div>
+                    <a href="appointment.html?doctor=Dr.+Michael+Chen" class="book-btn block w-full bg-blue-600 hover:bg-blue-700 text-white py-2.5 rounded-xl text-sm font-bold transition">
+                        📅 Book Appointment
+                    </a>
                 </div>
             </div>
 
         </div>
     </section>
+
+    <!-- CTA — same style as index.html -->
+    <section class="py-24 px-6">
+        <div class="max-w-5xl mx-auto bg-blue-600 rounded-[3rem] p-16 text-center text-white shadow-2xl">
+            <h2 class="text-4xl md:text-5xl font-bold mb-8">Ready to Take Control of Your Health?</h2>
+            <p class="text-blue-100 text-xl mb-12 max-w-2xl mx-auto">Book your appointment today and get a special 10% discount on your first checkup.</p>
+            <a href="appointment.html" class="bg-white text-blue-600 px-12 py-5 rounded-full font-bold text-lg hover:shadow-xl hover:-translate-y-1 transition-all">Book An Appointment</a>
+        </div>
+    </section>
+
     <script>
     window.__lc = window.__lc || {};
     window.__lc.license = 19516214;
     window.__lc.integration_name = "manual_onboarding";
     window.__lc.product_name = "livechat";
     ;(function(n,t,c){function i(n){return e._h?e._h.apply(null,n):e._q.push(n)}var e={_q:[],_h:null,_v:"2.0",on:function(){i(["on",c.call(arguments)])},once:function(){i(["once",c.call(arguments)])},off:function(){i(["off",c.call(arguments)])},get:function(){if(!e._h)throw new Error("[LiveChatWidget] You can't use getters before load.");return i(["get",c.call(arguments)])},call:function(){i(["call",c.call(arguments)])},init:function(){var n=t.createElement("script");n.async=!0,n.type="text/javascript",n.src="https://cdn.livechatinc.com/tracking.js",t.head.appendChild(n)}};!n.__lc.asyncInit&&e.init(),n.LiveChatWidget=n.LiveChatWidget||e}(window,document,[].slice))
-</script>
-<!--Start of Tawk.to Script-->
-<script type="text/javascript">
-var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
-(function(){
-var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
-s1.async=true;
-s1.src='https://embed.tawk.to/69b05b58e75f191c369b7edd/1jjce9knh';
-s1.charset='UTF-8';
-s1.setAttribute('crossorigin','*');
-s0.parentNode.insertBefore(s1,s0);
-})();
-</script>
-<!--End of Tawk.to Script-->
+    </script>
+    <script type="text/javascript">
+    var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+    (function(){var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];s1.async=true;s1.src='https://embed.tawk.to/69b05b58e75f191c369b7edd/1jjce9knh';s1.charset='UTF-8';s1.setAttribute('crossorigin','*');s0.parentNode.insertBefore(s1,s0);})();
+    </script>
 
-    <footer class="bg-gray-900 text-gray-400 py-10 text-center">
-        <div class="mb-4">
-            <i class="fas fa-heartbeat text-blue-500 text-3xl"></i>
+    <!-- FOOTER — exact copy from index.html -->
+    <footer class="bg-slate-900 text-slate-400 py-16 px-6">
+        <div class="max-w-7xl mx-auto text-center border-t border-slate-800 pt-10">
+            <div class="flex items-center justify-center gap-2 mb-6 text-white">
+                <i class="fas fa-heartbeat text-2xl"></i>
+                <span class="text-2xl font-bold">MediScan</span>
+            </div>
+            <p class="max-w-md mx-auto mb-10">Dedicated to providing reliable diagnostic care and medical expertise since 2010.</p>
+            <p>© 2026 MediScan Healthcare. All rights reserved.</p>
         </div>
-        <p>© 2026 MediScan Diagnostic Center. All rights reserved.</p>
     </footer>
 
+    <script>
+    // ═══ ADMIN SYNC — Doctor status from LocalStorage ═══
+    var LS_KEY = 'mediscan_v1';
+    var SYNC_KEY = 'mediscan_sync';
+
+    // Map doctor names to their card image/info
+    var DOCTOR_MAP = {
+        'Dr. Urmi Sengu':  {img:'Urmi.jpg',   spec:'Medicine Specialist', qual:'MBBS, FCPS, MD, FRCP (Glasgow, UK). Head of Medicine Dept.', services:'General Checkup, Full Body',    schedule:'Sat–Thu: 9AM – 5PM',  rating:'4.9', reviews:'128'},
+        'Dr. Ananna Patel':{img:'Shakib.jpg',  spec:'Cardiologist',        qual:'Specializing in heart disease management and cardiac diagnostics.', services:'ECG, Echo, Holter Monitor', schedule:'Sun–Thu: 10AM – 6PM', rating:'4.8', reviews:'96'},
+        'Dr. Ruhan Mirza': {img:'Ruhan.jpg',   spec:'Neurologist',         qual:'Expert in neuro-diagnostic testing and brain disorder treatment.', services:'MRI Brain, EEG, NCV Test',  schedule:'Sat–Wed: 9AM – 4PM',  rating:'4.9', reviews:'142'},
+        'Dr. Michael Chen':{img:'Michael.jpg', spec:'Radiologist',         qual:'Senior Radiologist with expertise in MRI, CT Scan and X-Ray.', services:'MRI, CT Scan, X-Ray, USG',  schedule:'Sun–Thu: 8AM – 5PM',  rating:'4.9', reviews:'187'},
+    };
+
+    function loadAdminDoctors() {
+        try {
+            var raw = localStorage.getItem(LS_KEY);
+            if (!raw) return null;
+            var data = JSON.parse(raw);
+            return data.docs || null;
+        } catch(e) { return null; }
+    }
+
+    function getStatusBadge(stat) {
+        if (stat === 'On duty')   return '<div class="status-badge absolute top-3 right-3 bg-green-500 text-white text-xs font-bold px-2.5 py-1 rounded-full flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-white inline-block"></span> Available</div>';
+        if (stat === 'On leave')  return '<div class="status-badge absolute top-3 right-3 bg-yellow-500 text-white text-xs font-bold px-2.5 py-1 rounded-full flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-white inline-block"></span> On Leave</div>';
+        if (stat === 'Part-time') return '<div class="absolute top-3 right-3 bg-blue-500 text-white text-xs font-bold px-2.5 py-1 rounded-full flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-white inline-block"></span> Part-time</div>';
+        return '';
+    }
+
+    function renderAdminDoctors(adminDocs) {
+        var grid = document.getElementById('doctors-grid');
+        if (!grid || !adminDocs || adminDocs.length === 0) return;
+
+        grid.innerHTML = adminDocs.map(function(d) {
+            var info = DOCTOR_MAP[d.name] || {
+                img: 'Urmi.jpg',
+                spec: d.spec || 'Specialist',
+                qual: d.spec + ' · ' + d.exp,
+                services: d.spec,
+                schedule: 'Sat–Thu: 9AM – 5PM',
+                rating: d.rating || '5.0',
+                reviews: '—'
+            };
+            var isLeave = d.stat === 'On leave';
+            return '<div class="doctor-card bg-white rounded-2xl shadow-lg overflow-hidden border border-gray-100 transition-transform hover:-translate-y-2 fade-up">'
+                + '<div class="relative">'
+                    + '<img src="' + info.img + '" alt="' + d.name + '" class="w-full h-64 object-cover' + (isLeave ? ' opacity-75 grayscale' : '') + '">'
+                    + getStatusBadge(d.stat)
+                + '</div>'
+                + '<div class="p-5 text-center">'
+                    + '<h3 class="text-xl font-bold text-gray-800 uppercase">' + d.name + '</h3>'
+                    + '<p class="text-blue-600 font-semibold mb-2">' + info.spec + '</p>'
+                    + '<p class="text-gray-500 text-xs mb-3">' + info.qual + '</p>'
+                    + '<div class="bg-slate-50 rounded-xl p-3 text-left mb-4 space-y-1.5">'
+                        + '<div class="flex items-center gap-2 text-xs text-slate-500"><i class="fas fa-stethoscope text-blue-400 w-3.5"></i><span>' + info.services + '</span></div>'
+                        + '<div class="flex items-center gap-2 text-xs text-slate-500"><i class="fas fa-clock text-blue-400 w-3.5"></i><span>' + info.schedule + '</span></div>'
+                        + '<div class="flex items-center gap-2 text-xs text-slate-500"><i class="fas fa-star text-yellow-400 w-3.5"></i><span class="font-bold text-slate-700">' + info.rating + '</span><span>(' + info.reviews + ' reviews)</span></div>'
+                    + '</div>'
+                    + (isLeave
+                        ? '<div class="block w-full bg-gray-200 text-gray-500 py-2.5 rounded-xl text-sm font-bold text-center">Currently On Leave</div>'
+                        : '<a href="appointment.html?doctor=' + encodeURIComponent(d.name) + '" class="book-btn block w-full bg-blue-600 hover:bg-blue-700 text-white py-2.5 rounded-xl text-sm font-bold transition">📅 Book Appointment</a>'
+                    )
+                + '</div>'
+            + '</div>';
+        }).join('');
+    }
+
+    // Check for doctor sync every 2 seconds
+    var lastSync = null;
+    function checkSync() {
+        try {
+            var raw = localStorage.getItem(SYNC_KEY);
+            if (raw) {
+                var sync = JSON.parse(raw);
+                if (sync.ts !== lastSync && sync.type === 'doctor') {
+                    lastSync = sync.ts;
+                    var docs = loadAdminDoctors();
+                    if (docs) renderAdminDoctors(docs);
+                    showSyncNotice();
+                }
+            }
+        } catch(e) {}
+    }
+
+    function showSyncNotice() {
+        var n = document.getElementById('sync-notice');
+        if (n) { n.style.display = 'flex'; setTimeout(function(){ n.style.display = 'none'; }, 3000); }
+    }
+
+    window.addEventListener('load', function(){
+        var docs = loadAdminDoctors();
+        if (docs && docs.length > 0) renderAdminDoctors(docs);
+        setInterval(checkSync, 2000);
+    });
+    </script>
+
+
+    <script>
+    // ═══ ADMIN SYNC — Doctor status from LocalStorage ═══
+    var LS_KEY = 'mediscan_v1';
+
+    var DOCTOR_MAP = {
+        'Dr. Urmi Sengu':   {el:'doc-urmi',  img:'Urmi.jpg'},
+        'Dr. Ananna Patel': {el:'doc-ananna',img:'Shakib.jpg'},
+        'Dr. Ruhan Mirza':  {el:'doc-ruhan', img:'Ruhan.jpg'},
+        'Dr. Michael Chen': {el:'doc-michael',img:'Michael.jpg'},
+    };
+
+    function syncDoctors() {
+        try {
+            var raw = localStorage.getItem(LS_KEY);
+            if (!raw) return;
+            var data = JSON.parse(raw);
+            if (!data.docs) return;
+
+            data.docs.forEach(function(d) {
+                // Find card by doctor name
+                document.querySelectorAll('.doctor-card').forEach(function(card) {
+                    var nameEl = card.querySelector('h3');
+                    if (!nameEl) return;
+                    var cardName = nameEl.textContent.trim().toUpperCase();
+                    var docName = d.name.toUpperCase();
+                    if (cardName === docName) {
+                        // Update status badge
+                        var badge = card.querySelector('.status-badge');
+                        if (badge) {
+                            if (d.stat === 'On duty') {
+                                badge.className = 'status-badge absolute top-3 right-3 bg-green-500 text-white text-xs font-bold px-2.5 py-1 rounded-full flex items-center gap-1';
+                                badge.innerHTML = '<span class="w-1.5 h-1.5 rounded-full bg-white inline-block"></span> Available';
+                            } else if (d.stat === 'On leave') {
+                                badge.className = 'status-badge absolute top-3 right-3 bg-red-500 text-white text-xs font-bold px-2.5 py-1 rounded-full flex items-center gap-1';
+                                badge.innerHTML = '<span class="w-1.5 h-1.5 rounded-full bg-white inline-block"></span> On Leave';
+                            } else {
+                                badge.className = 'status-badge absolute top-3 right-3 bg-yellow-500 text-white text-xs font-bold px-2.5 py-1 rounded-full flex items-center gap-1';
+                                badge.innerHTML = '<span class="w-1.5 h-1.5 rounded-full bg-white inline-block"></span> ' + d.stat;
+                            }
+                        }
+                        // Update book button — disable if on leave
+                        var bookBtn = card.querySelector('.book-btn');
+                        if (bookBtn) {
+                            if (d.stat === 'On leave') {
+                                bookBtn.style.background = '#9ca3af';
+                                bookBtn.style.cursor = 'not-allowed';
+                                bookBtn.innerHTML = '❌ Currently on Leave';
+                                bookBtn.removeAttribute('href');
+                            } else {
+                                bookBtn.style.background = '';
+                                bookBtn.style.cursor = '';
+                                bookBtn.innerHTML = '📅 Book Appointment';
+                                bookBtn.href = 'appointment.html?doctor=' + encodeURIComponent(d.name);
+                            }
+                        }
+                    }
+                });
+            });
+        } catch(e) {}
+    }
+
+    window.addEventListener('load', function(){
+        syncDoctors();
+        setInterval(syncDoctors, 3000);
+    });
+    window.addEventListener('storage', function(e){
+        if (e.key === LS_KEY) syncDoctors();
+    });
+    </script>
 </body>
 </html>
-
-
-
-
