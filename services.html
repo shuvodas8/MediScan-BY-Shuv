@@ -6,78 +6,410 @@
     <title>Services - MediScan</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Plus Jakarta Sans', sans-serif; }
+        .filter-btn.active { background:#2563eb; color:#fff; border-color:#2563eb; }
+        .filter-btn { transition: all 0.2s; }
+        @keyframes fadeUp { from{opacity:0;transform:translateY(16px);}to{opacity:1;transform:translateY(0);} }
+        .fade-up { animation: fadeUp 0.5s ease both; }
+    </style>
 </head>
-<body class="bg-gray-50">
-    <nav class="bg-white shadow-md py-4 px-6 flex justify-between items-center sticky top-0 z-50">
+<body class="bg-white text-slate-900">
+
+    <!-- NAV — exact copy from index.html -->
+    <nav class="bg-white/80 backdrop-blur-md sticky top-0 z-50 border-b border-gray-100 py-4 px-6 flex justify-between items-center">
         <div class="flex items-center gap-2">
-            <i class="fas fa-heartbeat text-blue-600 text-2xl"></i>
-            <span class="text-2xl font-bold text-blue-700">MediScan</span>
+            <div class="bg-blue-600 p-2 rounded-lg text-white">
+                <i class="fas fa-heartbeat text-xl"></i>
+            </div>
+            <span class="text-2xl font-bold tracking-tight">MediScan</span>
         </div>
-        <div class="hidden md:flex gap-8 font-semibold text-gray-600">
-            <a href="index.html" class="hover:text-blue-600">Home</a>
-            <a href="about.html" class="hover:text-blue-600">About</a>
-            <a href="services.html" class="text-blue-600 border-b-2 border-blue-600">Services</a>
-            <a href="team.html" class="hover:text-blue-600">Our Team</a>
-            <a href="contact.html" class="hover:text-blue-600">Contact</a>
+        <div class="hidden md:flex gap-10 font-semibold text-slate-600">
+            <a href="index.html" class="hover:text-blue-600 transition">Home</a>
+            <a href="about.html" class="hover:text-blue-600 transition">About</a>
+            <a href="services.html" class="text-blue-600">Services</a>
+            <a href="team.html" class="hover:text-blue-600 transition">Our Team</a>
+            <a href="contact.html" class="hover:text-blue-600 transition">Contact</a>
+            <a href="admin.html" style="display:inline-flex;align-items:center;gap:8px;background:linear-gradient(135deg,#3b82f6,#6366f1);color:white;padding:10px 22px;border-radius:50px;text-decoration:none;font-weight:bold;box-shadow:0 4px 15px rgba(59,130,246,0.4);transition:all 0.3s ease;margin-right:10px;">
+                <i class="fas fa-user-shield"></i> Login
+            </a>
         </div>
-        <a href="appointment.html" class="bg-blue-600 text-white px-6 py-2 rounded-lg font-bold">Book Appointment</a>
+        <a href="appointment.html" class="bg-blue-600 text-white px-7 py-3 rounded-full font-bold shadow-lg shadow-blue-200 hover:bg-blue-700 transition">Book Now</a>
     </nav>
 
-    <section class="py-16 px-6 text-center">
-        <h1 class="text-4xl font-extrabold text-blue-800 mb-4">Our Services</h1>
-        <p class="text-gray-600 max-w-2xl mx-auto text-lg">We offer premium diagnostic and healthcare services with advanced technology.</p>
+    <!-- HERO -->
+    <section class="pt-20 pb-16 px-6 text-center bg-white">
+        <h1 class="text-5xl md:text-6xl font-extrabold leading-tight mb-6">
+            Our <span class="text-blue-600">Services</span>
+        </h1>
+        <p class="text-slate-600 text-xl mb-4 max-w-2xl mx-auto leading-relaxed">
+            We offer premium diagnostic and healthcare services with advanced technology.
+        </p>
+        <p class="text-slate-500 max-w-xl mx-auto">সঠিক পরীক্ষা, সঠিক সময়ে — সাশ্রয়ী মূল্যে বিশ্বমানের diagnostic সেবা।</p>
     </section>
 
-    <section class="pb-20 px-6 max-w-7xl mx-auto">
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
-            <div class="bg-white p-8 rounded-3xl shadow-xl border border-gray-100 text-center hover:-translate-y-2 transition-transform">
-                <div class="w-16 h-16 bg-blue-100 rounded-2xl flex items-center justify-center mx-auto mb-6">
-                    <i class="fas fa-stethoscope text-2xl text-blue-600"></i>
-                </div>
-                <h3 class="text-2xl font-bold text-blue-900 mb-4">General Checkup</h3>
-                <p class="text-gray-500">Comprehensive health screenings for you and your family.</p>
-            </div>
-            <div class="bg-white p-8 rounded-3xl shadow-xl border border-gray-100 text-center hover:-translate-y-2 transition-transform">
-                <div class="w-16 h-16 bg-blue-100 rounded-2xl flex items-center justify-center mx-auto mb-6">
-                    <i class="fas fa-microscope text-2xl text-blue-600"></i>
-                </div>
-                <h3 class="text-2xl font-bold text-blue-900 mb-4">Modern Lab Test</h3>
-                <p class="text-gray-500">Highly accurate results using state-of-the-art pathology tools.</p>
-            </div>
-            <div class="bg-white p-8 rounded-3xl shadow-xl border border-gray-100 text-center hover:-translate-y-2 transition-transform">
-                <div class="w-16 h-16 bg-blue-100 rounded-2xl flex items-center justify-center mx-auto mb-6">
-                    <i class="fas fa-ambulance text-2xl text-blue-600"></i>
-                </div>
-                <h3 class="text-2xl font-bold text-blue-900 mb-4">Emergency Care</h3>
-                <p class="text-gray-500">24/7 medical support and ambulance services for emergencies.</p>
-            </div>
+    <!-- STATS — same as index.html -->
+    <section class="py-8 px-6 -mt-4 relative z-10">
+        <div class="max-w-6xl mx-auto bg-white shadow-xl rounded-[2.5rem] p-10 grid grid-cols-2 md:grid-cols-4 gap-8 text-center border border-gray-50">
+            <div><h2 class="text-4xl font-bold text-blue-600">9+</h2><p class="text-slate-500 font-medium">Services</p></div>
+            <div><h2 class="text-4xl font-bold text-blue-600">20k+</h2><p class="text-slate-500 font-medium">Patients Served</p></div>
+            <div><h2 class="text-4xl font-bold text-blue-600">100%</h2><p class="text-slate-500 font-medium">Accurate Results</p></div>
+            <div><h2 class="text-4xl font-bold text-blue-600">24/7</h2><p class="text-slate-500 font-medium">Available</p></div>
         </div>
     </section>
+
+    <!-- FILTER -->
+    <section class="py-10 px-6">
+        <div class="flex flex-wrap gap-3 justify-center">
+            <button onclick="filterSvc(this,'all')" class="filter-btn active px-6 py-2.5 rounded-full text-sm font-semibold border border-gray-200">সব Services</button>
+            <button onclick="filterSvc(this,'pathology')" class="filter-btn px-6 py-2.5 rounded-full text-sm font-semibold border border-gray-200 text-slate-600">🔬 Pathology</button>
+            <button onclick="filterSvc(this,'radiology')" class="filter-btn px-6 py-2.5 rounded-full text-sm font-semibold border border-gray-200 text-slate-600">🩻 Radiology</button>
+            <button onclick="filterSvc(this,'cardiology')" class="filter-btn px-6 py-2.5 rounded-full text-sm font-semibold border border-gray-200 text-slate-600">❤️ Cardiology</button>
+            <button onclick="filterSvc(this,'general')" class="filter-btn px-6 py-2.5 rounded-full text-sm font-semibold border border-gray-200 text-slate-600">🏥 General</button>
+        </div>
+    </section>
+
+
+    <!-- SYNC NOTICE -->
+    <div id="sync-notice" style="display:none;position:fixed;bottom:1.5rem;left:50%;transform:translateX(-50%);background:#1e3a8a;color:white;padding:10px 20px;border-radius:99px;font-size:13px;font-weight:600;z-index:999;align-items:center;gap:8px;box-shadow:0 4px 20px rgba(0,0,0,0.2)">
+        🔄 Admin panel থেকে services update হয়েছে!
+    </div>
+
+    <!-- SERVICES GRID — dynamic from admin panel -->
+    <section class="pb-24 px-6 max-w-7xl mx-auto">
+        <div id="admin-sync-banner" class="hidden mb-6 bg-blue-50 border border-blue-200 rounded-2xl p-4 text-center text-blue-700 text-sm font-semibold">
+            ✅ Admin panel থেকে services update হয়েছে
+        </div>
+        <div id="svc-grid" class="grid grid-cols-1 md:grid-cols-3 gap-10">
+
+            <!-- Blood CBC -->
+            <div data-cat="pathology" class="fade-up bg-white p-8 rounded-3xl shadow-xl border border-gray-100 text-center hover:-translate-y-2 transition-transform">
+                <div class="w-16 h-16 bg-green-50 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                    <i class="fas fa-vial text-2xl text-green-600"></i>
+                </div>
+                <span class="inline-block text-xs font-bold bg-green-100 text-green-700 px-3 py-1 rounded-full mb-4">🔬 Pathology</span>
+                <h3 class="text-2xl font-bold text-blue-900 mb-3">Blood CBC Test</h3>
+                <p class="text-slate-500 mb-4">সম্পূর্ণ রক্ত পরীক্ষা — লোহিত কণিকা, শ্বেত কণিকা ও হিমোগ্লোবিন। রক্তের যেকোনো সমস্যা একটি পরীক্ষায় জানুন।</p>
+                <div class="flex justify-center gap-5 text-xs text-slate-400 mb-6">
+                    <span><i class="fas fa-clock mr-1 text-blue-400"></i>30 min</span>
+                    <span><i class="fas fa-file-alt mr-1 text-blue-400"></i>Same day</span>
+                </div>
+                <div class="border-t border-gray-100 pt-5">
+                    <p class="text-3xl font-extrabold text-blue-600 mb-4">৳600</p>
+                    <a href="appointment.html?service=Blood+CBC" class="inline-block bg-slate-900 text-white px-8 py-3 rounded-full font-bold hover:bg-slate-800 transition">Book Now →</a>
+                </div>
+            </div>
+
+            <!-- Thyroid -->
+            <div data-cat="pathology" class="fade-up bg-white p-8 rounded-3xl shadow-xl border border-gray-100 text-center hover:-translate-y-2 transition-transform">
+                <div class="w-16 h-16 bg-green-50 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                    <i class="fas fa-microscope text-2xl text-green-600"></i>
+                </div>
+                <span class="inline-block text-xs font-bold bg-green-100 text-green-700 px-3 py-1 rounded-full mb-4">🔬 Pathology</span>
+                <h3 class="text-2xl font-bold text-blue-900 mb-3">Thyroid Panel</h3>
+                <p class="text-slate-500 mb-4">TSH, T3, T4 সহ সম্পূর্ণ থাইরয়েড পরীক্ষা। ওজন বৃদ্ধি বা দীর্ঘস্থায়ী ক্লান্তির কারণ নির্ণয় করুন।</p>
+                <div class="flex justify-center gap-5 text-xs text-slate-400 mb-6">
+                    <span><i class="fas fa-clock mr-1 text-blue-400"></i>45 min</span>
+                    <span><i class="fas fa-file-alt mr-1 text-blue-400"></i>Same day</span>
+                </div>
+                <div class="border-t border-gray-100 pt-5">
+                    <p class="text-3xl font-extrabold text-blue-600 mb-4">৳1,800</p>
+                    <a href="appointment.html?service=Thyroid+Panel" class="inline-block bg-slate-900 text-white px-8 py-3 rounded-full font-bold hover:bg-slate-800 transition">Book Now →</a>
+                </div>
+            </div>
+
+            <!-- Lipid Profile -->
+            <div data-cat="pathology" class="fade-up bg-white p-8 rounded-3xl shadow-xl border border-gray-100 text-center hover:-translate-y-2 transition-transform">
+                <div class="w-16 h-16 bg-green-50 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                    <i class="fas fa-heartbeat text-2xl text-green-600"></i>
+                </div>
+                <span class="inline-block text-xs font-bold bg-green-100 text-green-700 px-3 py-1 rounded-full mb-4">🔬 Pathology</span>
+                <h3 class="text-2xl font-bold text-blue-900 mb-3">Lipid Profile</h3>
+                <p class="text-slate-500 mb-4">কোলেস্টেরল, HDL, LDL ও ট্রাইগ্লিসারাইড পরীক্ষা। হৃদরোগের ঝুঁকি আগেই শনাক্ত করুন।</p>
+                <div class="flex justify-center gap-5 text-xs text-slate-400 mb-6">
+                    <span><i class="fas fa-clock mr-1 text-blue-400"></i>1 hr</span>
+                    <span><i class="fas fa-file-alt mr-1 text-blue-400"></i>Same day</span>
+                </div>
+                <div class="border-t border-gray-100 pt-5">
+                    <p class="text-3xl font-extrabold text-blue-600 mb-4">৳1,400</p>
+                    <a href="appointment.html?service=Lipid+Profile" class="inline-block bg-slate-900 text-white px-8 py-3 rounded-full font-bold hover:bg-slate-800 transition">Book Now →</a>
+                </div>
+            </div>
+
+            <!-- MRI Brain -->
+            <div data-cat="radiology" class="fade-up bg-white p-8 rounded-3xl shadow-xl border border-gray-100 text-center hover:-translate-y-2 transition-transform">
+                <div class="w-16 h-16 bg-blue-50 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                    <i class="fas fa-brain text-2xl text-blue-600"></i>
+                </div>
+                <span class="inline-block text-xs font-bold bg-blue-100 text-blue-700 px-3 py-1 rounded-full mb-4">🩻 Radiology</span>
+                <h3 class="text-2xl font-bold text-blue-900 mb-3">MRI Brain</h3>
+                <p class="text-slate-500 mb-4">উন্নত MRI প্রযুক্তিতে মস্তিষ্কের সম্পূর্ণ scan। মাথাব্যথা বা স্নায়বিক সমস্যায় অপরিহার্য পরীক্ষা।</p>
+                <div class="flex justify-center gap-5 text-xs text-slate-400 mb-6">
+                    <span><i class="fas fa-clock mr-1 text-blue-400"></i>1 hr</span>
+                    <span><i class="fas fa-file-alt mr-1 text-blue-400"></i>2-3 hrs</span>
+                </div>
+                <div class="border-t border-gray-100 pt-5">
+                    <p class="text-3xl font-extrabold text-blue-600 mb-4">৳8,000</p>
+                    <a href="appointment.html?service=MRI+Brain" class="inline-block bg-slate-900 text-white px-8 py-3 rounded-full font-bold hover:bg-slate-800 transition">Book Now →</a>
+                </div>
+            </div>
+
+            <!-- CT Scan -->
+            <div data-cat="radiology" class="fade-up bg-white p-8 rounded-3xl shadow-xl border border-gray-100 text-center hover:-translate-y-2 transition-transform">
+                <div class="w-16 h-16 bg-blue-50 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                    <i class="fas fa-lungs text-2xl text-blue-600"></i>
+                </div>
+                <span class="inline-block text-xs font-bold bg-blue-100 text-blue-700 px-3 py-1 rounded-full mb-4">🩻 Radiology</span>
+                <h3 class="text-2xl font-bold text-blue-900 mb-3">CT Scan Chest</h3>
+                <p class="text-slate-500 mb-4">বুকের সম্পূর্ণ CT scan — ফুসফুস, হৃদয় ও রক্তনালী একসাথে পরীক্ষা। দ্রুত ও নির্ভুল ফলাফল।</p>
+                <div class="flex justify-center gap-5 text-xs text-slate-400 mb-6">
+                    <span><i class="fas fa-clock mr-1 text-blue-400"></i>45 min</span>
+                    <span><i class="fas fa-file-alt mr-1 text-blue-400"></i>2 hrs</span>
+                </div>
+                <div class="border-t border-gray-100 pt-5">
+                    <p class="text-3xl font-extrabold text-blue-600 mb-4">৳6,500</p>
+                    <a href="appointment.html?service=CT+Scan" class="inline-block bg-slate-900 text-white px-8 py-3 rounded-full font-bold hover:bg-slate-800 transition">Book Now →</a>
+                </div>
+            </div>
+
+            <!-- X-Ray -->
+            <div data-cat="radiology" class="fade-up bg-white p-8 rounded-3xl shadow-xl border border-gray-100 text-center hover:-translate-y-2 transition-transform">
+                <div class="w-16 h-16 bg-blue-50 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                    <i class="fas fa-x-ray text-2xl text-blue-600"></i>
+                </div>
+                <span class="inline-block text-xs font-bold bg-blue-100 text-blue-700 px-3 py-1 rounded-full mb-4">🩻 Radiology</span>
+                <h3 class="text-2xl font-bold text-blue-900 mb-3">X-Ray Chest</h3>
+                <p class="text-slate-500 mb-4">দ্রুত ও নির্ভুল বুকের X-Ray। ফুসফুসের infection বা হাড়ের সমস্যা নির্ণয়ে সবচেয়ে কার্যকর।</p>
+                <div class="flex justify-center gap-5 text-xs text-slate-400 mb-6">
+                    <span><i class="fas fa-clock mr-1 text-blue-400"></i>15 min</span>
+                    <span><i class="fas fa-file-alt mr-1 text-blue-400"></i>Instant</span>
+                </div>
+                <div class="border-t border-gray-100 pt-5">
+                    <p class="text-3xl font-extrabold text-blue-600 mb-4">৳1,500</p>
+                    <a href="appointment.html?service=X-Ray+Chest" class="inline-block bg-slate-900 text-white px-8 py-3 rounded-full font-bold hover:bg-slate-800 transition">Book Now →</a>
+                </div>
+            </div>
+
+            <!-- ECG -->
+            <div data-cat="cardiology" class="fade-up bg-white p-8 rounded-3xl shadow-xl border border-gray-100 text-center hover:-translate-y-2 transition-transform">
+                <div class="w-16 h-16 bg-red-50 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                    <i class="fas fa-heart-pulse text-2xl text-red-500"></i>
+                </div>
+                <span class="inline-block text-xs font-bold bg-red-100 text-red-600 px-3 py-1 rounded-full mb-4">❤️ Cardiology</span>
+                <h3 class="text-2xl font-bold text-blue-900 mb-3">ECG</h3>
+                <p class="text-slate-500 mb-4">হৃদপিণ্ডের বৈদ্যুতিক কার্যক্রম পরীক্ষা। বুকে ব্যথা বা অনিয়মিত হৃদস্পন্দনে অবশ্যই করুন।</p>
+                <div class="flex justify-center gap-5 text-xs text-slate-400 mb-6">
+                    <span><i class="fas fa-clock mr-1 text-blue-400"></i>20 min</span>
+                    <span><i class="fas fa-file-alt mr-1 text-blue-400"></i>Instant</span>
+                </div>
+                <div class="border-t border-gray-100 pt-5">
+                    <p class="text-3xl font-extrabold text-blue-600 mb-4">৳1,200</p>
+                    <a href="appointment.html?service=ECG" class="inline-block bg-slate-900 text-white px-8 py-3 rounded-full font-bold hover:bg-slate-800 transition">Book Now →</a>
+                </div>
+            </div>
+
+            <!-- Ultrasound -->
+            <div data-cat="radiology" class="fade-up bg-white p-8 rounded-3xl shadow-xl border border-gray-100 text-center hover:-translate-y-2 transition-transform">
+                <div class="w-16 h-16 bg-purple-50 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                    <i class="fas fa-wave-square text-2xl text-purple-600"></i>
+                </div>
+                <span class="inline-block text-xs font-bold bg-purple-100 text-purple-700 px-3 py-1 rounded-full mb-4">🩻 Radiology</span>
+                <h3 class="text-2xl font-bold text-blue-900 mb-3">Ultrasound (USG)</h3>
+                <p class="text-slate-500 mb-4">পেট, লিভার, কিডনি সহ যেকোনো অঙ্গের Ultrasound। পেটব্যথা বা গর্ভাবস্থায় অপরিহার্য।</p>
+                <div class="flex justify-center gap-5 text-xs text-slate-400 mb-6">
+                    <span><i class="fas fa-clock mr-1 text-blue-400"></i>30 min</span>
+                    <span><i class="fas fa-file-alt mr-1 text-blue-400"></i>Same day</span>
+                </div>
+                <div class="border-t border-gray-100 pt-5">
+                    <p class="text-3xl font-extrabold text-blue-600 mb-4">৳2,000</p>
+                    <a href="appointment.html?service=Ultrasound" class="inline-block bg-slate-900 text-white px-8 py-3 rounded-full font-bold hover:bg-slate-800 transition">Book Now →</a>
+                </div>
+            </div>
+
+            <!-- Full Body Checkup -->
+            <div data-cat="general" class="fade-up bg-white p-8 rounded-3xl shadow-xl border-2 border-blue-200 text-center hover:-translate-y-2 transition-transform relative">
+                <div class="absolute top-4 right-4 bg-blue-600 text-white text-xs font-bold px-3 py-1 rounded-full">⭐ Best Value</div>
+                <div class="w-16 h-16 bg-blue-50 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                    <i class="fas fa-stethoscope text-2xl text-blue-600"></i>
+                </div>
+                <span class="inline-block text-xs font-bold bg-blue-100 text-blue-700 px-3 py-1 rounded-full mb-4">🏥 General</span>
+                <h3 class="text-2xl font-bold text-blue-900 mb-3">Full Body Checkup</h3>
+                <p class="text-slate-500 mb-3">সম্পূর্ণ স্বাস্থ্য পরীক্ষা — Blood, Urine, ECG, X-Ray, Thyroid ও Sugar সব একসাথে।</p>
+                <div class="bg-slate-50 rounded-2xl p-3 mb-4 text-left">
+                    <p class="text-xs font-semibold text-blue-700 mb-1.5">📦 Package Includes:</p>
+                    <div class="flex flex-wrap gap-1.5">
+                        <span class="text-xs bg-white border border-gray-200 px-2 py-0.5 rounded-full">Blood CBC</span>
+                        <span class="text-xs bg-white border border-gray-200 px-2 py-0.5 rounded-full">Blood Sugar</span>
+                        <span class="text-xs bg-white border border-gray-200 px-2 py-0.5 rounded-full">Thyroid</span>
+                        <span class="text-xs bg-white border border-gray-200 px-2 py-0.5 rounded-full">Lipid Profile</span>
+                        <span class="text-xs bg-white border border-gray-200 px-2 py-0.5 rounded-full">Urine R/E</span>
+                        <span class="text-xs bg-white border border-gray-200 px-2 py-0.5 rounded-full">ECG</span>
+                        <span class="text-xs bg-white border border-gray-200 px-2 py-0.5 rounded-full">X-Ray</span>
+                    </div>
+                </div>
+                <div class="flex justify-center gap-5 text-xs text-slate-400 mb-6">
+                    <span><i class="fas fa-clock mr-1 text-blue-400"></i>2-3 hrs</span>
+                    <span><i class="fas fa-file-alt mr-1 text-blue-400"></i>Same day</span>
+                </div>
+                <div class="border-t border-gray-100 pt-5">
+                    <div class="mb-4">
+                        <span class="text-3xl font-extrabold text-blue-600">৳3,500</span>
+                        <span class="text-slate-400 line-through text-sm ml-2">৳5,500</span>
+                        <span class="text-green-600 text-xs font-bold ml-1">36% off</span>
+                    </div>
+                    <a href="appointment.html?service=Full+Body+Checkup" class="inline-block bg-blue-600 text-white px-8 py-3 rounded-full font-bold hover:bg-blue-700 transition shadow-lg shadow-blue-200">Book Now →</a>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- CTA — same style as index.html -->
+    <section class="py-24 px-6">
+        <div class="max-w-5xl mx-auto bg-blue-600 rounded-[3rem] p-16 text-center text-white shadow-2xl">
+            <h2 class="text-4xl md:text-5xl font-bold mb-8">Ready to Take Control of Your Health?</h2>
+            <p class="text-blue-100 text-xl mb-12 max-w-2xl mx-auto">কোন test করাবেন বুঝতে পারছেন না? আমাদের specialist এর সাথে কথা বলুন।</p>
+            <a href="appointment.html" class="bg-white text-blue-600 px-12 py-5 rounded-full font-bold text-lg hover:shadow-xl hover:-translate-y-1 transition-all">Book An Appointment</a>
+        </div>
+    </section>
+
+
     <script>
     window.__lc = window.__lc || {};
     window.__lc.license = 19516214;
     window.__lc.integration_name = "manual_onboarding";
     window.__lc.product_name = "livechat";
     ;(function(n,t,c){function i(n){return e._h?e._h.apply(null,n):e._q.push(n)}var e={_q:[],_h:null,_v:"2.0",on:function(){i(["on",c.call(arguments)])},once:function(){i(["once",c.call(arguments)])},off:function(){i(["off",c.call(arguments)])},get:function(){if(!e._h)throw new Error("[LiveChatWidget] You can't use getters before load.");return i(["get",c.call(arguments)])},call:function(){i(["call",c.call(arguments)])},init:function(){var n=t.createElement("script");n.async=!0,n.type="text/javascript",n.src="https://cdn.livechatinc.com/tracking.js",t.head.appendChild(n)}};!n.__lc.asyncInit&&e.init(),n.LiveChatWidget=n.LiveChatWidget||e}(window,document,[].slice))
-</script>
-<!--Start of Tawk.to Script-->
-<script type="text/javascript">
-var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
-(function(){
-var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
-s1.async=true;
-s1.src='https://embed.tawk.to/69b05b58e75f191c369b7edd/1jjce9knh';
-s1.charset='UTF-8';
-s1.setAttribute('crossorigin','*');
-s0.parentNode.insertBefore(s1,s0);
-})();
-</script>
-<!--End of Tawk.to Script-->
-    <footer class="bg-gray-900 text-white py-10 text-center">
-        <i class="fas fa-heartbeat text-blue-500 text-3xl mb-4"></i>
-        <p class="text-gray-400">© 2026 MediScan Diagnostic Center. All rights reserved.</p>
+    </script>
+    <script type="text/javascript">
+    var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+    (function(){var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];s1.async=true;s1.src='https://embed.tawk.to/69b05b58e75f191c369b7edd/1jjce9knh';s1.charset='UTF-8';s1.setAttribute('crossorigin','*');s0.parentNode.insertBefore(s1,s0);})();
+    </script>
+
+    <!-- FOOTER — exact copy from index.html -->
+    <footer class="bg-slate-900 text-slate-400 py-16 px-6">
+        <div class="max-w-7xl mx-auto text-center border-t border-slate-800 pt-10">
+            <div class="flex items-center justify-center gap-2 mb-6 text-white">
+                <i class="fas fa-heartbeat text-2xl"></i>
+                <span class="text-2xl font-bold">MediScan</span>
+            </div>
+            <p class="max-w-md mx-auto mb-10">Dedicated to providing reliable diagnostic care and medical expertise since 2010.</p>
+            <p>© 2026 MediScan Healthcare. All rights reserved.</p>
+        </div>
     </footer>
+
+    <script>
+    // ═══ ADMIN SYNC — Services from LocalStorage ═══
+    var LS_KEY = 'mediscan_v1';
+    var SYNC_KEY = 'mediscan_sync';
+
+    var CAT_COLORS = {
+        'Pathology': {bg:'bg-green-50', icon:'text-green-600', badge:'bg-green-100 text-green-700', label:'🔬 Pathology', cat:'pathology'},
+        'Radiology':  {bg:'bg-blue-50',  icon:'text-blue-600',  badge:'bg-blue-100 text-blue-700',   label:'🩻 Radiology',  cat:'radiology'},
+        'Cardiology': {bg:'bg-red-50',   icon:'text-red-500',   badge:'bg-red-100 text-red-600',     label:'❤️ Cardiology', cat:'cardiology'},
+        'General':    {bg:'bg-blue-50',  icon:'text-blue-600',  badge:'bg-blue-100 text-blue-700',   label:'🏥 General',    cat:'general'},
+        'Neurology':  {bg:'bg-purple-50',icon:'text-purple-600',badge:'bg-purple-100 text-purple-700',label:'🧠 Neurology', cat:'neurology'},
+    };
+    var CAT_ICONS = {
+        'Pathology':'fa-vial','Radiology':'fa-brain','Cardiology':'fa-heart-pulse',
+        'General':'fa-stethoscope','Neurology':'fa-brain',
+    };
+
+    function loadAdminServices() {
+        try {
+            var raw = localStorage.getItem(LS_KEY);
+            if (!raw) return null;
+            var data = JSON.parse(raw);
+            return data.svcs || null;
+        } catch(e) { return null; }
+    }
+
+    function renderAdminServices(svcs) {
+        var grid = document.getElementById('svc-grid');
+        if (!grid || !svcs || svcs.length === 0) return;
+
+        // Only show Active or Limited
+        var active = svcs.filter(function(s){ return s.stat !== 'Inactive'; });
+        if (active.length === 0) return;
+
+        grid.innerHTML = active.map(function(s, i) {
+            var c = CAT_COLORS[s.cat] || CAT_COLORS['General'];
+            var ico = CAT_ICONS[s.cat] || 'fa-stethoscope';
+            var isBest = s.name === 'Full Body Checkup';
+            var isLimited = s.stat === 'Limited';
+
+            return '<div data-cat="' + c.cat + '" class="fade-up bg-white p-8 rounded-3xl shadow-xl border ' + (isBest ? 'border-2 border-blue-200' : 'border-gray-100') + ' text-center hover:-translate-y-2 transition-transform relative">'
+                + (isBest ? '<div class="absolute top-4 right-4 bg-blue-600 text-white text-xs font-bold px-3 py-1 rounded-full">⭐ Best Value</div>' : '')
+                + (isLimited ? '<div class="absolute top-4 left-4 bg-yellow-500 text-white text-xs font-bold px-3 py-1 rounded-full">⚠ Limited</div>' : '')
+                + '<div class="w-16 h-16 ' + c.bg + ' rounded-2xl flex items-center justify-center mx-auto mb-4">'
+                    + '<i class="fas ' + ico + ' text-2xl ' + c.icon + '"></i>'
+                + '</div>'
+                + '<span class="inline-block text-xs font-bold ' + c.badge + ' px-3 py-1 rounded-full mb-4">' + c.label + '</span>'
+                + '<h3 class="text-2xl font-bold text-blue-900 mb-3">' + s.name + '</h3>'
+                + '<div class="flex justify-center gap-5 text-xs text-slate-400 mb-6">'
+                    + '<span><i class="fas fa-clock mr-1 text-blue-400"></i>' + (s.dur || '—') + '</span>'
+                    + '<span><i class="fas fa-file-alt mr-1 text-blue-400"></i>Same day</span>'
+                + '</div>'
+                + '<div class="border-t border-gray-100 pt-5">'
+                    + '<p class="text-3xl font-extrabold text-blue-600 mb-4">৳' + (s.price || 0).toLocaleString() + '</p>'
+                    + '<a href="appointment.html?service=' + encodeURIComponent(s.name) + '" class="inline-block bg-slate-900 text-white px-8 py-3 rounded-full font-bold hover:bg-slate-800 transition">Book Now →</a>'
+                + '</div>'
+            + '</div>';
+        }).join('');
+
+        // Re-apply current filter
+        var activeBtn = document.querySelector('.filter-btn.active');
+        if (activeBtn) {
+            var cat = activeBtn.getAttribute('data-cat') || 'all';
+            applyFilter(cat);
+        }
+    }
+
+    function applyFilter(cat) {
+        document.querySelectorAll('[data-cat]').forEach(function(c){
+            c.style.display = (cat === 'all' || c.dataset.cat === cat) ? '' : 'none';
+        });
+    }
+
+    function filterSvc(btn, cat) {
+        document.querySelectorAll('.filter-btn').forEach(function(b){ b.classList.remove('active'); });
+        btn.classList.add('active');
+        btn.setAttribute('data-cat', cat);
+        applyFilter(cat);
+    }
+
+    // Check for admin updates every 2 seconds
+    var lastSync = null;
+    function checkSync() {
+        try {
+            var raw = localStorage.getItem(SYNC_KEY);
+            if (raw) {
+                var sync = JSON.parse(raw);
+                if (sync.ts !== lastSync && sync.type === 'service') {
+                    lastSync = sync.ts;
+                    var svcs = loadAdminServices();
+                    if (svcs) renderAdminServices(svcs);
+                    showSyncNotice();
+                }
+            }
+        } catch(e) {}
+    }
+
+    function showSyncNotice() {
+        var n = document.getElementById('sync-notice');
+        if (n) { n.style.display = 'flex'; setTimeout(function(){ n.style.display = 'none'; }, 3000); }
+    }
+
+    // On load — try to use admin data
+    window.addEventListener('load', function(){
+        var svcs = loadAdminServices();
+        if (svcs && svcs.length > 0) {
+            renderAdminServices(svcs);
+        }
+        setInterval(checkSync, 2000);
+    });
+    </script>
+
 </body>
 </html>
-
-
