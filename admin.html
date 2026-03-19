@@ -20,20 +20,18 @@
 }
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden}
-::-webkit-scrollbar{width:4px}
-::-webkit-scrollbar-thumb{background:rgba(0,229,160,0.25);border-radius:99px}
+::-webkit-scrollbar{width:4px}::-webkit-scrollbar-thumb{background:rgba(0,229,160,0.25);border-radius:99px}
 #particles{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden}
-.particle{position:absolute;border-radius:50%;pointer-events:none;animation:floatUp linear infinite;opacity:0}
-@keyframes floatUp{0%{transform:translateY(110vh) translateX(0);opacity:0}10%{opacity:0.6}90%{opacity:0.2}100%{transform:translateY(-50px) translateX(var(--dx));opacity:0}}
+.particle{position:absolute;border-radius:50%;animation:floatUp linear infinite;opacity:0}
+@keyframes floatUp{0%{transform:translateY(110vh);opacity:0}10%{opacity:.6}90%{opacity:.2}100%{transform:translateY(-50px) translateX(var(--dx));opacity:0}}
 .orb{position:fixed;border-radius:50%;filter:blur(100px);pointer-events:none;z-index:0}
-
 /* LOGIN */
 #login-screen{position:fixed;inset:0;z-index:9999;display:flex;align-items:center;justify-content:center;background:var(--bg)}
 .lcard{position:relative;z-index:1;width:420px;background:var(--bg2);border:1px solid var(--border2);border-radius:24px;padding:2.5rem;animation:slideUp .7s cubic-bezier(.16,1,.3,1) both;overflow:hidden}
-@keyframes slideUp{from{opacity:0;transform:translateY(28px) scale(.96)}to{opacity:1;transform:translateY(0) scale(1)}}
+@keyframes slideUp{from{opacity:0;transform:translateY(28px) scale(.96)}to{opacity:1;transform:none}}
 .lcard::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--green),transparent);animation:scan 3s linear infinite}
 @keyframes scan{0%{transform:translateX(-100%)}100%{transform:translateX(100%)}}
-.lglow{position:absolute;top:-80px;left:50%;transform:translateX(-50%);width:200px;height:200px;border-radius:50%;background:radial-gradient(circle,rgba(0,229,160,0.12),transparent 70%);pointer-events:none}
+.lglow{position:absolute;top:-80px;left:50%;transform:translateX(-50%);width:200px;height:200px;border-radius:50%;background:radial-gradient(circle,rgba(0,229,160,.12),transparent 70%);pointer-events:none}
 .llogo{font-family:'Playfair Display',serif;font-size:30px;color:var(--green);display:flex;align-items:center;gap:10px;margin-bottom:4px}
 .lpulse{width:11px;height:11px;border-radius:50%;background:var(--green);animation:pulse 2s ease-in-out infinite}
 @keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(0,229,160,.5)}50%{box-shadow:0 0 0 8px rgba(0,229,160,0)}}
@@ -42,22 +40,18 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);min-
 .linput{width:100%;padding:11px 14px;background:var(--glass);border:1px solid var(--border);border-radius:var(--r2);font-size:14px;font-family:'Outfit',sans-serif;color:var(--text);transition:all .2s;margin-bottom:1rem}
 .linput:focus{outline:none;border-color:var(--green);background:var(--glass2);box-shadow:0 0 0 3px rgba(0,229,160,.08)}
 .linput::placeholder{color:var(--text3)}
-.lbtn{width:100%;padding:13px;background:linear-gradient(135deg,var(--green),var(--green2));color:#000;border:none;border-radius:var(--r2);font-size:14px;font-weight:700;font-family:'Outfit',sans-serif;cursor:pointer;letter-spacing:.04em;transition:all .25s}
+.lbtn{width:100%;padding:13px;background:linear-gradient(135deg,var(--green),var(--green2));color:#000;border:none;border-radius:var(--r2);font-size:14px;font-weight:700;font-family:'Outfit',sans-serif;cursor:pointer;transition:all .25s}
 .lbtn:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,229,160,.4)}
-.lerr{font-size:12px;color:var(--red);margin-top:10px;display:none;animation:shake .3s ease}
-@keyframes shake{0%,100%{transform:translateX(0)}30%{transform:translateX(-8px)}70%{transform:translateX(8px)}}
+.lerr{font-size:12px;color:var(--red);margin-top:10px;display:none}
 .lhint{font-size:11px;color:var(--text3);text-align:center;margin-top:.75rem}
-
 /* APP */
 #app{display:none;position:relative;z-index:1}
-
 /* SIDEBAR */
 .sidebar{position:fixed;left:0;top:0;bottom:0;width:var(--sw);background:var(--bg2);border-right:1px solid var(--border);display:flex;flex-direction:column;z-index:200}
 .slogo-wrap{padding:1.4rem 1.25rem 1rem;border-bottom:1px solid var(--border)}
 .slogo{font-family:'Playfair Display',serif;font-size:22px;color:var(--green);display:flex;align-items:center;gap:8px}
 .slogo-sub{font-size:10.5px;color:var(--text3);letter-spacing:.08em;text-transform:uppercase;margin-top:2px}
-.snav{flex:1;overflow-y:auto;padding:.5rem 0}
-.snav::-webkit-scrollbar{width:0}
+.snav{flex:1;overflow-y:auto;padding:.5rem 0}.snav::-webkit-scrollbar{width:0}
 .nsec{font-size:10px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--text3);padding:.9rem 1.25rem .3rem}
 .ni{display:flex;align-items:center;gap:11px;padding:9px 1.25rem;font-size:13.5px;color:var(--text2);cursor:pointer;border-left:2px solid transparent;transition:all .18s;user-select:none}
 .ni:hover{color:var(--text);background:var(--glass)}
@@ -68,15 +62,12 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);min-
 .sfoot{padding:1rem 1.25rem;border-top:1px solid var(--border)}
 .ucard{display:flex;align-items:center;gap:10px;padding:9px;border-radius:var(--r2);background:var(--glass);border:1px solid var(--border)}
 .uav{width:36px;height:36px;border-radius:10px;background:linear-gradient(135deg,var(--green),var(--green2));display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:#000;flex-shrink:0}
-.uname{font-size:13px;font-weight:600}
-.urole{font-size:10.5px;color:var(--text3)}
+.uname{font-size:13px;font-weight:600}.urole{font-size:10.5px;color:var(--text3)}
 .lout{margin-left:auto;background:none;border:none;font-size:17px;color:var(--text3);cursor:pointer;padding:4px;border-radius:6px;transition:all .2s}
 .lout:hover{color:var(--red);background:var(--red2)}
-
 /* TOPBAR */
 .topbar{position:fixed;left:var(--sw);right:0;top:0;height:var(--th);background:rgba(10,22,40,.85);border-bottom:1px solid var(--border);backdrop-filter:blur(16px);display:flex;align-items:center;justify-content:space-between;padding:0 1.5rem;z-index:100}
-.ptitle{font-size:17px;font-weight:700}
-.pbread{font-size:11px;color:var(--text3);margin-top:1px}
+.ptitle{font-size:17px;font-weight:700}.pbread{font-size:11px;color:var(--text3);margin-top:1px}
 .tright{display:flex;align-items:center;gap:8px}
 .tsearch{display:flex;align-items:center;gap:8px;background:var(--glass);border:1px solid var(--border);border-radius:var(--r2);padding:7px 12px;transition:all .2s}
 .tsearch:focus-within{border-color:var(--green)}
@@ -85,29 +76,23 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);min-
 .ibtn{width:36px;height:36px;border-radius:var(--r2);background:var(--glass);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:15px;position:relative}
 .dot{width:7px;height:7px;background:var(--red);border-radius:50%;position:absolute;top:5px;right:5px;border:2px solid var(--bg2)}
 .dbadge{font-size:12px;color:var(--text2);background:var(--glass);border:1px solid var(--border);padding:6px 12px;border-radius:var(--r2)}
-
 /* MAIN */
 .main{margin-left:var(--sw);margin-top:var(--th);padding:1.5rem;min-height:calc(100vh - var(--th))}
-
-/* PANELS — KEY FIX */
-.panel{display:none}
-.panel.on{display:block;animation:pin .35s cubic-bezier(.16,1,.3,1) both}
-@keyframes pin{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
-
+.panel{display:none}.panel.on{display:block;animation:pin .35s cubic-bezier(.16,1,.3,1) both}
+@keyframes pin{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
 /* CARDS */
 .card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);padding:1.25rem;position:relative;overflow:hidden;transition:border-color .2s}
 .card:hover{border-color:var(--border2)}
-.cshine{position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.05),transparent)}
+.cshine{position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.05),transparent)}
 .ch{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.2rem}
 .ct{font-size:14px;font-weight:600;display:flex;align-items:center;gap:8px}
 .mb{margin-bottom:1.25rem}
 .g2{display:grid;grid-template-columns:1.55fr 1fr;gap:14px;margin-bottom:1.25rem}
 .g3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:1.25rem}
 .g4{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:1.25rem}
-
 /* STAT CARDS */
 .sg{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:1.25rem}
-.sc{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);padding:1.2rem;position:relative;overflow:hidden;transition:all .3s cubic-bezier(.16,1,.3,1);cursor:default}
+.sc{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);padding:1.2rem;position:relative;overflow:hidden;transition:all .3s;cursor:default}
 .sc:hover{transform:translateY(-3px);border-color:var(--border2)}
 .sc::before{content:'';position:absolute;inset:0;opacity:0;transition:opacity .3s;border-radius:var(--r)}
 .sc:hover::before{opacity:1}
@@ -125,7 +110,6 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);min-
 .spark{height:36px;display:flex;align-items:flex-end;gap:3px;margin-top:.6rem}
 .spk{flex:1;border-radius:3px 3px 0 0;min-height:3px}
 @keyframes spkIn{from{height:0;opacity:0}to{opacity:1}}
-
 /* TABLE */
 .tw{overflow-x:auto}
 table{width:100%;border-collapse:collapse;font-size:13px}
@@ -134,12 +118,11 @@ th:first-child{padding-left:0}
 td{padding:11px 10px 11px 0;border-bottom:1px solid var(--border);color:var(--text2);vertical-align:middle}
 td:first-child{padding-left:0;color:var(--text);font-weight:500}
 tr:last-child td{border-bottom:none}
-tr:hover td{background:rgba(255,255,255,0.015)}
+tr:hover td{background:rgba(255,255,255,.015)}
 .avc{display:flex;align-items:center;gap:9px}
 .mav{width:30px;height:30px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0}
-
 /* BADGES */
-.bdg{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:600;padding:3px 9px;border-radius:99px;white-space:nowrap}
+.bdg{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:600;padding:3px 9px;border-radius:99px;white-space:nowrap;cursor:default}
 .bdg::before{content:'';width:5px;height:5px;border-radius:50%;flex-shrink:0}
 .bg{background:var(--green3);color:var(--green)}.bg::before{background:var(--green)}
 .ba{background:var(--amber2);color:var(--amber)}.ba::before{background:var(--amber)}
@@ -147,100 +130,90 @@ tr:hover td{background:rgba(255,255,255,0.015)}
 .bb{background:var(--blue2);color:var(--blue)}.bb::before{background:var(--blue)}
 .bp{background:var(--purple2);color:var(--purple)}.bp::before{background:var(--purple)}
 .bgr{background:var(--glass);color:var(--text3)}.bgr::before{background:var(--text3)}
-
 /* BUTTONS */
-.btn{display:inline-flex;align-items:center;gap:7px;padding:9px 15px;border-radius:var(--r2);font-size:13px;font-weight:500;font-family:'Outfit',sans-serif;cursor:pointer;transition:all .2s;border:1px solid var(--border);background:var(--glass);color:var(--text2)}
+.btn{display:inline-flex;align-items:center;gap:7px;padding:8px 14px;border-radius:var(--r2);font-size:12.5px;font-weight:500;font-family:'Outfit',sans-serif;cursor:pointer;transition:all .2s;border:1px solid var(--border);background:var(--glass);color:var(--text2)}
 .btn:hover{background:var(--glass2);color:var(--text);border-color:var(--border2)}
 .btn:active{transform:scale(.98)}
 .btnp{background:linear-gradient(135deg,var(--green),var(--green2))!important;color:#000!important;border-color:transparent!important;font-weight:700!important}
 .btnp:hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(0,229,160,.35)}
-.btnsm{padding:5px 11px;font-size:11px;border-radius:7px}
+.btnsm{padding:4px 10px;font-size:11px;border-radius:7px}
 .btnd{background:var(--red2)!important;color:var(--red)!important;border-color:transparent!important}
 .btnd:hover{background:var(--red)!important;color:#fff!important}
-
-/* PROGRESS */
+.btne{background:var(--blue2)!important;color:var(--blue)!important;border-color:transparent!important}
+.btne:hover{background:var(--blue)!important;color:#fff!important}
+/* STATUS SELECT */
+.stat-sel{background:var(--glass);border:1px solid var(--border);border-radius:7px;color:var(--text);font-family:'Outfit',sans-serif;font-size:11px;padding:3px 7px;cursor:pointer;outline:none}
+.stat-sel:focus{border-color:var(--green)}
+.stat-sel option{background:var(--bg2)}
+/* PROGRESS BARS */
 .pr{display:flex;align-items:center;gap:12px;margin-bottom:13px}
 .plbl{font-size:12px;color:var(--text2);width:78px;flex-shrink:0}
 .ptrk{flex:1;height:6px;background:var(--glass);border-radius:99px;overflow:hidden}
 .pfil{height:100%;border-radius:99px;transition:width 1.4s cubic-bezier(.16,1,.3,1)}
 .ppct{font-size:12px;color:var(--text3);width:32px;text-align:right}
-
 /* SCHEDULE */
 .si{display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid var(--border);transition:all .15s}
 .si:last-child{border-bottom:none}
 .sdot{width:9px;height:9px;border-radius:50%;flex-shrink:0}
-.sname{font-size:13px;font-weight:600}
-.smeta{font-size:11px;color:var(--text3);margin-top:1px}
+.sname{font-size:13px;font-weight:600}.smeta{font-size:11px;color:var(--text3);margin-top:1px}
 .stime{margin-left:auto;font-size:12px;color:var(--text3);white-space:nowrap;display:flex;flex-direction:column;align-items:flex-end;gap:4px}
-
 /* ACTIVITY */
 .ai{display:flex;gap:12px;padding:10px 0;border-bottom:1px solid var(--border)}
 .ai:last-child{border-bottom:none}
 .aico{width:34px;height:34px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0}
-.atxt{font-size:13px;line-height:1.55}
-.atxt span{color:var(--green);font-weight:600}
+.atxt{font-size:13px;line-height:1.55}.atxt span{color:var(--green);font-weight:600}
 .atm{font-size:11px;color:var(--text3);margin-top:2px}
-
 /* DOCTOR CARDS */
 .dc{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);padding:1.25rem;transition:all .3s}
 .dc:hover{border-color:var(--green);transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,229,160,.08)}
 .dav{width:50px;height:50px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:700;margin-bottom:.75rem}
-
 /* REPORT STAT */
 .rst{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);padding:1.25rem;text-align:center;transition:all .3s}
 .rst:hover{border-color:var(--border2);transform:translateY(-2px)}
-.rnum{font-size:30px;font-weight:700;margin-bottom:4px}
-.rlbl{font-size:12px;color:var(--text3)}
-
+.rnum{font-size:30px;font-weight:700;margin-bottom:4px}.rlbl{font-size:12px;color:var(--text3)}
 /* FORMS */
 .fg{margin-bottom:1rem}
 .fl{font-size:12px;font-weight:500;color:var(--text2);display:block;margin-bottom:6px;letter-spacing:.04em}
 .fi{width:100%;padding:11px 14px;background:var(--glass);border:1px solid var(--border);border-radius:var(--r2);font-size:13px;font-family:'Outfit',sans-serif;color:var(--text);transition:all .2s}
 .fi:focus{outline:none;border-color:var(--green);background:var(--glass2);box-shadow:0 0 0 3px rgba(0,229,160,.07)}
-.fi::placeholder{color:var(--text3)}
-.fi option{background:var(--bg2);color:var(--text)}
-.fr{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-
+.fi::placeholder{color:var(--text3)}.fi option{background:var(--bg2);color:var(--text)}
+.fr2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 /* MODAL */
 .mo{position:fixed;inset:0;z-index:9000;background:rgba(0,0,0,.7);backdrop-filter:blur(8px);display:none;align-items:center;justify-content:center}
 .mo.op{display:flex;animation:mfade .2s ease}
 @keyframes mfade{from{opacity:0}to{opacity:1}}
-.mbox{background:var(--bg2);border:1px solid var(--border2);border-radius:20px;padding:2rem;width:490px;max-width:95vw;max-height:90vh;overflow-y:auto;box-shadow:0 24px 80px rgba(0,0,0,.6);animation:min .3s cubic-bezier(.16,1,.3,1) both;position:relative}
+.mbox{background:var(--bg2);border:1px solid var(--border2);border-radius:20px;padding:2rem;width:500px;max-width:95vw;max-height:90vh;overflow-y:auto;box-shadow:0 24px 80px rgba(0,0,0,.6);animation:min .3s cubic-bezier(.16,1,.3,1) both;position:relative}
 .mbox::before{content:'';position:absolute;top:0;left:2rem;right:2rem;height:1px;background:linear-gradient(90deg,transparent,rgba(0,229,160,.35),transparent)}
-@keyframes min{from{opacity:0;transform:scale(.94) translateY(-14px)}to{opacity:1;transform:scale(1) translateY(0)}}
+@keyframes min{from{opacity:0;transform:scale(.94) translateY(-14px)}to{opacity:1;transform:none}}
 .mh{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.5rem}
 .mt2{font-size:16px;font-weight:700}
 .mc{background:var(--glass);border:1px solid var(--border);border-radius:8px;width:28px;height:28px;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:16px;color:var(--text2);transition:all .2s}
 .mc:hover{background:var(--red2);color:var(--red);border-color:transparent}
 .mf{display:flex;gap:10px;margin-top:1.5rem}
-
 /* TOAST */
-.toast{position:fixed;bottom:1.5rem;right:1.5rem;z-index:9999;display:none;align-items:center;gap:10px;background:var(--bg3);border:1px solid var(--border2);border-radius:12px;padding:12px 18px;font-size:13px;font-weight:500;box-shadow:0 12px 40px rgba(0,0,0,.5);animation:tin .3s cubic-bezier(.16,1,.3,1)}
-.toast.sh{display:flex}
-@keyframes tin{from{opacity:0;transform:translateY(12px) scale(.95)}to{opacity:1;transform:translateY(0) scale(1)}}
-
+.toast{position:fixed;bottom:1.5rem;right:1.5rem;z-index:9999;display:none;align-items:center;gap:10px;background:var(--bg3);border:1px solid var(--border2);border-radius:12px;padding:12px 18px;font-size:13px;font-weight:500;box-shadow:0 12px 40px rgba(0,0,0,.5)}
+.toast.sh{display:flex;animation:tin .3s cubic-bezier(.16,1,.3,1)}
+@keyframes tin{from{opacity:0;transform:translateY(12px) scale(.95)}to{opacity:1;transform:none}}
 /* SEARCH ROW */
 .sr{display:flex;align-items:center;gap:10px;margin-bottom:1.2rem}
 .sf{flex:1;display:flex;align-items:center;gap:8px;background:var(--glass);border:1px solid var(--border);border-radius:var(--r2);padding:9px 14px;transition:all .2s}
 .sf:focus-within{border-color:var(--green)}
 .sf input{background:none;border:none;outline:none;font-size:13px;font-family:'Outfit',sans-serif;color:var(--text);width:100%}
 .sf input::placeholder{color:var(--text3)}
-
 /* SETTINGS TOGGLE */
 .tr2{display:flex;align-items:center;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--border)}
 .tr2:last-child{border-bottom:none}
-.tlbl{font-size:13px;color:var(--text2)}
-.tsub{font-size:11px;color:var(--text3);margin-top:2px}
+.tlbl{font-size:13px;color:var(--text2)}.tsub{font-size:11px;color:var(--text3);margin-top:2px}
 .tgl{position:relative;width:40px;height:22px;border-radius:99px;background:var(--glass2);border:1px solid var(--border);cursor:pointer;transition:all .3s;flex-shrink:0}
 .tgl.on{background:var(--green);border-color:var(--green)}
 .tgl::after{content:'';position:absolute;top:2px;left:2px;width:16px;height:16px;border-radius:50%;background:#fff;transition:all .3s}
 .tgl.on::after{transform:translateX(18px)}
-
+/* PENDING BANNER */
+.pending-banner{background:rgba(255,179,71,.1);border:1px solid rgba(255,179,71,.3);border-radius:var(--r2);padding:10px 14px;margin-bottom:1rem;font-size:13px;color:var(--amber);display:flex;align-items:center;gap:8px}
 @media(max-width:1100px){.sg{grid-template-columns:repeat(2,1fr)}.g2{grid-template-columns:1fr}.g3{grid-template-columns:repeat(2,1fr)}}
 </style>
 </head>
 <body>
-
 <div id="particles"></div>
 <div class="orb" style="width:500px;height:500px;background:rgba(0,229,160,0.05);top:-150px;left:-150px;animation:orbP 9s ease-in-out infinite"></div>
 <div class="orb" style="width:400px;height:400px;background:rgba(77,159,255,0.04);bottom:-100px;right:-100px;animation:orbP 11s ease-in-out infinite reverse"></div>
@@ -251,20 +224,19 @@ tr:hover td{background:rgba(255,255,255,0.015)}
   <div class="lcard">
     <div class="lglow"></div>
     <div class="llogo"><div class="lpulse"></div>MediScan</div>
-    <div class="lsub">Admin Control Center &middot; Secure Access</div>
+    <div class="lsub">Admin Control Center · Secure Access</div>
     <label class="llabel">Username</label>
     <input class="linput" type="text" id="lu" placeholder="admin" autocomplete="off">
     <label class="llabel">Password</label>
     <input class="linput" type="password" id="lp" placeholder="admin123" onkeydown="if(event.key==='Enter')doLogin()">
-    <div class="lerr" id="lerr">⚠ Invalid credentials. Please try again.</div>
+    <div class="lerr" id="lerr">⚠ Invalid credentials.</div>
     <button class="lbtn" onclick="doLogin()">ACCESS DASHBOARD →</button>
-    <div class="lhint">Default &nbsp;·&nbsp; admin / admin123</div>
+    <div class="lhint">Default · admin / admin123</div>
   </div>
 </div>
 
 <!-- APP -->
 <div id="app">
-  <!-- SIDEBAR -->
   <div class="sidebar">
     <div class="slogo-wrap">
       <div class="slogo">🩺 MediScan</div>
@@ -273,13 +245,16 @@ tr:hover td{background:rgba(255,255,255,0.015)}
     <div class="snav">
       <div class="nsec">Overview</div>
       <div class="ni on" id="nav-dashboard" onclick="goPage('dashboard')"><div class="niw">📊</div>Dashboard</div>
-      <div class="ni" id="nav-appointments" onclick="goPage('appointments')"><div class="niw">📅</div>Appointments<div class="nbadge" id="nbadge-apt">7</div></div>
+      <div class="ni" id="nav-appointments" onclick="goPage('appointments')"><div class="niw">📅</div>Appointments<div class="nbadge" id="nbadge-apt">0</div></div>
       <div class="ni" id="nav-patients" onclick="goPage('patients')"><div class="niw">👥</div>Patients</div>
-      <div class="ni" id="nav-reports" onclick="goPage('reports')"><div class="niw">📋</div>Lab Reports<div class="nbadge">14</div></div>
+      <div class="ni" id="nav-reports" onclick="goPage('reports')"><div class="niw">📋</div>Lab Reports<div class="nbadge" id="nbadge-rep">0</div></div>
+      <div class="ni" id="nav-messages" onclick="goPage('messages')"><div class="niw">💬</div>Messages<div class="nbadge" id="nbadge-msg">0</div></div>
       <div class="nsec">Management</div>
       <div class="ni" id="nav-doctors" onclick="goPage('doctors')"><div class="niw">👨‍⚕️</div>Doctors</div>
       <div class="ni" id="nav-services" onclick="goPage('services')"><div class="niw">🧬</div>Services</div>
       <div class="ni" id="nav-billing" onclick="goPage('billing')"><div class="niw">💳</div>Billing</div>
+      <div class="ni" id="nav-calendar" onclick="goPage('calendar')"><div class="niw">📆</div>Calendar</div>
+      <div class="ni" id="nav-analytics" onclick="goPage('analytics')"><div class="niw">📈</div>Analytics</div>
       <div class="nsec">System</div>
       <div class="ni" id="nav-settings" onclick="goPage('settings')"><div class="niw">⚙️</div>Settings</div>
     </div>
@@ -292,33 +267,32 @@ tr:hover td{background:rgba(255,255,255,0.015)}
     </div>
   </div>
 
-  <!-- TOPBAR -->
   <div class="topbar">
     <div><div class="ptitle" id="ptitle">Dashboard</div><div class="pbread" id="pbread">MediScan / Overview</div></div>
     <div class="tright">
-      <div class="tsearch"><span style="color:var(--text3)">🔍</span><input type="text" placeholder="Quick search..."></div>
+      <div class="tsearch"><span style="color:var(--text3)">🔍</span><input type="text" id="global-search" placeholder="Quick search..." oninput="globalSearch(this.value)"></div>
       <div class="dbadge" id="datebadge"></div>
       <div class="ibtn">🔔<div class="dot"></div></div>
+      <div class="ibtn" id="theme-btn" onclick="toggleTheme()" title="Light/Dark Mode">🌙</div>
     </div>
   </div>
 
-  <!-- MAIN -->
   <div class="main">
 
     <!-- DASHBOARD -->
     <div id="panel-dashboard" class="panel on">
       <div class="sg">
-        <div class="sc gr"><div class="cshine"></div><div class="stop"><div class="siw">👥</div><div class="strend up">↑ 12%</div></div><div class="sval" id="sv1">0</div><div class="slbl">Total Patients</div><div class="spark" id="sp1"></div></div>
-        <div class="sc bl"><div class="cshine"></div><div class="stop"><div class="siw">📅</div><div class="strend up">↑ 4 new</div></div><div class="sval" id="sv2">0</div><div class="slbl">Today's Appointments</div><div class="spark" id="sp2"></div></div>
-        <div class="sc am"><div class="cshine"></div><div class="stop"><div class="siw">📋</div><div class="strend dn">3 overdue</div></div><div class="sval" id="sv3">0</div><div class="slbl">Pending Reports</div><div class="spark" id="sp3"></div></div>
-        <div class="sc pu"><div class="cshine"></div><div class="stop"><div class="siw">💰</div><div class="strend up">↑ 8%</div></div><div class="sval">৳<span id="sv4">0</span>K</div><div class="slbl">Monthly Revenue</div><div class="spark" id="sp4"></div></div>
+        <div class="sc gr"><div class="cshine"></div><div class="stop"><div class="siw">👥</div><div class="strend up" id="pt-trend">↑ 0%</div></div><div class="sval" id="sv1">0</div><div class="slbl">Total Patients</div><div class="spark" id="sp1"></div></div>
+        <div class="sc bl"><div class="cshine"></div><div class="stop"><div class="siw">📅</div><div class="strend up">Today</div></div><div class="sval" id="sv2">0</div><div class="slbl">Total Appointments</div><div class="spark" id="sp2"></div></div>
+        <div class="sc am"><div class="cshine"></div><div class="stop"><div class="siw">📋</div><div class="strend dn" id="rep-trend">Pending</div></div><div class="sval" id="sv3">0</div><div class="slbl">Pending Reports</div><div class="spark" id="sp3"></div></div>
+        <div class="sc pu"><div class="cshine"></div><div class="stop"><div class="siw">💰</div><div class="strend up">Revenue</div></div><div class="sval">৳<span id="sv4">0</span>K</div><div class="slbl">Total Invoiced</div><div class="spark" id="sp4"></div></div>
       </div>
       <div class="g2">
         <div class="card mb"><div class="cshine"></div><div class="ch"><div class="ct">📅 Recent Appointments</div><button class="btn btnsm" onclick="goPage('appointments')">View all →</button></div><div class="tw"><table><thead><tr><th>Patient</th><th>Test</th><th>Doctor</th><th>Status</th></tr></thead><tbody id="dapt"></tbody></table></div></div>
         <div class="card mb"><div class="cshine"></div><div class="ch"><div class="ct">🧬 Services Split</div></div><div id="progs"></div></div>
       </div>
       <div class="g2">
-        <div class="card mb"><div class="cshine"></div><div class="ch"><div class="ct">🗓 Today's Schedule</div><span class="bdg bg">5 Patients</span></div><div id="dsched"></div></div>
+        <div class="card mb"><div class="cshine"></div><div class="ch"><div class="ct">🗓 Today's Schedule</div></div><div id="dsched"></div></div>
         <div class="card mb"><div class="cshine"></div><div class="ch"><div class="ct">⚡ Recent Activity</div></div><div id="dact"></div></div>
       </div>
     </div>
@@ -326,53 +300,122 @@ tr:hover td{background:rgba(255,255,255,0.015)}
     <!-- APPOINTMENTS -->
     <div id="panel-appointments" class="panel">
       <div class="sr">
-        <div class="sf"><span style="color:var(--text3)">🔍</span><input type="text" id="apt-search" placeholder="Search by patient or test..." oninput="renderApts()"></div>
-        <select class="btn" id="apt-filter" onchange="renderApts()" style="padding:9px 14px"><option value="">All Status</option><option>Done</option><option>Pending</option><option>Processing</option><option>Cancelled</option></select>
-        <button class="btn btnp" onclick="openMo('mo-apt')">+ New Appointment</button>
+        <div class="sf"><span style="color:var(--text3)">🔍</span><input type="text" id="apt-search" placeholder="নাম বা test দিয়ে খুঁজুন..." oninput="renderApts()"></div>
+        <select class="btn" id="apt-filter" onchange="renderApts()" style="padding:8px 14px"><option value="">সব Status</option><option>Pending</option><option>Processing</option><option>Done</option><option>Cancelled</option></select>
+        <button class="btn" onclick="exportExcel('apts')">📤 Excel</button><button class="btn btnp" onclick="openMo('mo-apt')">+ নতুন Appointment</button>
       </div>
+      <div id="web-apts-banner"></div>
       <div class="card"><div class="cshine"></div><div class="tw"><table><thead><tr><th>ID</th><th>Patient</th><th>Test</th><th>Doctor</th><th>Date</th><th>Time</th><th>Status</th><th>Action</th></tr></thead><tbody id="aptb"></tbody></table></div></div>
     </div>
 
     <!-- PATIENTS -->
     <div id="panel-patients" class="panel">
       <div class="sr">
-        <div class="sf"><span style="color:var(--text3)">🔍</span><input type="text" id="pat-search" placeholder="Search by name or phone..." oninput="renderPats()"></div>
-        <button class="btn btnp" onclick="openMo('mo-pat')">+ Add Patient</button>
+        <div class="sf"><span style="color:var(--text3)">🔍</span><input type="text" id="pat-search" placeholder="নাম বা ফোন দিয়ে খুঁজুন..." oninput="renderPats()"></div>
+        <button class="btn" onclick="exportExcel('pats')">📤 Excel</button><button class="btn btnp" onclick="openMo('mo-pat')">+ নতুন Patient</button>
       </div>
-      <div class="card"><div class="cshine"></div><div class="tw"><table><thead><tr><th>ID</th><th>Patient</th><th>Age</th><th>Gender</th><th>Phone</th><th>Blood</th><th>Last Visit</th><th>Status</th><th>Action</th></tr></thead><tbody id="patb"></tbody></table></div></div>
+      <div class="card"><div class="cshine"></div><div class="tw"><table><thead><tr><th>ID</th><th>Patient</th><th>Age</th><th>Phone</th><th>Blood</th><th>Last Visit</th><th>Status</th><th>Action</th></tr></thead><tbody id="patb"></tbody></table></div></div>
     </div>
 
     <!-- REPORTS -->
     <div id="panel-reports" class="panel">
       <div class="g4 mb">
-        <div class="rst"><div class="rnum" style="color:var(--green)">1,204</div><div class="rlbl">Total Reports</div></div>
-        <div class="rst"><div class="rnum" style="color:var(--amber)">14</div><div class="rlbl">Pending</div></div>
-        <div class="rst"><div class="rnum" style="color:var(--blue)">1,187</div><div class="rlbl">Delivered</div></div>
-        <div class="rst"><div class="rnum" style="color:var(--purple)">4.2h</div><div class="rlbl">Avg. Turnaround</div></div>
+        <div class="rst"><div class="rnum" style="color:var(--green)" id="rep-total">0</div><div class="rlbl">Total Reports</div></div>
+        <div class="rst"><div class="rnum" style="color:var(--amber)" id="rep-pending">0</div><div class="rlbl">Pending</div></div>
+        <div class="rst"><div class="rnum" style="color:var(--blue)" id="rep-done">0</div><div class="rlbl">Delivered</div></div>
+        <div class="rst"><div class="rnum" style="color:var(--red)" id="rep-over">0</div><div class="rlbl">Overdue</div></div>
       </div>
-      <div class="card"><div class="cshine"></div><div class="ch"><div class="ct">⏳ Pending Reports</div><button class="btn btnsm">Export CSV</button></div><div class="tw"><table><thead><tr><th>Report ID</th><th>Patient</th><th>Test</th><th>Ordered</th><th>Due</th><th>Status</th><th>Action</th></tr></thead><tbody id="repb"></tbody></table></div></div>
+      <div class="sr">
+        <div class="sf"><span style="color:var(--text3)">🔍</span><input type="text" id="rep-search" placeholder="Patient বা test দিয়ে খুঁজুন..." oninput="renderReps()"></div>
+        <button class="btn btnp" onclick="openMo('mo-rep')">+ নতুন Report</button>
+      </div>
+      <div class="card"><div class="cshine"></div><div class="tw"><table><thead><tr><th>Report ID</th><th>Patient</th><th>Test</th><th>Ordered</th><th>Due</th><th>Status</th><th>Action</th></tr></thead><tbody id="repb"></tbody></table></div></div>
     </div>
 
     <!-- DOCTORS -->
     <div id="panel-doctors" class="panel">
-      <div style="display:flex;justify-content:flex-end;margin-bottom:1.2rem"><button class="btn btnp" onclick="openMo('mo-doc')">+ Add Doctor</button></div>
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1.2rem">
+        <div style="font-size:13px;color:var(--blue);background:var(--blue2);padding:8px 14px;border-radius:var(--r2);border:1px solid rgba(77,159,255,.3)">🌐 Doctor status change করলে website এ automatically update হবে</div>
+        <button class="btn btnp" onclick="openMo('mo-doc')">+ Doctor যোগ করুন</button>
+      </div>
       <div class="g3" id="docgrid"></div>
     </div>
 
     <!-- SERVICES -->
     <div id="panel-services" class="panel">
-      <div style="display:flex;justify-content:flex-end;margin-bottom:1.2rem"><button class="btn btnp" onclick="openMo('mo-svc')">+ Add Service</button></div>
-      <div class="card"><div class="cshine"></div><div class="tw"><table><thead><tr><th>Service</th><th>Category</th><th>Price (৳)</th><th>Duration</th><th>Tests/Month</th><th>Status</th><th>Action</th></tr></thead><tbody id="svcb"></tbody></table></div></div>
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1.2rem">
+        <div style="font-size:13px;color:var(--green);background:var(--green4);padding:8px 14px;border-radius:var(--r2);border:1px solid var(--green3)">🌐 এখানে change করলে website এ automatically দেখাবে</div>
+        <button class="btn btnp" onclick="openMo('mo-svc')">+ Service যোগ করুন</button>
+      </div>
+      <div class="card"><div class="cshine"></div><div class="tw"><table><thead><tr><th>Service</th><th>Category</th><th>Price (৳)</th><th>Duration</th><th>Status</th><th>Action</th></tr></thead><tbody id="svcb"></tbody></table></div></div>
     </div>
 
     <!-- BILLING -->
     <div id="panel-billing" class="panel">
       <div class="g3 mb">
-        <div class="rst"><div class="rnum" style="color:var(--green)">৳3.2L</div><div class="rlbl">This Month</div></div>
-        <div class="rst"><div class="rnum" style="color:var(--blue)">৳28.4L</div><div class="rlbl">This Year</div></div>
-        <div class="rst"><div class="rnum" style="color:var(--amber)">৳12,400</div><div class="rlbl">Pending Due</div></div>
+        <div class="rst"><div class="rnum" style="color:var(--green)" id="bill-total">৳0</div><div class="rlbl">মোট Invoiced</div></div>
+        <div class="rst"><div class="rnum" style="color:var(--blue)" id="bill-paid">৳0</div><div class="rlbl">Paid</div></div>
+        <div class="rst"><div class="rnum" style="color:var(--amber)" id="bill-pending">৳0</div><div class="rlbl">Pending Due</div></div>
       </div>
-      <div class="card"><div class="cshine"></div><div class="ch"><div class="ct">💳 Recent Invoices</div><button class="btn btnsm btnp" onclick="openMo('mo-inv')">+ New Invoice</button></div><div class="tw"><table><thead><tr><th>Invoice #</th><th>Patient</th><th>Services</th><th>Amount (৳)</th><th>Date</th><th>Status</th></tr></thead><tbody id="invb"></tbody></table></div></div>
+      <div class="sr">
+        <div class="sf"><span style="color:var(--text3)">🔍</span><input type="text" id="inv-search" placeholder="Patient বা invoice দিয়ে খুঁজুন..." oninput="renderInvs()"></div>
+        <button class="btn" onclick="exportExcel('invs')">📤 Excel</button><button class="btn btnp" onclick="openMo('mo-inv')">+ নতুন Invoice</button>
+      </div>
+      <div class="card"><div class="cshine"></div><div class="tw"><table><thead><tr><th>Invoice #</th><th>Patient</th><th>Services</th><th>Amount (৳)</th><th>Date</th><th>Status</th><th>Action</th></tr></thead><tbody id="invb"></tbody></table></div></div>
+    </div>
+
+
+    <!-- CALENDAR -->
+    <div id="panel-calendar" class="panel">
+      <div class="card mb"><div class="cshine"></div>
+        <div class="ch">
+          <div class="ct">📆 Appointment Calendar</div>
+          <div style="display:flex;gap:8px;align-items:center">
+            <button class="btn btnsm" onclick="prevMonth()">◀</button>
+            <div id="cal-title" style="font-size:14px;font-weight:600;min-width:140px;text-align:center"></div>
+            <button class="btn btnsm" onclick="nextMonth()">▶</button>
+          </div>
+        </div>
+        <div id="cal-grid" style="display:grid;grid-template-columns:repeat(7,1fr);gap:4px"></div>
+      </div>
+      <div class="card"><div class="cshine"></div>
+        <div class="ch"><div class="ct" id="cal-selected-title">📅 Appointments</div></div>
+        <div class="tw"><table><thead><tr><th>Patient</th><th>Test</th><th>Doctor</th><th>Time</th><th>Status</th></tr></thead><tbody id="cal-apt-list"></tbody></table></div>
+      </div>
+    </div>
+
+    <!-- ANALYTICS -->
+    <div id="panel-analytics" class="panel">
+      <div class="sg" id="analytics-stats"></div>
+      <div class="g2">
+        <div class="card mb"><div class="cshine"></div>
+          <div class="ch"><div class="ct">📊 Monthly Appointments</div></div>
+          <canvas id="chart-apts" height="200"></canvas>
+        </div>
+        <div class="card mb"><div class="cshine"></div>
+          <div class="ch"><div class="ct">💰 Monthly Revenue (৳)</div></div>
+          <canvas id="chart-rev" height="200"></canvas>
+        </div>
+      </div>
+      <div class="card mb"><div class="cshine"></div>
+        <div class="ch"><div class="ct">🧬 Service Popularity</div></div>
+        <div id="svc-bars"></div>
+      </div>
+    </div>
+
+
+    <!-- MESSAGES -->
+    <div id="panel-messages" class="panel">
+      <div class="sr">
+        <div class="sf"><span style="color:var(--text3)">🔍</span><input type="text" id="msg-search" placeholder="নাম বা message দিয়ে খুঁজুন..." oninput="renderMsgs()"></div>
+        <button class="btn btnd" onclick="clearReadMsgs()">🗑 Read করা মুছুন</button>
+      </div>
+      <div id="msg-empty" style="display:none;text-align:center;padding:3rem;color:var(--text3)">
+        <div style="font-size:48px;margin-bottom:1rem">💬</div>
+        <div style="font-size:15px">এখনো কোনো message আসেনি</div>
+        <div style="font-size:13px;margin-top:6px">Contact form এ কেউ message পাঠালে এখানে দেখাবে</div>
+      </div>
+      <div id="msg-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:14px"></div>
     </div>
 
     <!-- SETTINGS -->
@@ -380,32 +423,28 @@ tr:hover td{background:rgba(255,255,255,0.015)}
       <div class="g2">
         <div>
           <div class="card mb"><div class="cshine"></div><div class="ch"><div class="ct">🏥 Clinic Information</div></div>
-            <div class="fg"><label class="fl">Clinic Name</label><input class="fi" type="text" value="MediScan Healthcare"></div>
-            <div class="fr"><div class="fg"><label class="fl">Phone</label><input class="fi" type="text" value="+880 1700-000000"></div><div class="fg"><label class="fl">Email</label><input class="fi" type="email" value="info@mediscan.com"></div></div>
-            <div class="fg"><label class="fl">Address</label><input class="fi" type="text" value="Mymensingh, Bangladesh"></div>
-            <button class="btn btnp" onclick="toast('✅ Clinic info saved!')">Save Changes</button>
+            <div class="fg"><label class="fl">Clinic Name</label><input class="fi" id="set-cname" type="text" value="MediScan Healthcare"></div>
+            <div class="fr2"><div class="fg"><label class="fl">Phone</label><input class="fi" id="set-phone" type="text" value="+880 1700-000000"></div><div class="fg"><label class="fl">Email</label><input class="fi" id="set-email" type="email" value="info@mediscan.com"></div></div>
+            <div class="fg"><label class="fl">Address</label><input class="fi" id="set-addr" type="text" value="Mymensingh, Bangladesh"></div>
+            <button class="btn btnp" onclick="saveClinicInfo()">Save Changes</button>
           </div>
           <div class="card mb"><div class="cshine"></div><div class="ch"><div class="ct">🔑 Admin Account</div></div>
-            <div class="fg"><label class="fl">Full Name</label><input class="fi" type="text" value="Dr. Admin"></div>
-            <div class="fg"><label class="fl">Email</label><input class="fi" type="email" value="admin@mediscan.com"></div>
-            <div class="fr"><div class="fg"><label class="fl">Current Password</label><input class="fi" type="password" placeholder="••••••••"></div><div class="fg"><label class="fl">New Password</label><input class="fi" type="password" placeholder="••••••••"></div></div>
-            <button class="btn btnp" onclick="toast('✅ Account updated!')">Update Account</button>
+            <div class="fg"><label class="fl">Username</label><input class="fi" id="set-user" type="text" value="admin"></div>
+            <div class="fr2">
+              <div class="fg"><label class="fl">Current Password</label><input class="fi" id="set-oldpw" type="password" placeholder="••••••••"></div>
+              <div class="fg"><label class="fl">New Password</label><input class="fi" id="set-newpw" type="password" placeholder="••••••••"></div>
+            </div>
+            <button class="btn btnp" onclick="changePassword()">Update Account</button>
           </div>
         </div>
         <div>
           <div class="card mb"><div class="cshine"></div><div class="ch"><div class="ct">🔔 Notifications</div></div><div id="tglwrap"></div></div>
-          <div class="card mb"><div class="cshine"></div><div class="ch"><div class="ct">🎨 Preferences</div></div>
-            <div class="fg"><label class="fl">Language</label><select class="fi"><option>English</option><option>বাংলা (Bengali)</option></select></div>
-            <div class="fg"><label class="fl">Timezone</label><select class="fi"><option>Asia/Dhaka (GMT+6)</option><option>UTC</option></select></div>
-            <div class="fg"><label class="fl">Date Format</label><select class="fi"><option>DD/MM/YYYY</option><option>MM/DD/YYYY</option></select></div>
-            <button class="btn btnp" onclick="toast('✅ Preferences saved!')">Save Preferences</button>
-          </div>
           <div class="card mb"><div class="cshine"></div><div class="ch"><div class="ct">💾 Data Management</div></div>
-            <div style="font-size:13px;color:var(--text2);margin-bottom:1rem;line-height:1.6">আপনার সব data এই browser এ LocalStorage এ save আছে। Backup নিতে বা reset করতে নিচের বাটন ব্যবহার করুন।</div>
-            <div id="ls-status" style="font-size:12px;color:var(--green);margin-bottom:1rem;padding:8px 12px;background:var(--green4);border-radius:var(--r2);border:1px solid var(--green3)">✅ LocalStorage Active — Data auto-save চালু আছে</div>
+            <div style="font-size:13px;color:var(--text2);margin-bottom:1rem;line-height:1.6">সব data এই browser এ LocalStorage এ save আছে।</div>
+            <div id="ls-status" style="font-size:12px;color:var(--green);margin-bottom:1rem;padding:8px 12px;background:var(--green4);border-radius:var(--r2);border:1px solid var(--green3)">✅ LocalStorage Active</div>
             <div style="display:flex;gap:10px;flex-wrap:wrap">
-              <button class="btn btnp" onclick="exportData()" style="flex:1">📥 Backup Download করুন</button>
-              <button class="btn btnd" onclick="clearAllData()" style="flex:1">🗑 সব Data Reset করুন</button>
+              <button class="btn btnp" onclick="exportData()" style="flex:1">📥 Backup Download</button>
+              <button class="btn btnd" onclick="clearAllData()" style="flex:1">🗑 Reset</button>
             </div>
           </div>
         </div>
@@ -416,63 +455,109 @@ tr:hover td{background:rgba(255,255,255,0.015)}
 </div>
 
 <!-- MODALS -->
+<!-- Appointment -->
 <div class="mo" id="mo-apt"><div class="mbox">
-  <div class="mh"><div class="mt2">📅 Book Appointment</div><button class="mc" onclick="closeMo('mo-apt')">✕</button></div>
-  <div class="fr"><div class="fg"><label class="fl">Patient Name</label><input class="fi" type="text" id="a-pat" placeholder="Full name"></div><div class="fg"><label class="fl">Date</label><input class="fi" type="date" id="a-date"></div></div>
-  <div class="fr"><div class="fg"><label class="fl">Test Type</label><select class="fi" id="a-test"><option>Blood CBC</option><option>MRI Brain</option><option>CT Scan</option><option>X-Ray Chest</option><option>ECG</option><option>Ultrasound</option><option>Thyroid Panel</option><option>Lipid Profile</option><option>Full Body Checkup</option></select></div><div class="fg"><label class="fl">Doctor</label><select class="fi" id="a-doc"><option>Dr. Kamal Ahmed</option><option>Dr. Sonia Omar</option><option>Dr. Rafi Ahmed</option></select></div></div>
-  <div class="fr"><div class="fg"><label class="fl">Time</label><input class="fi" type="time" id="a-time" value="09:00"></div><div class="fg"><label class="fl">Status</label><select class="fi" id="a-stat"><option>Pending</option><option>Processing</option><option>Done</option></select></div></div>
-  <div class="mf"><button class="btn btnp" style="flex:1" onclick="addApt()">Book Appointment</button><button class="btn" onclick="closeMo('mo-apt')">Cancel</button></div>
+  <div class="mh"><div class="mt2" id="mo-apt-title">📅 নতুন Appointment</div><button class="mc" onclick="closeMo('mo-apt')">✕</button></div>
+  <input type="hidden" id="apt-edit-id">
+  <div class="fr2"><div class="fg"><label class="fl">Patient Name *</label><input class="fi" type="text" id="a-pat" placeholder="পূর্ণ নাম"></div><div class="fg"><label class="fl">Phone</label><input class="fi" type="tel" id="a-phone" placeholder="01700-000000"></div></div>
+  <div class="fr2"><div class="fg"><label class="fl">Test Type *</label><select class="fi" id="a-test"><option value="Blood CBC">Blood CBC</option><option value="MRI Brain">MRI Brain</option><option value="CT Scan">CT Scan</option><option value="X-Ray Chest">X-Ray Chest</option><option value="ECG">ECG</option><option value="Ultrasound">Ultrasound</option><option value="Thyroid Panel">Thyroid Panel</option><option value="Lipid Profile">Lipid Profile</option><option value="Full Body Checkup">Full Body Checkup</option><option value="General Checkup">General Checkup</option></select></div><div class="fg"><label class="fl">Doctor *</label><select class="fi" id="a-doc"><option value="Dr. Kamal Ahmed">Dr. Kamal Ahmed</option><option value="Dr. Sonia Omar">Dr. Sonia Omar</option><option value="Dr. Rafi Ahmed">Dr. Rafi Ahmed</option><option value="Unassigned">Unassigned</option></select></div></div>
+  <div class="fr2"><div class="fg"><label class="fl">Date *</label><input class="fi" type="date" id="a-date"></div><div class="fg"><label class="fl">Time</label><input class="fi" type="time" id="a-time" value="09:00"></div></div>
+  <div class="fg"><label class="fl">Status</label><select class="fi" id="a-stat"><option value="Pending">Pending</option><option value="Processing">Processing</option><option value="Done">Done</option><option value="Cancelled">Cancelled</option></select></div>
+  <div class="fg"><label class="fl">Note</label><input class="fi" type="text" id="a-note" placeholder="বিশেষ নোট (optional)"></div>
+  <div class="mf"><button class="btn btnp" style="flex:1" onclick="saveApt()">Save Appointment</button><button class="btn" onclick="closeMo('mo-apt')">Cancel</button></div>
 </div></div>
 
+<!-- Patient -->
 <div class="mo" id="mo-pat"><div class="mbox">
-  <div class="mh"><div class="mt2">👤 Add New Patient</div><button class="mc" onclick="closeMo('mo-pat')">✕</button></div>
-  <div class="fr"><div class="fg"><label class="fl">Full Name</label><input class="fi" type="text" id="p-name" placeholder="Patient full name"></div><div class="fg"><label class="fl">Age</label><input class="fi" type="number" id="p-age" placeholder="Age"></div></div>
-  <div class="fr"><div class="fg"><label class="fl">Gender</label><select class="fi" id="p-gen"><option>Male</option><option>Female</option><option>Other</option></select></div><div class="fg"><label class="fl">Blood Group</label><select class="fi" id="p-blood"><option>A+</option><option>A-</option><option>B+</option><option>B-</option><option>O+</option><option>O-</option><option>AB+</option><option>AB-</option></select></div></div>
+  <div class="mh"><div class="mt2" id="mo-pat-title">👤 নতুন Patient</div><button class="mc" onclick="closeMo('mo-pat')">✕</button></div>
+  <input type="hidden" id="pat-edit-id">
+  <div class="fr2"><div class="fg"><label class="fl">Full Name *</label><input class="fi" type="text" id="p-name" placeholder="পূর্ণ নাম"></div><div class="fg"><label class="fl">Age</label><input class="fi" type="number" id="p-age" placeholder="বয়স"></div></div>
+  <div class="fr2"><div class="fg"><label class="fl">Gender</label><select class="fi" id="p-gen"><option value="Male">Male</option><option value="Female">Female</option><option value="Other">Other</option></select></div><div class="fg"><label class="fl">Blood Group</label><select class="fi" id="p-blood"><option>A+</option><option>A-</option><option>B+</option><option>B-</option><option>O+</option><option>O-</option><option>AB+</option><option>AB-</option><option>—</option></select></div></div>
   <div class="fg"><label class="fl">Phone</label><input class="fi" type="tel" id="p-phone" placeholder="01700-000000"></div>
-  <div class="fg"><label class="fl">Address</label><input class="fi" type="text" id="p-addr" placeholder="City, District"></div>
-  <div class="mf"><button class="btn btnp" style="flex:1" onclick="addPat()">Add Patient</button><button class="btn" onclick="closeMo('mo-pat')">Cancel</button></div>
+  <div class="fg"><label class="fl">Status</label><select class="fi" id="p-stat"><option value="Active">Active</option><option value="Follow-up">Follow-up</option><option value="Critical">Critical</option><option value="Inactive">Inactive</option></select></div>
+  <div class="mf"><button class="btn btnp" style="flex:1" onclick="savePat()">Save Patient</button><button class="btn" onclick="closeMo('mo-pat')">Cancel</button></div>
 </div></div>
 
+<!-- Report -->
+<div class="mo" id="mo-rep"><div class="mbox">
+  <div class="mh"><div class="mt2" id="mo-rep-title">📋 নতুন Report</div><button class="mc" onclick="closeMo('mo-rep')">✕</button></div>
+  <input type="hidden" id="rep-edit-id">
+  <div class="fr2"><div class="fg"><label class="fl">Patient Name *</label><input class="fi" type="text" id="r-pat" placeholder="Patient নাম"></div><div class="fg"><label class="fl">Test *</label><select class="fi" id="r-test"><option value="Blood CBC">Blood CBC</option><option value="MRI Brain">MRI Brain</option><option value="CT Scan">CT Scan</option><option value="X-Ray Chest">X-Ray Chest</option><option value="ECG">ECG</option><option value="Ultrasound">Ultrasound</option><option value="Thyroid Panel">Thyroid Panel</option><option value="Lipid Profile">Lipid Profile</option><option value="Full Body Checkup">Full Body Checkup</option></select></div></div>
+  <div class="fr2"><div class="fg"><label class="fl">Ordered</label><input class="fi" type="text" id="r-ord" placeholder="যেমন: Today 9:00 AM"></div><div class="fg"><label class="fl">Due</label><input class="fi" type="text" id="r-due" placeholder="যেমন: Today 3:00 PM"></div></div>
+  <div class="fg"><label class="fl">Status</label><select class="fi" id="r-stat"><option value="In Lab">In Lab</option><option value="Processing">Processing</option><option value="Overdue">Overdue</option><option value="Done">Done</option></select></div>
+  <div class="mf"><button class="btn btnp" style="flex:1" onclick="saveRep()">Save Report</button><button class="btn" onclick="closeMo('mo-rep')">Cancel</button></div>
+</div></div>
+
+<!-- Doctor -->
 <div class="mo" id="mo-doc"><div class="mbox">
-  <div class="mh"><div class="mt2">👨‍⚕️ Add Doctor</div><button class="mc" onclick="closeMo('mo-doc')">✕</button></div>
-  <div class="fr"><div class="fg"><label class="fl">Doctor Name</label><input class="fi" type="text" id="d-name" placeholder="Dr. Full Name"></div><div class="fg"><label class="fl">Speciality</label><input class="fi" type="text" id="d-spec" placeholder="e.g. Radiologist"></div></div>
-  <div class="fr"><div class="fg"><label class="fl">Experience</label><input class="fi" type="text" id="d-exp" placeholder="e.g. 10 years"></div><div class="fg"><label class="fl">Status</label><select class="fi" id="d-stat"><option>On duty</option><option>On leave</option><option>Part-time</option></select></div></div>
+  <div class="mh"><div class="mt2" id="mo-doc-title">👨‍⚕️ Doctor যোগ করুন</div><button class="mc" onclick="closeMo('mo-doc')">✕</button></div>
+  <input type="hidden" id="doc-edit-id">
+  <div class="fr2"><div class="fg"><label class="fl">Doctor Name *</label><input class="fi" type="text" id="d-name" placeholder="Dr. নাম"></div><div class="fg"><label class="fl">Speciality</label><input class="fi" type="text" id="d-spec" placeholder="যেমন: Radiologist"></div></div>
+  <div class="fr2"><div class="fg"><label class="fl">Experience</label><input class="fi" type="text" id="d-exp" placeholder="যেমন: 10 years"></div><div class="fg"><label class="fl">Status</label><select class="fi" id="d-stat"><option value="On duty">On duty</option><option value="On leave">On leave</option><option value="Part-time">Part-time</option></select></div></div>
   <div class="fg"><label class="fl">Phone</label><input class="fi" type="tel" id="d-phone" placeholder="01700-000000"></div>
-  <div class="mf"><button class="btn btnp" style="flex:1" onclick="addDoc()">Add Doctor</button><button class="btn" onclick="closeMo('mo-doc')">Cancel</button></div>
+  <div class="mf"><button class="btn btnp" style="flex:1" onclick="saveDoc()">Save Doctor</button><button class="btn" onclick="closeMo('mo-doc')">Cancel</button></div>
 </div></div>
 
+<!-- Service -->
 <div class="mo" id="mo-svc"><div class="mbox">
-  <div class="mh"><div class="mt2">🧬 Add Service</div><button class="mc" onclick="closeMo('mo-svc')">✕</button></div>
-  <div class="fr"><div class="fg"><label class="fl">Service Name</label><input class="fi" type="text" id="s-name" placeholder="Service name"></div><div class="fg"><label class="fl">Category</label><select class="fi" id="s-cat"><option>Pathology</option><option>Radiology</option><option>Cardiology</option><option>General</option><option>Neurology</option></select></div></div>
-  <div class="fr"><div class="fg"><label class="fl">Price (৳)</label><input class="fi" type="number" id="s-price" placeholder="0"></div><div class="fg"><label class="fl">Duration</label><input class="fi" type="text" id="s-dur" placeholder="e.g. 30 min"></div></div>
-  <div class="mf"><button class="btn btnp" style="flex:1" onclick="addSvc()">Add Service</button><button class="btn" onclick="closeMo('mo-svc')">Cancel</button></div>
+  <div class="mh"><div class="mt2" id="mo-svc-title">🧬 Service</div><button class="mc" onclick="closeMo('mo-svc')">✕</button></div>
+  <input type="hidden" id="svc-edit-id">
+  <div class="fr2"><div class="fg"><label class="fl">Service Name *</label><input class="fi" type="text" id="s-name" placeholder="Service নাম"></div><div class="fg"><label class="fl">Category</label><select class="fi" id="s-cat"><option value="Pathology">Pathology</option><option value="Radiology">Radiology</option><option value="Cardiology">Cardiology</option><option value="General">General</option><option value="Neurology">Neurology</option></select></div></div>
+  <div class="fr2"><div class="fg"><label class="fl">Price (৳)</label><input class="fi" type="number" id="s-price" placeholder="0"></div><div class="fg"><label class="fl">Duration</label><input class="fi" type="text" id="s-dur" placeholder="যেমন: 30 min"></div></div>
+  <div class="fg"><label class="fl">Status</label><select class="fi" id="s-stat"><option value="Active">Active</option><option value="Limited">Limited</option><option value="Inactive">Inactive</option></select></div>
+  <div class="mf"><button class="btn btnp" style="flex:1" onclick="saveSvc()">Save Service</button><button class="btn" onclick="closeMo('mo-svc')">Cancel</button></div>
 </div></div>
 
+<!-- Invoice -->
 <div class="mo" id="mo-inv"><div class="mbox">
-  <div class="mh"><div class="mt2">💳 New Invoice</div><button class="mc" onclick="closeMo('mo-inv')">✕</button></div>
-  <div class="fg"><label class="fl">Patient Name</label><input class="fi" type="text" id="i-pat" placeholder="Patient name"></div>
-  <div class="fg"><label class="fl">Services</label><input class="fi" type="text" id="i-svc" placeholder="e.g. Blood CBC, ECG"></div>
-  <div class="fg"><label class="fl">Amount (৳)</label><input class="fi" type="number" id="i-amt" placeholder="0"></div>
-  <div class="mf"><button class="btn btnp" style="flex:1" onclick="addInv()">Create Invoice</button><button class="btn" onclick="closeMo('mo-inv')">Cancel</button></div>
+  <div class="mh"><div class="mt2" id="mo-inv-title">💳 Invoice</div><button class="mc" onclick="closeMo('mo-inv')">✕</button></div>
+  <input type="hidden" id="inv-edit-id">
+  <div class="fg"><label class="fl">Patient Name *</label><input class="fi" type="text" id="i-pat" placeholder="Patient নাম"></div>
+  <div class="fg"><label class="fl">Services</label><input class="fi" type="text" id="i-svc" placeholder="যেমন: Blood CBC, ECG"></div>
+  <div class="fr2"><div class="fg"><label class="fl">Amount (৳) *</label><input class="fi" type="number" id="i-amt" placeholder="0"></div><div class="fg"><label class="fl">Payment Status</label><select class="fi" id="i-stat"><option value="Pending">Pending</option><option value="Paid">Paid</option><option value="Partial">Partial</option></select></div></div>
+  <div class="mf"><button class="btn btnp" style="flex:1" onclick="saveInv()">Save Invoice</button><button class="btn" onclick="closeMo('mo-inv')">Cancel</button></div>
 </div></div>
 
 <div class="toast" id="toast"></div>
 
-<script>
-// DATA
-// ══════════════════════════════════════════
-//  LOCAL STORAGE — AUTO SAVE & LOAD
-// ══════════════════════════════════════════
-var LS_KEY='mediscan_v1';
+<!-- REMINDER POPUP -->
+<div id="reminder-popup" style="position:fixed;top:80px;right:1.5rem;z-index:8000;width:320px;display:none;animation:tin .3s cubic-bezier(.16,1,.3,1)">
+  <div style="background:var(--bg2);border:1px solid var(--amber2);border-radius:16px;padding:1.25rem;box-shadow:0 12px 40px rgba(0,0,0,.5)">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:.75rem">
+      <div style="font-size:14px;font-weight:700;color:var(--amber)">🔔 আজকের Appointments</div>
+      <button onclick="document.getElementById('reminder-popup').style.display='none'" style="background:none;border:none;color:var(--text3);font-size:18px;cursor:pointer">×</button>
+    </div>
+    <div id="reminder-list" style="font-size:13px;color:var(--text2);line-height:1.8"></div>
+    <button onclick="document.getElementById('reminder-popup').style.display='none';goPage('appointments')" style="margin-top:.75rem;width:100%;padding:8px;background:var(--amber2);color:var(--amber);border:none;border-radius:8px;font-family:Outfit,sans-serif;font-size:13px;font-weight:600;cursor:pointer">Appointments দেখুন →</button>
+  </div>
+</div>
 
-var DEFAULT_DATA={
+<!-- PRINT AREA -->
+<div id="print-area" style="display:none"></div>
+<style>
+@media print{
+  body > *{display:none!important}
+  #print-area{display:block!important;padding:2rem;font-family:Arial,sans-serif;color:#000}
+  #print-area h2{font-size:20px;margin-bottom:4px}
+  #print-area .prow{display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid #eee;font-size:14px}
+  #print-area .total{font-size:16px;font-weight:bold;color:#1D9E75}
+}
+</style>
+
+<script>
+// ═══════════════════════════════════════
+// LOCAL STORAGE
+// ═══════════════════════════════════════
+var LS_KEY='mediscan_v1';
+var ADMIN_KEY='mediscan_admin';
+
+var DEF={
   apts:[
-    {id:'APT-1201',pat:'Rahim Uddin',test:'MRI Brain',doc:'Dr. Kamal Ahmed',date:'2026-03-19',time:'09:00',stat:'Done'},
-    {id:'APT-1202',pat:'Nasrin Begum',test:'Blood CBC',doc:'Dr. Sonia Omar',date:'2026-03-19',time:'10:30',stat:'Pending'},
-    {id:'APT-1203',pat:'Jamal Hossain',test:'ECG',doc:'Dr. Rafi Ahmed',date:'2026-03-19',time:'11:00',stat:'Processing'},
-    {id:'APT-1204',pat:'Tahmina Akter',test:'X-Ray Chest',doc:'Dr. Kamal Ahmed',date:'2026-03-18',time:'09:30',stat:'Done'},
-    {id:'APT-1205',pat:'Sumon Islam',test:'CT Scan',doc:'Dr. Sonia Omar',date:'2026-03-18',time:'14:00',stat:'Cancelled'},
-    {id:'APT-1206',pat:'Rafi Ahmed',test:'Ultrasound',doc:'Dr. Rafi Ahmed',date:'2026-03-17',time:'11:30',stat:'Done'},
+    {id:'APT-001',pat:'Rahim Uddin',phone:'01712-000001',test:'MRI Brain',doc:'Dr. Kamal Ahmed',date:'2026-03-19',time:'09:00',stat:'Done',note:''},
+    {id:'APT-002',pat:'Nasrin Begum',phone:'01812-000002',test:'Blood CBC',doc:'Dr. Sonia Omar',date:'2026-03-19',time:'10:30',stat:'Pending',note:''},
+    {id:'APT-003',pat:'Jamal Hossain',phone:'01912-000003',test:'ECG',doc:'Dr. Rafi Ahmed',date:'2026-03-19',time:'11:00',stat:'Processing',note:''},
+    {id:'APT-004',pat:'Tahmina Akter',phone:'01711-000004',test:'X-Ray Chest',doc:'Dr. Kamal Ahmed',date:'2026-03-18',time:'09:30',stat:'Done',note:''},
+    {id:'APT-005',pat:'Sumon Islam',phone:'01611-000005',test:'CT Scan',doc:'Dr. Sonia Omar',date:'2026-03-18',time:'14:00',stat:'Cancelled',note:''},
   ],
   pats:[
     {id:'P-001',name:'Rahim Uddin',age:45,gen:'Male',phone:'01712-000001',blood:'B+',visit:'19 Mar 2026',stat:'Active'},
@@ -487,128 +572,90 @@ var DEFAULT_DATA={
     {name:'Dr. Rafi Ahmed',spec:'Cardiologist',exp:'15 years',stat:'On leave',apts:6,rating:4.9,phone:'01700-333333',color:'#a78bfa'},
   ],
   svcs:[
-    {name:'Full Body Checkup',cat:'General',price:3500,dur:'2 hrs',mo:48,stat:'Active'},
-    {name:'MRI Brain',cat:'Radiology',price:8000,dur:'1 hr',mo:32,stat:'Active'},
-    {name:'CT Scan Chest',cat:'Radiology',price:6500,dur:'45 min',mo:27,stat:'Active'},
-    {name:'Blood CBC',cat:'Pathology',price:600,dur:'30 min',mo:120,stat:'Active'},
-    {name:'ECG',cat:'Cardiology',price:1200,dur:'20 min',mo:65,stat:'Active'},
-    {name:'Ultrasound',cat:'Radiology',price:2000,dur:'30 min',mo:40,stat:'Limited'},
-    {name:'Thyroid Panel',cat:'Pathology',price:1800,dur:'45 min',mo:38,stat:'Active'},
+    {name:'Full Body Checkup',cat:'General',price:3500,dur:'2 hrs',stat:'Active'},
+    {name:'MRI Brain',cat:'Radiology',price:8000,dur:'1 hr',stat:'Active'},
+    {name:'CT Scan Chest',cat:'Radiology',price:6500,dur:'45 min',stat:'Active'},
+    {name:'Blood CBC',cat:'Pathology',price:600,dur:'30 min',stat:'Active'},
+    {name:'ECG',cat:'Cardiology',price:1200,dur:'20 min',stat:'Active'},
+    {name:'Ultrasound',cat:'Radiology',price:2000,dur:'30 min',stat:'Limited'},
+    {name:'Thyroid Panel',cat:'Pathology',price:1800,dur:'45 min',stat:'Active'},
   ],
   reps:[
-    {id:'R-5521',pat:'Nasrin Begum',test:'Blood CBC',ord:'Today 9:00 AM',due:'Today 3:00 PM',stat:'In Lab'},
-    {id:'R-5518',pat:'Jamal Hossain',test:'ECG',ord:'Today 8:00 AM',due:'Today 1:00 PM',stat:'Processing'},
-    {id:'R-5510',pat:'Rafiqul Islam',test:'Thyroid Panel',ord:'Yesterday',due:'Today 10:00 AM',stat:'Overdue'},
-    {id:'R-5502',pat:'Sumon Islam',test:'Lipid Profile',ord:'Yesterday',due:'Today 12:00 PM',stat:'In Lab'},
+    {id:'R-001',pat:'Nasrin Begum',test:'Blood CBC',ord:'Today 9:00 AM',due:'Today 3:00 PM',stat:'In Lab'},
+    {id:'R-002',pat:'Jamal Hossain',test:'ECG',ord:'Today 8:00 AM',due:'Today 1:00 PM',stat:'Processing'},
+    {id:'R-003',pat:'Rafiqul Islam',test:'Thyroid Panel',ord:'Yesterday',due:'Today 10:00 AM',stat:'Overdue'},
   ],
   invs:[
-    {id:'INV-2501',pat:'Rahim Uddin',svc:'MRI Brain, Blood CBC',amt:8600,date:'19 Mar 2026',stat:'Paid'},
-    {id:'INV-2500',pat:'Tahmina Akter',svc:'X-Ray Chest',amt:1500,date:'18 Mar 2026',stat:'Paid'},
-    {id:'INV-2499',pat:'Sumon Islam',svc:'CT Scan',amt:6500,date:'18 Mar 2026',stat:'Pending'},
-    {id:'INV-2498',pat:'Rafi Ahmed',svc:'Ultrasound, ECG',amt:3200,date:'17 Mar 2026',stat:'Paid'},
+    {id:'INV-001',pat:'Rahim Uddin',svc:'MRI Brain, Blood CBC',amt:8600,date:'19 Mar 2026',stat:'Paid'},
+    {id:'INV-002',pat:'Tahmina Akter',svc:'X-Ray Chest',amt:1500,date:'18 Mar 2026',stat:'Paid'},
+    {id:'INV-003',pat:'Sumon Islam',svc:'CT Scan',amt:6500,date:'18 Mar 2026',stat:'Pending'},
   ],
+  admin:{user:'admin',pass:'admin123'},
 };
 
-// Load from localStorage, fallback to defaults
 function lsLoad(){
-  try{
-    var raw=localStorage.getItem(LS_KEY);
-    if(raw){var d=JSON.parse(raw);return d;}
-  }catch(e){}
-  return JSON.parse(JSON.stringify(DEFAULT_DATA));
+  try{var r=localStorage.getItem(LS_KEY);if(r)return JSON.parse(r);}catch(e){}
+  return JSON.parse(JSON.stringify(DEF));
 }
-
-// Save all data to localStorage
 function lsSave(){
-  try{
-    localStorage.setItem(LS_KEY,JSON.stringify({apts:apts,pats:pats,docs:docs,svcs:svcs,reps:reps,invs:invs}));
-  }catch(e){}
+  try{localStorage.setItem(LS_KEY,JSON.stringify({apts:apts,pats:pats,docs:docs,svcs:svcs,reps:reps,invs:invs,msgs:msgs}));}catch(e){}
+  updateBadges();
 }
+function loadAdmin(){
+  try{var r=localStorage.getItem(ADMIN_KEY);if(r)return JSON.parse(r);}catch(e){}
+  return {user:'admin',pass:'admin123'};
+}
+function saveAdmin(){try{localStorage.setItem(ADMIN_KEY,JSON.stringify(adminCreds));}catch(e){}}
 
-// Initialize data from localStorage
-var _data=lsLoad();
-var apts=_data.apts;
-var pats=_data.pats;
-var docs=_data.docs;
-var svcs=_data.svcs;
-var reps=_data.reps;
-var invs=_data.invs;
-var sched=[
-  {name:'Rafiqul Islam',meta:'Blood Test · Dr. Sonia',time:'9:00 AM',stat:'Waiting',c:'#00e5a0'},
-  {name:'Moriam Khatun',meta:'ECG · Dr. Rafi',time:'10:30 AM',stat:'Done',c:'#4d9fff'},
-  {name:'Zahir Hossain',meta:'CT Scan · Dr. Kamal',time:'12:00 PM',stat:'Waiting',c:'#ff6b6b'},
-  {name:'Fatema Begum',meta:'MRI · Dr. Kamal',time:'2:30 PM',stat:'Upcoming',c:'#a78bfa'},
-  {name:'Karim Mia',meta:'Blood CBC · Dr. Sonia',time:'4:00 PM',stat:'Upcoming',c:'#ffb347'},
-];
-var acts=[
-  {ico:'📋',txt:'<span>Nasrin Begum</span> lab report ready',tm:'5 min ago',bg:'var(--amber2)'},
-  {ico:'✅',txt:'Appointment <span>#APT-1204</span> marked done',tm:'22 min ago',bg:'var(--green3)'},
-  {ico:'👤',txt:'New patient <span>Karim Mia</span> registered',tm:'1 hr ago',bg:'var(--blue2)'},
-  {ico:'⚠️',txt:'Report <span>R-5510</span> is overdue',tm:'2 hrs ago',bg:'var(--red2)'},
-  {ico:'💳',txt:'Invoice <span>INV-2501</span> payment received',tm:'3 hrs ago',bg:'var(--purple2)'},
-];
+var _d=lsLoad();
+var apts=_d.apts||[];var pats=_d.pats||[];var docs=_d.docs||[];
+var svcs=_d.svcs||[];var reps=_d.reps||[];var invs=_d.invs||[];var msgs=_d.msgs||[];
+var adminCreds=loadAdmin();
+
 var progs=[
-  {lbl:'Pathology',pct:72,c:'var(--green)'},
-  {lbl:'Radiology',pct:55,c:'var(--blue)'},
-  {lbl:'Cardiology',pct:38,c:'var(--red)'},
-  {lbl:'MRI / CT',pct:45,c:'var(--purple)'},
+  {lbl:'Pathology',pct:72,c:'var(--green)'},{lbl:'Radiology',pct:55,c:'var(--blue)'},
+  {lbl:'Cardiology',pct:38,c:'var(--red)'},{lbl:'MRI / CT',pct:45,c:'var(--purple)'},
   {lbl:'Ultrasound',pct:28,c:'var(--amber)'},
 ];
-var toggles=[
-  {lbl:'Email Notifications',sub:'Receive appointment alerts via email',on:true},
-  {lbl:'SMS Alerts',sub:'SMS for new bookings and cancellations',on:true},
-  {lbl:'Lab Report Ready',sub:'Notify when reports are complete',on:true},
-  {lbl:'Daily Summary',sub:'End-of-day report to your email',on:false},
-  {lbl:'Overdue Alerts',sub:'Alert when reports are past due',on:true},
+var acts=[
+  {ico:'📋',txt:'Admin panel চালু হয়েছে',tm:'এইমাত্র',bg:'var(--green3)'},
+  {ico:'👤',txt:'LocalStorage থেকে data load হয়েছে',tm:'এইমাত্র',bg:'var(--blue2)'},
 ];
-
-// BADGE
-var bmap={Done:'bg',Paid:'bg',Active:'bg','On duty':'bg',Pending:'ba','On leave':'ba','Follow-up':'ba','In Lab':'ba',Limited:'ba',Processing:'bb','Part-time':'bb',Waiting:'ba',Upcoming:'bp',Cancelled:'br',Critical:'br',Overdue:'br'};
-function bdg(s){return '<span class="bdg '+(bmap[s]||'bgr')+'">'+s+'</span>';}
-
-// NAVIGATION — FIXED
+var toggleItems=[
+  {lbl:'Email Notifications',sub:'Appointment alerts via email',on:true},
+  {lbl:'SMS Alerts',sub:'SMS for new bookings',on:true},
+  {lbl:'Lab Report Ready',sub:'Notify when reports complete',on:true},
+  {lbl:'Daily Summary',sub:'End-of-day report email',on:false},
+];
 var pageMeta={
-  dashboard:{t:'Dashboard',b:'Overview'},
-  appointments:{t:'Appointments',b:'Schedule Management'},
-  patients:{t:'Patients',b:'Patient Records'},
-  reports:{t:'Lab Reports',b:'Report Tracking'},
-  doctors:{t:'Doctors',b:'Medical Staff'},
-  services:{t:'Services',b:'Service Catalogue'},
-  billing:{t:'Billing',b:'Invoices & Payments'},
-  settings:{t:'Settings',b:'System Configuration'},
+  dashboard:{t:'Dashboard',b:'Overview'},appointments:{t:'Appointments',b:'Schedule'},
+  patients:{t:'Patients',b:'Patient Records'},reports:{t:'Lab Reports',b:'Report Tracking'},
+  doctors:{t:'Doctors',b:'Medical Staff'},services:{t:'Services',b:'Service Catalogue'},
+  billing:{t:'Billing',b:'Invoices'},settings:{t:'Settings',b:'System Configuration'},calendar:{t:'Calendar',b:'Appointment Calendar'},analytics:{t:'Analytics',b:'Charts & Reports'},messages:{t:'Messages',b:'Contact Form Inbox'},
 };
 
+// BADGE HELPER
+var bmap={Done:'bg',Paid:'bg',Active:'bg','On duty':'bg',Pending:'ba','On leave':'ba','Follow-up':'ba','In Lab':'ba',Limited:'ba',Partial:'ba',Processing:'bb','Part-time':'bb',Waiting:'ba',Upcoming:'bp',Cancelled:'br',Critical:'br',Overdue:'br',Inactive:'bgr'};
+function bdg(s){return '<span class="bdg '+(bmap[s]||'bgr')+'">'+s+'</span>';}
+
+// NAVIGATION
 function goPage(name){
-  // 1. Hide ALL panels
-  var all=document.getElementsByClassName('panel');
-  for(var i=0;i<all.length;i++){
-    all[i].classList.remove('on');
-  }
-  // 2. Remove active from ALL nav items
-  var navs=document.getElementsByClassName('ni');
-  for(var i=0;i<navs.length;i++){
-    navs[i].classList.remove('on');
-  }
-  // 3. Show the correct panel
+  document.querySelectorAll('.panel').forEach(function(p){p.classList.remove('on');});
+  document.querySelectorAll('.ni').forEach(function(n){n.classList.remove('on');});
   var panel=document.getElementById('panel-'+name);
-  if(panel){panel.classList.add('on');}
-  // 4. Highlight correct nav
+  if(panel)panel.classList.add('on');
   var nav=document.getElementById('nav-'+name);
-  if(nav){nav.classList.add('on');}
-  // 5. Update topbar text
+  if(nav)nav.classList.add('on');
   var m=pageMeta[name];
-  if(m){
-    document.getElementById('ptitle').textContent=m.t;
-    document.getElementById('pbread').textContent='MediScan / '+m.b;
-  }
+  if(m){document.getElementById('ptitle').textContent=m.t;document.getElementById('pbread').textContent='MediScan / '+m.b;}
 }
 
-// LOGIN
+// LOGIN / LOGOUT
 function doLogin(){
   var u=document.getElementById('lu').value.trim();
   var p=document.getElementById('lp').value.trim();
   var e=document.getElementById('lerr');
-  if(u==='admin'&&p==='admin123'){
+  if(u===adminCreds.user&&p===adminCreds.pass){
     document.getElementById('login-screen').style.display='none';
     document.getElementById('app').style.display='block';
     initApp();
@@ -620,18 +667,15 @@ function doLogin(){
 function doLogout(){
   document.getElementById('app').style.display='none';
   document.getElementById('login-screen').style.display='flex';
-  document.getElementById('lu').value='';
-  document.getElementById('lp').value='';
+  document.getElementById('lu').value='';document.getElementById('lp').value='';
 }
 
 // PARTICLES
 function makeParticles(){
   var c=document.getElementById('particles');
-  for(var i=0;i<25;i++){
-    var p=document.createElement('div');
-    p.className='particle';
-    var sz=1+Math.random()*2;
-    var dur=9+Math.random()*14;
+  for(var i=0;i<20;i++){
+    var p=document.createElement('div');p.className='particle';
+    var sz=1+Math.random()*2,dur=9+Math.random()*14;
     p.style.cssText='left:'+(Math.random()*100)+'%;width:'+sz+'px;height:'+sz+'px;background:var(--green);--dx:'+((Math.random()-0.5)*180)+'px;animation-duration:'+dur+'s;animation-delay:'+(-Math.random()*dur)+'s';
     c.appendChild(p);
   }
@@ -640,162 +684,508 @@ function makeParticles(){
 // COUNTER
 function counter(id,target){
   var el=document.getElementById(id);if(!el)return;
-  var cur=0,step=Math.ceil(target/55),t=setInterval(function(){
-    cur=Math.min(cur+step,target);el.textContent=cur.toLocaleString();
-    if(cur>=target)clearInterval(t);
-  },18);
+  var cur=0,step=Math.max(1,Math.ceil(target/50));
+  var t=setInterval(function(){cur=Math.min(cur+step,target);el.textContent=cur.toLocaleString();if(cur>=target)clearInterval(t);},20);
 }
 
 // SPARKLINES
 function spark(id,color){
   var el=document.getElementById(id);if(!el)return;
-  var vals=[38,52,41,68,57,75,63,80,70,88,74,92];
-  el.innerHTML=vals.map(function(v,i){
-    return '<div class="spk" style="background:'+color+';opacity:'+(0.25+v/100*0.65)+';height:'+(v*0.36)+'px;animation:spkIn .5s '+(i*55)+'ms both"></div>';
-  }).join('');
+  var v=[38,52,41,68,57,75,63,80,70,88,74,92];
+  el.innerHTML=v.map(function(n,i){return '<div class="spk" style="background:'+color+';opacity:'+(0.25+n/100*0.65)+';height:'+(n*0.36)+'px;animation:spkIn .5s '+(i*55)+'ms both"></div>';}).join('');
 }
 
-// DASHBOARD
+// UPDATE BADGES
+function updateBadges(){
+  var pendApts=apts.filter(function(a){return a.stat==='Pending';}).length;
+  document.getElementById('nbadge-apt').textContent=pendApts;
+  var pendReps=reps.filter(function(r){return r.stat!=='Done';}).length;
+  document.getElementById('nbadge-rep').textContent=pendReps;
+}
+
+// GLOBAL SEARCH
+function globalSearch(q){
+  if(!q){return;}
+  q=q.toLowerCase();
+  var found=apts.filter(function(a){return a.pat.toLowerCase().includes(q)||a.test.toLowerCase().includes(q);});
+  if(found.length>0){goPage('appointments');setTimeout(function(){document.getElementById('apt-search').value=q;renderApts();},100);}
+  else{
+    var fp=pats.filter(function(p){return p.name.toLowerCase().includes(q)||p.phone.includes(q);});
+    if(fp.length>0){goPage('patients');setTimeout(function(){document.getElementById('pat-search').value=q;renderPats();},100);}
+  }
+}
+
+// ═══ DASHBOARD ═══
 function renderDash(){
+  // Stats
+  var totalRev=Math.round(invs.reduce(function(s,v){return s+(v.amt||0);},0)/1000);
+  counter('sv1',pats.length);
+  counter('sv2',apts.length);
+  counter('sv3',reps.filter(function(r){return r.stat!=='Done';}).length);
+  counter('sv4',totalRev);
+
+  // Prog bars
   var pb=document.getElementById('progs');
   if(pb)pb.innerHTML=progs.map(function(b){
     return '<div class="pr"><div class="plbl">'+b.lbl+'</div><div class="ptrk"><div class="pfil" data-w="'+b.pct+'" style="width:0;background:'+b.c+'"></div></div><div class="ppct">'+b.pct+'%</div></div>';
   }).join('');
-  setTimeout(function(){
-    var f=document.querySelectorAll('.pfil');
-    for(var i=0;i<f.length;i++)f[i].style.width=f[i].dataset.w+'%';
-  },300);
+  setTimeout(function(){document.querySelectorAll('.pfil').forEach(function(f){f.style.width=f.dataset.w+'%';});},300);
+
+  // Recent apts table
   var tb=document.getElementById('dapt');
   if(tb)tb.innerHTML=apts.slice(0,5).map(function(a){
     var ini=a.pat.split(' ').map(function(x){return x[0];}).slice(0,2).join('');
     return '<tr><td><div class="avc"><div class="mav" style="background:var(--green3);color:var(--green)">'+ini+'</div>'+a.pat+'</div></td><td>'+a.test+'</td><td>'+a.doc+'</td><td>'+bdg(a.stat)+'</td></tr>';
   }).join('');
+
+  // Schedule — pending/processing apts
+  // Show unread message count in dashboard
+  var unreadMsgs=msgs.filter(function(m){return!m.read;}).length;
+  if(unreadMsgs>0){
+    var existingAct=acts[0];
+    if(!existingAct||existingAct.ico!=='💬'||existingAct.tm!=='এইমাত্র'){
+      // Only add once
+    }
+  }
+  var pending=apts.filter(function(a){return a.stat==='Pending'||a.stat==='Processing';}).slice(0,5);
+  var colors=['#00e5a0','#4d9fff','#ff6b6b','#a78bfa','#ffb347'];
   var ds=document.getElementById('dsched');
-  if(ds)ds.innerHTML=sched.map(function(s){
-    return '<div class="si"><div class="sdot" style="background:'+s.c+'"></div><div><div class="sname">'+s.name+'</div><div class="smeta">'+s.meta+'</div></div><div class="stime"><span>'+s.time+'</span>'+bdg(s.stat)+'</div></div>';
-  }).join('');
+  if(ds){
+    if(pending.length===0){ds.innerHTML='<div style="text-align:center;color:var(--text3);padding:2rem;font-size:13px">কোনো pending appointment নেই</div>';}
+    else{ds.innerHTML=pending.map(function(a,i){
+      return '<div class="si"><div class="sdot" style="background:'+colors[i%5]+'"></div><div><div class="sname">'+a.pat+'</div><div class="smeta">'+a.test+' · '+a.doc+'</div></div><div class="stime"><span>'+a.time+'</span>'+bdg(a.stat)+'</div></div>';
+    }).join('');}
+  }
+
+  // Activity
   var da=document.getElementById('dact');
-  if(da)da.innerHTML=acts.map(function(a){
+  if(da)da.innerHTML=acts.slice(0,5).map(function(a){
     return '<div class="ai"><div class="aico" style="background:'+a.bg+'">'+a.ico+'</div><div><div class="atxt">'+a.txt+'</div><div class="atm">'+a.tm+'</div></div></div>';
   }).join('');
 }
 
-// APPOINTMENTS
+// ═══ APPOINTMENTS ═══
 function renderApts(){
   var s=(document.getElementById('apt-search')||{value:''}).value.toLowerCase();
   var f=(document.getElementById('apt-filter')||{value:''}).value;
+  // Check for website bookings
+  var webApts=apts.filter(function(a){return a.source==='website'&&a.stat==='Pending';});
+  var banner=document.getElementById('web-apts-banner');
+  if(banner){
+    if(webApts.length>0){banner.innerHTML='<div class="pending-banner">🌐 Website থেকে <b>'+webApts.length+'টি</b> নতুন appointment এসেছে — নিচে WEB- ID দিয়ে দেখুন। Doctor assign করে Done করুন।</div>';}
+    else{banner.innerHTML='';}
+  }
+  var rows=apts.filter(function(a){
+    return(!s||a.pat.toLowerCase().includes(s)||a.test.toLowerCase().includes(s)||a.id.toLowerCase().includes(s))&&(!f||a.stat===f);
+  });
   var tb=document.getElementById('aptb');if(!tb)return;
-  tb.innerHTML=apts.filter(function(a){
-    return(!s||a.pat.toLowerCase().includes(s)||a.test.toLowerCase().includes(s))&&(!f||a.stat===f);
-  }).map(function(a){
-    var ini=a.pat.split(' ').map(function(x){return x[0];}).slice(0,2).join('');
+  tb.innerHTML=rows.map(function(a){
     var idx=apts.indexOf(a);
-    return '<tr><td style="color:var(--text3);font-size:12px">'+a.id+'</td><td><div class="avc"><div class="mav" style="background:var(--green3);color:var(--green)">'+ini+'</div>'+a.pat+'</div></td><td>'+a.test+'</td><td>'+a.doc+'</td><td>'+a.date+'</td><td>'+a.time+'</td><td>'+bdg(a.stat)+'</td><td><button class="btn btnsm btnd" onclick="delApt('+idx+')">Delete</button></td></tr>';
+    var ini=a.pat.split(' ').map(function(x){return x[0];}).slice(0,2).join('');
+    var isWeb=a.source==='website'?'<span style="font-size:10px;color:var(--blue);background:var(--blue2);padding:1px 5px;border-radius:4px;margin-left:4px">WEB</span>':'';
+    return '<tr>'
+      +'<td style="color:var(--text3);font-size:11px">'+a.id+'</td>'
+      +'<td><div class="avc"><div class="mav" style="background:var(--green3);color:var(--green)">'+ini+'</div>'+a.pat+isWeb+'</div></td>'
+      +'<td>'+a.test+'</td>'
+      +'<td><select class="stat-sel" onchange="changeAptDoc('+idx+',this.value)">'+getDoctorOptions(a.doc)+'</select></td>'
+      +'<td>'+a.date+'</td>'
+      +'<td>'+a.time+'</td>'
+      +'<td><select class="stat-sel" onchange="changeAptStat('+idx+',this.value)">'+getStatOptions(a.stat,['Pending','Processing','Done','Cancelled'])+'</select></td>'
+      +'<td style="white-space:nowrap">'
+        +'<button class="btn btnsm btne" onclick="editApt('+idx+')" style="margin-right:4px">✏️</button>'
+        +'<button class="btn btnsm btnd" onclick="delApt('+idx+')">🗑</button>'
+      +'</td>'
+    +'</tr>';
   }).join('');
-  document.getElementById('nbadge-apt').textContent=apts.length;
+  updateBadges();
 }
-function addApt(){
+
+function getDoctorOptions(current){
+  var docList=['Dr. Kamal Ahmed','Dr. Sonia Omar','Dr. Rafi Ahmed','Unassigned'];
+  docs.forEach(function(d){if(docList.indexOf(d.name)<0)docList.push(d.name);});
+  return docList.map(function(d){return '<option value="'+d+'"'+(d===current?' selected':'')+'>'+d+'</option>';}).join('');
+}
+function getStatOptions(current,list){
+  return list.map(function(s){return '<option value="'+s+'"'+(s===current?' selected':'')+'>'+s+'</option>';}).join('');
+}
+function changeAptStat(i,val){
+  apts[i].stat=val;lsSave();renderDash();
+  addActivity('✅','Appointment <span>'+apts[i].pat+'</span> → '+val,'এইমাত্র','var(--green3)');
+  toast('✅ Status updated: '+val);
+}
+function changeAptDoc(i,val){
+  apts[i].doc=val;lsSave();syncWebsite();
+  toast('👨‍⚕️ Doctor assigned: '+val);
+}
+function editApt(i){
+  var a=apts[i];
+  document.getElementById('mo-apt-title').textContent='✏️ Appointment Edit';
+  document.getElementById('apt-edit-id').value=i;
+  document.getElementById('a-pat').value=a.pat;
+  document.getElementById('a-phone').value=a.phone||'';
+  document.getElementById('a-test').value=a.test;
+  document.getElementById('a-doc').value=a.doc;
+  document.getElementById('a-date').value=a.date;
+  document.getElementById('a-time').value=a.time;
+  document.getElementById('a-stat').value=a.stat;
+  document.getElementById('a-note').value=a.note||'';
+  openMo('mo-apt');
+}
+function saveApt(){
   var p=document.getElementById('a-pat').value.trim();
   if(!p){toast('⚠ Patient name required!');return;}
-  var today=new Date().toISOString().split('T')[0];
-  apts.unshift({id:'APT-'+(Date.now()),pat:p,test:document.getElementById('a-test').value,doc:document.getElementById('a-doc').value,date:document.getElementById('a-date').value||today,time:document.getElementById('a-time').value||'09:00',stat:document.getElementById('a-stat').value});
-  document.getElementById('a-pat').value='';document.getElementById('a-date').value='';
-  lsSave();closeMo('mo-apt');renderApts();renderDash();toast('✅ Appointment booked & saved!');
+  var editId=document.getElementById('apt-edit-id').value;
+  var obj={id:'',pat:p,phone:document.getElementById('a-phone').value,test:document.getElementById('a-test').value,doc:document.getElementById('a-doc').value,date:document.getElementById('a-date').value||new Date().toISOString().split('T')[0],time:document.getElementById('a-time').value||'09:00',stat:document.getElementById('a-stat').value,note:document.getElementById('a-note').value};
+  if(editId!==''){
+    obj.id=apts[editId].id;obj.source=apts[editId].source;
+    apts[editId]=obj;
+    addActivity('✏️','Appointment <span>'+p+'</span> updated','এইমাত্র','var(--blue2)');
+    toast('✅ Appointment updated!');
+  } else {
+    obj.id='APT-'+Date.now();
+    apts.unshift(obj);
+    addActivity('📅','নতুন appointment <span>'+p+'</span>','এইমাত্র','var(--green3)');
+    toast('✅ Appointment booked!');
+  }
+  lsSave();closeMo('mo-apt');resetMo('mo-apt');renderApts();renderDash();
 }
-function delApt(i){if(!confirm('Delete this appointment?'))return;apts.splice(i,1);lsSave();renderApts();renderDash();toast('🗑 Deleted');}
+function delApt(i){if(!confirm('Delete করবেন?'))return;var n=apts[i].pat;apts.splice(i,1);lsSave();renderApts();renderDash();toast('🗑 Deleted: '+n);}
 
-// PATIENTS
+// ═══ PATIENTS ═══
 function renderPats(){
   var s=(document.getElementById('pat-search')||{value:''}).value.toLowerCase();
+  var rows=pats.filter(function(p){return!s||p.name.toLowerCase().includes(s)||p.phone.includes(s)||p.id.toLowerCase().includes(s);});
   var tb=document.getElementById('patb');if(!tb)return;
-  tb.innerHTML=pats.filter(function(p){return!s||p.name.toLowerCase().includes(s)||p.phone.includes(s);}).map(function(p){
-    var ini=p.name.split(' ').map(function(x){return x[0];}).slice(0,2).join('');
+  tb.innerHTML=rows.map(function(p){
     var idx=pats.indexOf(p);
-    return '<tr><td style="color:var(--text3);font-size:12px">'+p.id+'</td><td><div class="avc"><div class="mav" style="background:var(--purple2);color:var(--purple)">'+ini+'</div>'+p.name+'</div></td><td>'+p.age+'</td><td>'+p.gen+'</td><td>'+p.phone+'</td><td style="font-weight:700;color:var(--red)">'+p.blood+'</td><td>'+p.visit+'</td><td>'+bdg(p.stat)+'</td><td><button class="btn btnsm btnd" onclick="delPat('+idx+')">Delete</button></td></tr>';
+    var ini=p.name.split(' ').map(function(x){return x[0];}).slice(0,2).join('');
+    return '<tr>'
+      +'<td style="color:var(--text3);font-size:11px">'+p.id+'</td>'
+      +'<td><div class="avc"><div class="mav" style="background:var(--purple2);color:var(--purple)">'+ini+'</div>'+p.name+'</div></td>'
+      +'<td>'+(p.age||'—')+'</td>'
+      +'<td>'+p.phone+'</td>'
+      +'<td style="font-weight:700;color:var(--red)">'+(p.blood||'—')+'</td>'
+      +'<td>'+(p.visit||'—')+'</td>'
+      +'<td><select class="stat-sel" onchange="changePatStat('+idx+',this.value)">'+getStatOptions(p.stat,['Active','Follow-up','Critical','Inactive'])+'</select></td>'
+      +'<td style="white-space:nowrap">'
+        +'<button class="btn btnsm btne" onclick="editPat('+idx+')" style="margin-right:4px">✏️</button>'
+        +'<button class="btn btnsm btnd" onclick="delPat('+idx+')">🗑</button>'
+      +'</td>'
+    +'</tr>';
   }).join('');
 }
-function addPat(){
+function changePatStat(i,val){pats[i].stat=val;lsSave();toast('✅ Status: '+val);}
+function editPat(i){
+  var p=pats[i];
+  document.getElementById('mo-pat-title').textContent='✏️ Patient Edit';
+  document.getElementById('pat-edit-id').value=i;
+  document.getElementById('p-name').value=p.name;
+  document.getElementById('p-age').value=p.age||'';
+  document.getElementById('p-gen').value=p.gen||'Male';
+  document.getElementById('p-blood').value=p.blood||'—';
+  document.getElementById('p-phone').value=p.phone||'';
+  document.getElementById('p-stat').value=p.stat||'Active';
+  openMo('mo-pat');
+}
+function savePat(){
   var n=document.getElementById('p-name').value.trim();
   if(!n){toast('⚠ Name required!');return;}
   var today=new Date().toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'});
-  pats.unshift({id:'P-'+String(Date.now()).slice(-4),name:n,age:document.getElementById('p-age').value||'—',gen:document.getElementById('p-gen').value,phone:document.getElementById('p-phone').value||'—',blood:document.getElementById('p-blood').value,visit:today,stat:'Active'});
-  ['p-name','p-age','p-phone','p-addr'].forEach(function(id){var el=document.getElementById(id);if(el)el.value='';});
-  lsSave();closeMo('mo-pat');renderPats();toast('✅ Patient added & saved!');
+  var editId=document.getElementById('pat-edit-id').value;
+  var obj={name:n,age:document.getElementById('p-age').value||'—',gen:document.getElementById('p-gen').value,phone:document.getElementById('p-phone').value||'—',blood:document.getElementById('p-blood').value,visit:today,stat:document.getElementById('p-stat').value};
+  if(editId!==''){
+    obj.id=pats[editId].id;pats[editId]=obj;toast('✅ Patient updated!');
+    addActivity('✏️','Patient <span>'+n+'</span> updated','এইমাত্র','var(--blue2)');
+  } else {
+    obj.id='P-'+String(Date.now()).slice(-5);pats.unshift(obj);toast('✅ Patient added!');
+    addActivity('👤','নতুন patient <span>'+n+'</span>','এইমাত্র','var(--purple2)');
+  }
+  lsSave();closeMo('mo-pat');resetMo('mo-pat');renderPats();renderDash();
 }
-function delPat(i){if(!confirm('Delete this patient?'))return;pats.splice(i,1);lsSave();renderPats();toast('🗑 Deleted');}
+function delPat(i){if(!confirm('Delete করবেন?'))return;var n=pats[i].name;pats.splice(i,1);lsSave();renderPats();renderDash();toast('🗑 Deleted: '+n);}
 
-// REPORTS
+// ═══ REPORTS ═══
 function renderReps(){
+  var s=(document.getElementById('rep-search')||{value:''}).value.toLowerCase();
+  var rows=reps.filter(function(r){return!s||r.pat.toLowerCase().includes(s)||r.test.toLowerCase().includes(s)||r.id.toLowerCase().includes(s);});
   var tb=document.getElementById('repb');if(!tb)return;
-  tb.innerHTML=reps.map(function(r,i){
-    return '<tr><td style="color:var(--text3);font-size:12px">'+r.id+'</td><td>'+r.pat+'</td><td>'+r.test+'</td><td>'+r.ord+'</td><td>'+r.due+'</td><td>'+bdg(r.stat)+'</td><td><button class="btn btnsm" style="color:var(--green);border-color:var(--green3);background:var(--green4)" onclick="doneRep('+i+')">✓ Done</button></td></tr>';
+  tb.innerHTML=rows.map(function(r){
+    var idx=reps.indexOf(r);
+    return '<tr>'
+      +'<td style="color:var(--text3);font-size:11px">'+r.id+'</td>'
+      +'<td>'+r.pat+'</td><td>'+r.test+'</td><td>'+r.ord+'</td><td>'+r.due+'</td>'
+      +'<td><select class="stat-sel" onchange="changeRepStat('+idx+',this.value)">'+getStatOptions(r.stat,['In Lab','Processing','Overdue','Done'])+'</select></td>'
+      +'<td style="white-space:nowrap">'
+        +'<button class="btn btnsm btne" onclick="editRep('+idx+')" style="margin-right:4px">✏️</button>'
+        +'<button class="btn btnsm btnd" onclick="delRep('+idx+')">🗑</button>'
+      +'</td>'
+    +'</tr>';
   }).join('');
+  // Stats
+  var total=reps.length,pending=reps.filter(function(r){return r.stat!=='Done';}).length;
+  var done=reps.filter(function(r){return r.stat==='Done';}).length;
+  var over=reps.filter(function(r){return r.stat==='Overdue';}).length;
+  var t=document.getElementById('rep-total');if(t)t.textContent=total;
+  var p=document.getElementById('rep-pending');if(p)p.textContent=pending;
+  var d=document.getElementById('rep-done');if(d)d.textContent=done;
+  var o=document.getElementById('rep-over');if(o)o.textContent=over;
+  updateBadges();
 }
-function doneRep(i){reps.splice(i,1);lsSave();renderReps();toast('✅ Report delivered!');}
+function changeRepStat(i,val){
+  reps[i].stat=val;lsSave();renderReps();
+  if(val==='Done')addActivity('✅','Report <span>'+reps[i].pat+'</span> delivered','এইমাত্র','var(--green3)');
+  toast('✅ Report status: '+val);
+}
+function editRep(i){
+  var r=reps[i];
+  document.getElementById('mo-rep-title').textContent='✏️ Report Edit';
+  document.getElementById('rep-edit-id').value=i;
+  document.getElementById('r-pat').value=r.pat;
+  document.getElementById('r-test').value=r.test;
+  document.getElementById('r-ord').value=r.ord;
+  document.getElementById('r-due').value=r.due;
+  document.getElementById('r-stat').value=r.stat;
+  openMo('mo-rep');
+}
+function saveRep(){
+  var p=document.getElementById('r-pat').value.trim();
+  if(!p){toast('⚠ Patient name required!');return;}
+  var editId=document.getElementById('rep-edit-id').value;
+  var obj={pat:p,test:document.getElementById('r-test').value,ord:document.getElementById('r-ord').value||'Today',due:document.getElementById('r-due').value||'Tomorrow',stat:document.getElementById('r-stat').value};
+  if(editId!==''){
+    obj.id=reps[editId].id;reps[editId]=obj;toast('✅ Report updated!');
+  } else {
+    obj.id='R-'+String(Date.now()).slice(-5);reps.unshift(obj);toast('✅ Report added!');
+    addActivity('📋','নতুন report <span>'+p+'</span>','এইমাত্র','var(--amber2)');
+  }
+  lsSave();closeMo('mo-rep');resetMo('mo-rep');renderReps();renderDash();
+}
+function delRep(i){if(!confirm('Delete করবেন?'))return;reps.splice(i,1);lsSave();renderReps();toast('🗑 Deleted');}
 
-// DOCTORS
+// ═══ DOCTORS ═══
 function renderDocs(){
   var g=document.getElementById('docgrid');if(!g)return;
-  g.innerHTML=docs.map(function(d){
+  g.innerHTML=docs.map(function(d,i){
     var ini=d.name.split(' ').slice(1).map(function(x){return x[0];}).join('');
-    return '<div class="dc"><div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:10px"><div class="dav" style="background:'+d.color+'22;color:'+d.color+'">'+ini+'</div>'+bdg(d.stat)+'</div><div style="font-size:15px;font-weight:700;margin-bottom:2px">'+d.name+'</div><div style="font-size:12px;color:var(--text3);margin-bottom:12px">'+d.spec+' · '+d.exp+'</div><div style="display:flex;gap:16px;border-top:1px solid var(--border);padding-top:10px"><div><div style="font-size:17px;font-weight:700;color:'+d.color+'">'+d.apts+'</div><div style="font-size:10px;color:var(--text3)">Appointments</div></div><div><div style="font-size:17px;font-weight:700;color:'+d.color+'">⭐ '+d.rating+'</div><div style="font-size:10px;color:var(--text3)">Rating</div></div><div><div style="font-size:12px;font-weight:600;color:var(--text2)">'+d.phone+'</div><div style="font-size:10px;color:var(--text3)">Phone</div></div></div></div>';
+    return '<div class="dc">'
+      +'<div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:10px">'
+        +'<div class="dav" style="background:'+d.color+'22;color:'+d.color+'">'+ini+'</div>'
+        +'<div style="display:flex;align-items:center;gap:6px">'
+          +bdg(d.stat)
+          +'<button class="btn btnsm btne" onclick="editDoc('+i+')" title="Edit">✏️</button>'
+          +'<button class="btn btnsm btnd" onclick="delDoc('+i+')" title="Delete">🗑</button>'
+        +'</div>'
+      +'</div>'
+      +'<div style="font-size:15px;font-weight:700;margin-bottom:2px">'+d.name+'</div>'
+      +'<div style="font-size:12px;color:var(--text3);margin-bottom:12px">'+d.spec+' · '+d.exp+'</div>'
+      +'<div style="display:flex;gap:16px;border-top:1px solid var(--border);padding-top:10px">'
+        +'<div><div style="font-size:17px;font-weight:700;color:'+d.color+'">'+d.apts+'</div><div style="font-size:10px;color:var(--text3)">Appointments</div></div>'
+        +'<div><div style="font-size:17px;font-weight:700;color:'+d.color+'">⭐ '+d.rating+'</div><div style="font-size:10px;color:var(--text3)">Rating</div></div>'
+        +'<div><div style="font-size:12px;font-weight:600;color:var(--text2)">'+d.phone+'</div><div style="font-size:10px;color:var(--text3)">Phone</div></div>'
+      +'</div>'
+    +'</div>';
   }).join('');
 }
-function addDoc(){
+function editDoc(i){
+  var d=docs[i];
+  document.getElementById('mo-doc-title').textContent='✏️ Doctor Edit';
+  document.getElementById('doc-edit-id').value=i;
+  document.getElementById('d-name').value=d.name;
+  document.getElementById('d-spec').value=d.spec;
+  document.getElementById('d-exp').value=d.exp;
+  document.getElementById('d-stat').value=d.stat;
+  document.getElementById('d-phone').value=d.phone;
+  openMo('mo-doc');
+}
+function saveDoc(){
   var n=document.getElementById('d-name').value.trim();
   if(!n){toast('⚠ Name required!');return;}
   var cols=['#00e5a0','#4d9fff','#a78bfa','#ffb347','#ff6b6b'];
-  docs.push({name:n,spec:document.getElementById('d-spec').value||'General',exp:document.getElementById('d-exp').value||'—',stat:document.getElementById('d-stat').value,apts:0,rating:5.0,phone:document.getElementById('d-phone').value||'—',color:cols[docs.length%cols.length]});
-  ['d-name','d-spec','d-exp','d-phone'].forEach(function(id){document.getElementById(id).value='';});
-  lsSave();closeMo('mo-doc');renderDocs();toast('✅ Doctor added & saved!');
+  var editId=document.getElementById('doc-edit-id').value;
+  var obj={name:n,spec:document.getElementById('d-spec').value||'General',exp:document.getElementById('d-exp').value||'—',stat:document.getElementById('d-stat').value,phone:document.getElementById('d-phone').value||'—',apts:0,rating:5.0,color:''};
+  if(editId!==''){
+    obj.apts=docs[editId].apts;obj.rating=docs[editId].rating;obj.color=docs[editId].color;
+    docs[editId]=obj;toast('✅ Doctor updated!');
+  } else {
+    obj.color=cols[docs.length%cols.length];docs.push(obj);toast('✅ Doctor added!');
+  }
+  lsSave();syncWebsite();closeMo('mo-doc');resetMo('mo-doc');renderDocs();
 }
+function delDoc(i){if(!confirm('Delete করবেন?'))return;docs.splice(i,1);lsSave();syncWebsite();renderDocs();toast('🗑 Deleted — Website এ update হয়েছে');}
 
-// SERVICES
+// ═══ SERVICES ═══
 function renderSvcs(){
   var tb=document.getElementById('svcb');if(!tb)return;
   tb.innerHTML=svcs.map(function(s,i){
-    return '<tr><td>'+s.name+'</td><td><span class="bdg bb">'+s.cat+'</span></td><td style="font-weight:700;color:var(--green)">৳'+s.price.toLocaleString()+'</td><td>'+s.dur+'</td><td>'+s.mo+'/mo</td><td>'+bdg(s.stat)+'</td><td><button class="btn btnsm btnd" onclick="delSvc('+i+')">Delete</button></td></tr>';
+    return '<tr>'
+      +'<td>'+s.name+'</td>'
+      +'<td><span class="bdg bb">'+s.cat+'</span></td>'
+      +'<td style="font-weight:700;color:var(--green)">৳'+s.price.toLocaleString()+'</td>'
+      +'<td>'+s.dur+'</td>'
+      +'<td>'+bdg(s.stat)+'</td>'
+      +'<td style="white-space:nowrap">'
+        +'<button class="btn btnsm btne" onclick="editSvc('+i+')" style="margin-right:4px">✏️</button>'
+        +'<button class="btn btnsm btnd" onclick="delSvc('+i+')">🗑</button>'
+      +'</td>'
+    +'</tr>';
   }).join('');
 }
-function addSvc(){
+function editSvc(i){
+  var s=svcs[i];
+  document.getElementById('mo-svc-title').textContent='✏️ Service Edit';
+  document.getElementById('svc-edit-id').value=i;
+  document.getElementById('s-name').value=s.name;
+  document.getElementById('s-cat').value=s.cat;
+  document.getElementById('s-price').value=s.price;
+  document.getElementById('s-dur').value=s.dur;
+  document.getElementById('s-stat').value=s.stat;
+  openMo('mo-svc');
+}
+function saveSvc(){
   var n=document.getElementById('s-name').value.trim();
   if(!n){toast('⚠ Name required!');return;}
-  svcs.push({name:n,cat:document.getElementById('s-cat').value,price:parseInt(document.getElementById('s-price').value)||0,dur:document.getElementById('s-dur').value||'—',mo:0,stat:'Active'});
-  ['s-name','s-price','s-dur'].forEach(function(id){document.getElementById(id).value='';});
-  lsSave();closeMo('mo-svc');renderSvcs();toast('✅ Service added & saved!');
+  var editId=document.getElementById('svc-edit-id').value;
+  var obj={name:n,cat:document.getElementById('s-cat').value,price:parseInt(document.getElementById('s-price').value)||0,dur:document.getElementById('s-dur').value||'—',stat:document.getElementById('s-stat').value};
+  if(editId!==''){svcs[editId]=obj;toast('✅ Service updated! Website এ reflect হবে ✓');}
+  else{svcs.push(obj);toast('✅ Service added! Website এ দেখাবে ✓');}
+  lsSave();syncWebsite();closeMo('mo-svc');resetMo('mo-svc');renderSvcs();
 }
-function delSvc(i){if(!confirm('Delete?'))return;svcs.splice(i,1);lsSave();renderSvcs();toast('🗑 Deleted');}
+function delSvc(i){if(!confirm('Delete করবেন?'))return;svcs.splice(i,1);lsSave();syncWebsite();renderSvcs();toast('🗑 Deleted — Website এ update হয়েছে');}
 
-// BILLING
+// ═══ BILLING ═══
 function renderInvs(){
+  var s=(document.getElementById('inv-search')||{value:''}).value.toLowerCase();
+  var rows=invs.filter(function(v){return!s||v.pat.toLowerCase().includes(s)||v.id.toLowerCase().includes(s);});
   var tb=document.getElementById('invb');if(!tb)return;
-  tb.innerHTML=invs.map(function(v){
-    return '<tr><td style="color:var(--text3);font-size:12px">'+v.id+'</td><td>'+v.pat+'</td><td style="color:var(--text2)">'+v.svc+'</td><td style="font-weight:700;color:var(--green)">৳'+v.amt.toLocaleString()+'</td><td>'+v.date+'</td><td>'+bdg(v.stat)+'</td></tr>';
+  tb.innerHTML=rows.map(function(v){
+    var idx=invs.indexOf(v);
+    return '<tr>'
+      +'<td style="color:var(--text3);font-size:11px">'+v.id+'</td>'
+      +'<td>'+v.pat+'</td>'
+      +'<td style="color:var(--text2);font-size:12px">'+v.svc+'</td>'
+      +'<td style="font-weight:700;color:var(--green)">৳'+v.amt.toLocaleString()+'</td>'
+      +'<td>'+v.date+'</td>'
+      +'<td><select class="stat-sel" onchange="changeInvStat('+idx+',this.value)">'+getStatOptions(v.stat,['Pending','Paid','Partial'])+'</select></td>'
+      +'<td style="white-space:nowrap">'
+        +'<button class="btn btnsm" onclick="printInvoice('+idx+')" title="Print" style="margin-right:4px">🖨️</button>'
+        +'<button class="btn btnsm btne" onclick="editInv('+idx+')" style="margin-right:4px">✏️</button>'
+        +'<button class="btn btnsm btnd" onclick="delInv('+idx+')">🗑</button>'
+      +'</td>'
+    +'</tr>';
   }).join('');
+  // Summary
+  var total=invs.reduce(function(s,v){return s+(v.amt||0);},0);
+  var paid=invs.filter(function(v){return v.stat==='Paid';}).reduce(function(s,v){return s+(v.amt||0);},0);
+  var pend=invs.filter(function(v){return v.stat==='Pending'||v.stat==='Partial';}).reduce(function(s,v){return s+(v.amt||0);},0);
+  var bt=document.getElementById('bill-total');if(bt)bt.textContent='৳'+total.toLocaleString();
+  var bp=document.getElementById('bill-paid');if(bp)bp.textContent='৳'+paid.toLocaleString();
+  var bpn=document.getElementById('bill-pending');if(bpn)bpn.textContent='৳'+pend.toLocaleString();
 }
-function addInv(){
+function changeInvStat(i,val){
+  invs[i].stat=val;lsSave();renderInvs();renderDash();
+  if(val==='Paid')addActivity('💳','Payment received from <span>'+invs[i].pat+'</span>','এইমাত্র','var(--purple2)');
+  toast('✅ Payment status: '+val);
+}
+function editInv(i){
+  var v=invs[i];
+  document.getElementById('mo-inv-title').textContent='✏️ Invoice Edit';
+  document.getElementById('inv-edit-id').value=i;
+  document.getElementById('i-pat').value=v.pat;
+  document.getElementById('i-svc').value=v.svc;
+  document.getElementById('i-amt').value=v.amt;
+  document.getElementById('i-stat').value=v.stat;
+  openMo('mo-inv');
+}
+function saveInv(){
   var p=document.getElementById('i-pat').value.trim();
   if(!p){toast('⚠ Patient name required!');return;}
   var today=new Date().toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'});
-  invs.unshift({id:'INV-'+(Date.now()),pat:p,svc:document.getElementById('i-svc').value||'—',amt:parseInt(document.getElementById('i-amt').value)||0,date:today,stat:'Pending'});
-  ['i-pat','i-svc','i-amt'].forEach(function(id){document.getElementById(id).value='';});
-  lsSave();closeMo('mo-inv');renderInvs();toast('✅ Invoice created & saved!');
+  var editId=document.getElementById('inv-edit-id').value;
+  var obj={pat:p,svc:document.getElementById('i-svc').value||'—',amt:parseInt(document.getElementById('i-amt').value)||0,stat:document.getElementById('i-stat').value,date:today};
+  if(editId!==''){
+    obj.id=invs[editId].id;invs[editId]=obj;toast('✅ Invoice updated!');
+  } else {
+    obj.id='INV-'+String(Date.now()).slice(-5);invs.unshift(obj);toast('✅ Invoice created!');
+  }
+  lsSave();closeMo('mo-inv');resetMo('mo-inv');renderInvs();renderDash();
 }
+function delInv(i){if(!confirm('Delete করবেন?'))return;invs.splice(i,1);lsSave();renderInvs();renderDash();toast('🗑 Deleted');}
 
-// TOGGLES
+// ═══ SETTINGS ═══
 function renderToggles(){
   var w=document.getElementById('tglwrap');if(!w)return;
-  w.innerHTML=toggles.map(function(t,i){
+  w.innerHTML=toggleItems.map(function(t,i){
     return '<div class="tr2"><div><div class="tlbl">'+t.lbl+'</div><div class="tsub">'+t.sub+'</div></div><div class="tgl '+(t.on?'on':'')+'" onclick="this.classList.toggle(\'on\')"></div></div>';
   }).join('');
 }
+function saveClinicInfo(){
+  toast('✅ Clinic info saved!');
+  addActivity('⚙️','Clinic info updated','এইমাত্র','var(--glass)');
+}
+function changePassword(){
+  var oldpw=document.getElementById('set-oldpw').value;
+  var newpw=document.getElementById('set-newpw').value;
+  var newuser=document.getElementById('set-user').value.trim();
+  if(!oldpw||!newpw){toast('⚠ Current ও new password দিন!');return;}
+  if(oldpw!==adminCreds.pass){toast('⚠ Current password ভুল!');return;}
+  if(newpw.length<4){toast('⚠ Password কমপক্ষে ৪ অক্ষর!');return;}
+  adminCreds.user=newuser||adminCreds.user;
+  adminCreds.pass=newpw;
+  saveAdmin();
+  document.getElementById('set-oldpw').value='';
+  document.getElementById('set-newpw').value='';
+  toast('✅ Password updated! পরের login এ নতুন password ব্যবহার করুন।');
+}
+function updateLsStatus(){
+  var el=document.getElementById('ls-status');if(!el)return;
+  try{
+    var sz=localStorage.getItem(LS_KEY);
+    var kb=sz?Math.round(sz.length/1024*10)/10:0;
+    el.textContent='✅ LocalStorage Active — '+pats.length+' patients, '+apts.length+' appointments, '+msgs.length+' messages ('+kb+' KB)';
+  }catch(e){el.textContent='✅ LocalStorage Active';}
+}
+function exportData(){
+  var blob=new Blob([JSON.stringify({apts:apts,pats:pats,docs:docs,svcs:svcs,reps:reps,invs:invs,exported:new Date().toLocaleString()},null,2)],{type:'application/json'});
+  var a=document.createElement('a');a.href=URL.createObjectURL(blob);
+  a.download='mediscan-backup-'+new Date().toISOString().split('T')[0]+'.json';a.click();
+  toast('✅ Backup downloaded!');
+}
+function clearAllData(){
+  if(!confirm('সব data মুছে যাবে!'))return;
+  if(!confirm('সত্যিই? Undo করা যাবে না।'))return;
+  localStorage.removeItem(LS_KEY);
+  var d=JSON.parse(JSON.stringify(DEF));
+  apts=d.apts;pats=d.pats;docs=d.docs;svcs=d.svcs;reps=d.reps;invs=d.invs;
+  renderDash();renderApts();renderPats();renderReps();renderDocs();renderSvcs();renderInvs();
+  toast('🗑 Data reset to defaults');
+}
 
-// MODAL
+// ═══ ACTIVITY LOG ═══
+function addActivity(ico,txt,tm,bg){
+  acts.unshift({ico:ico,txt:txt,tm:tm,bg:bg||'var(--glass)'});
+  if(acts.length>20)acts.pop();
+}
+
+// ═══ MODAL ═══
 function openMo(id){document.getElementById(id).classList.add('op');}
 function closeMo(id){document.getElementById(id).classList.remove('op');}
-document.addEventListener('click',function(e){if(e.target.classList.contains('mo'))e.target.classList.remove('op');});
+function resetMo(id){
+  var mo=document.getElementById(id);if(!mo)return;
+  mo.querySelectorAll('input[type=text],input[type=tel],input[type=number],input[type=email],input[type=password],input[type=date],input[type=time]').forEach(function(el){
+    if(el.id!=='a-time')el.value='';
+  });
+  mo.querySelectorAll('input[type=hidden]').forEach(function(el){el.value='';});
+  var titles={
+    'mo-apt':'📅 নতুন Appointment','mo-pat':'👤 নতুন Patient',
+    'mo-rep':'📋 নতুন Report','mo-doc':'👨‍⚕️ Doctor যোগ করুন',
+    'mo-svc':'🧬 Service','mo-inv':'💳 Invoice'
+  };
+  var t=mo.querySelector('.mt2');
+  if(t&&titles[id])t.textContent=titles[id];
+}
+document.addEventListener('click',function(e){if(e.target.classList.contains('mo')){var id=e.target.id;e.target.classList.remove('op');resetMo(id);}});
 
-// TOAST
+// ═══ TOAST ═══
 var toastT;
 function toast(msg){
   var el=document.getElementById('toast');
@@ -803,47 +1193,367 @@ function toast(msg){
   clearTimeout(toastT);toastT=setTimeout(function(){el.classList.remove('sh');},3000);
 }
 
-// EXPORT BACKUP
-function exportData(){
-  var data={apts:apts,pats:pats,docs:docs,svcs:svcs,reps:reps,invs:invs,exported:new Date().toLocaleString()};
-  var blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});
-  var a=document.createElement('a');
-  a.href=URL.createObjectURL(blob);
-  a.download='mediscan-backup-'+new Date().toISOString().split('T')[0]+'.json';
-  a.click();
-  toast('✅ Backup downloaded!');
+// ═══════════════════════════════════════
+// 1. LIGHT / DARK MODE
+// ═══════════════════════════════════════
+var isDark=true;
+var lightVars='--bg:#f0f4f8;--bg2:#ffffff;--bg3:#e8edf4;--glass:rgba(0,0,0,0.03);--glass2:rgba(0,0,0,0.06);--border:rgba(0,0,0,0.1);--border2:rgba(0,0,0,0.18);--text:#111827;--text2:rgba(17,24,39,0.7);--text3:rgba(17,24,39,0.4);';
+var darkVars='--bg:#050b1a;--bg2:#0a1628;--bg3:#0f1f38;--glass:rgba(255,255,255,0.04);--glass2:rgba(255,255,255,0.08);--border:rgba(255,255,255,0.08);--border2:rgba(255,255,255,0.15);--text:#f0f6ff;--text2:rgba(240,246,255,0.65);--text3:rgba(240,246,255,0.35);';
+function toggleTheme(){
+  isDark=!isDark;
+  var root=document.documentElement;
+  var vars=(isDark?darkVars:lightVars).split(';');
+  vars.forEach(function(v){if(!v.trim())return;var p=v.split(':');if(p.length>=2)root.style.setProperty(p[0].trim(),p.slice(1).join(':').trim());});
+  document.getElementById('theme-btn').textContent=isDark?'🌙':'☀️';
+  toast(isDark?'🌙 Dark Mode':'☀️ Light Mode');
 }
 
-// CLEAR ALL DATA
-function clearAllData(){
-  if(!confirm('সব data মুছে যাবে! নিশ্চিত?'))return;
-  if(!confirm('সত্যিই মুছবেন? এটা undo করা যাবে না।'))return;
-  localStorage.removeItem(LS_KEY);
-  var d=JSON.parse(JSON.stringify(DEFAULT_DATA));
-  apts=d.apts;pats=d.pats;docs=d.docs;svcs=d.svcs;reps=d.reps;invs=d.invs;
-  renderDash();renderApts();renderPats();renderReps();renderDocs();renderSvcs();renderInvs();
-  toast('🗑 Data reset to defaults');
+// ═══════════════════════════════════════
+// 2. APPOINTMENT REMINDER
+// ═══════════════════════════════════════
+function showReminder(){
+  var today=new Date().toISOString().split('T')[0];
+  var todayApts=apts.filter(function(a){return a.date===today&&(a.stat==='Pending'||a.stat==='Processing');});
+  if(todayApts.length===0)return;
+  var list=document.getElementById('reminder-list');
+  if(!list)return;
+  list.innerHTML=todayApts.map(function(a){
+    return '<div style="padding:5px 0;border-bottom:1px solid var(--border)">⏰ <b>'+a.time+'</b> — '+a.pat+' ('+a.test+')</div>';
+  }).join('');
+  document.getElementById('reminder-popup').style.display='block';
+  setTimeout(function(){document.getElementById('reminder-popup').style.display='none';},8000);
 }
 
-// INIT
+// ═══════════════════════════════════════
+// 3. INVOICE PDF PRINT
+// ═══════════════════════════════════════
+function printInvoice(idx){
+  var v=invs[idx];
+  var area=document.getElementById('print-area');
+  if(!area)return;
+  area.innerHTML='<div style="max-width:500px;margin:0 auto">'
+    +'<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1.5rem;padding-bottom:1rem;border-bottom:2px solid #1D9E75">'
+      +'<div><h2 style="color:#1D9E75;font-size:24px;margin:0">🩺 MediScan</h2><div style="font-size:12px;color:#666;margin-top:2px">Healthcare · Mymensingh, Bangladesh</div></div>'
+      +'<div style="text-align:right"><div style="font-size:18px;font-weight:bold">INVOICE</div><div style="font-size:13px;color:#666">'+v.id+'</div></div>'
+    +'</div>'
+    +'<div class="prow"><span style="color:#666">Patient</span><span style="font-weight:600">'+v.pat+'</span></div>'
+    +'<div class="prow"><span style="color:#666">Services</span><span>'+v.svc+'</span></div>'
+    +'<div class="prow"><span style="color:#666">Date</span><span>'+v.date+'</span></div>'
+    +'<div class="prow"><span style="color:#666">Status</span><span style="color:'+(v.stat==='Paid'?'#1D9E75':'#d97706')+'">'+v.stat+'</span></div>'
+    +'<div class="prow total" style="margin-top:.5rem;padding-top:.75rem;border-top:2px solid #eee;border-bottom:none"><span>Total Amount</span><span>৳'+v.amt.toLocaleString()+'</span></div>'
+    +'<div style="margin-top:2rem;text-align:center;font-size:11px;color:#999">ধন্যবাদ MediScan বেছে নেওয়ার জন্য · Thank you for choosing MediScan</div>'
+  +'</div>';
+  window.print();
+}
+
+// ═══════════════════════════════════════
+// 4. EXCEL EXPORT (CSV)
+// ═══════════════════════════════════════
+function exportExcel(type){
+  var rows=[],filename='';
+  if(type==='apts'){
+    filename='appointments.csv';
+    rows=[['ID','Patient','Phone','Test','Doctor','Date','Time','Status','Note']];
+    apts.forEach(function(a){rows.push([a.id,a.pat,a.phone||'',a.test,a.doc,a.date,a.time,a.stat,a.note||'']);});
+  } else if(type==='pats'){
+    filename='patients.csv';
+    rows=[['ID','Name','Age','Gender','Phone','Blood Group','Last Visit','Status']];
+    pats.forEach(function(p){rows.push([p.id,p.name,p.age||'',p.gen||'',p.phone||'',p.blood||'',p.visit||'',p.stat]);});
+  } else if(type==='invs'){
+    filename='invoices.csv';
+    rows=[['ID','Patient','Services','Amount','Date','Status']];
+    invs.forEach(function(v){rows.push([v.id,v.pat,v.svc,v.amt,v.date,v.stat]);});
+  }
+  var csv=rows.map(function(r){return r.map(function(c){return '"'+(c||'').toString().replace(/"/g,'""')+'"';}).join(',');}).join('\n');
+  var bom='\uFEFF';
+  var blob=new Blob([bom+csv],{type:'text/csv;charset=utf-8'});
+  var a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=filename;a.click();
+  toast('📤 Excel export হয়েছে: '+filename);
+}
+
+// ═══════════════════════════════════════
+// 5. CALENDAR
+// ═══════════════════════════════════════
+var calYear=new Date().getFullYear();
+var calMonth=new Date().getMonth();
+var calSelected=null;
+
+function renderCalendar(){
+  var now=new Date();
+  var months=['January','February','March','April','May','June','July','August','September','October','November','December'];
+  var t=document.getElementById('cal-title');
+  if(t)t.textContent=months[calMonth]+' '+calYear;
+  var grid=document.getElementById('cal-grid');
+  if(!grid)return;
+
+  var days=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+  var html=days.map(function(d){return '<div style="text-align:center;font-size:10px;font-weight:600;color:var(--text3);padding:6px 0">'+d+'</div>';}).join('');
+
+  var first=new Date(calYear,calMonth,1).getDay();
+  var daysInMonth=new Date(calYear,calMonth+1,0).getDate();
+  var todayStr=now.toISOString().split('T')[0];
+
+  for(var i=0;i<first;i++)html+='<div></div>';
+  for(var d=1;d<=daysInMonth;d++){
+    var ds=calYear+'-'+(calMonth+1<10?'0':'')+(calMonth+1)+'-'+(d<10?'0':'')+d;
+    var count=apts.filter(function(a){return a.date===ds;}).length;
+    var isToday=ds===todayStr;
+    var isSel=ds===calSelected;
+    var bg=isSel?'var(--green)':isToday?'var(--green4)':'var(--glass)';
+    var col=isSel?'#000':isToday?'var(--green)':'var(--text2)';
+    var border=isSel?'var(--green)':isToday?'var(--green3)':'var(--border)';
+    html+='<div onclick="selectCalDay(\''+ds+'\')" style="text-align:center;padding:8px 4px;border-radius:8px;cursor:pointer;background:'+bg+';border:1px solid '+border+';color:'+col+';transition:all .15s" onmouseover="this.style.borderColor=\'var(--green)\'" onmouseout="this.style.borderColor=\''+border+'\'">'
+      +'<div style="font-size:13px;font-weight:600">'+d+'</div>'
+      +(count>0?'<div style="font-size:9px;background:var(--green);color:#000;border-radius:99px;padding:1px 5px;margin-top:2px">'+count+'</div>':'')
+    +'</div>';
+  }
+  grid.innerHTML=html;
+  if(calSelected)selectCalDay(calSelected);
+  else{
+    var tl=document.getElementById('cal-selected-title');
+    if(tl)tl.textContent='📅 সব Appointments ('+apts.length+')';
+    var tb=document.getElementById('cal-apt-list');
+    if(tb)tb.innerHTML=apts.slice(0,10).map(function(a){return '<tr><td>'+a.pat+'</td><td>'+a.test+'</td><td>'+a.doc+'</td><td>'+a.time+'</td><td>'+bdg(a.stat)+'</td></tr>';}).join('');
+  }
+}
+function selectCalDay(ds){
+  calSelected=ds;
+  var dayApts=apts.filter(function(a){return a.date===ds;});
+  var tl=document.getElementById('cal-selected-title');
+  if(tl)tl.textContent='📅 '+ds+' — '+dayApts.length+'টি Appointment';
+  var tb=document.getElementById('cal-apt-list');
+  if(!tb)return;
+  if(dayApts.length===0){tb.innerHTML='<tr><td colspan="5" style="text-align:center;color:var(--text3);padding:1rem">এই দিনে কোনো appointment নেই</td></tr>';}
+  else{tb.innerHTML=dayApts.map(function(a){return '<tr><td>'+a.pat+'</td><td>'+a.test+'</td><td>'+a.doc+'</td><td>'+a.time+'</td><td>'+bdg(a.stat)+'</td></tr>';}).join('');}
+  renderCalendar();
+}
+function prevMonth(){calMonth--;if(calMonth<0){calMonth=11;calYear--;}calSelected=null;renderCalendar();}
+function nextMonth(){calMonth++;if(calMonth>11){calMonth=0;calYear++;}calSelected=null;renderCalendar();}
+
+// ═══════════════════════════════════════
+// 6. ANALYTICS CHARTS
+// ═══════════════════════════════════════
+var chartApts=null,chartRev=null;
+function renderAnalytics(){
+  // Summary stats
+  var statsEl=document.getElementById('analytics-stats');
+  if(statsEl){
+    var totalPat=pats.length,totalApt=apts.length;
+    var doneApt=apts.filter(function(a){return a.stat==='Done';}).length;
+    var totalRev=invs.reduce(function(s,v){return s+(v.amt||0);},0);
+    var paidRev=invs.filter(function(v){return v.stat==='Paid';}).reduce(function(s,v){return s+(v.amt||0);},0);
+    statsEl.innerHTML=[
+      {cls:'gr',ico:'👥',val:totalPat,lbl:'Total Patients',trend:'up'},
+      {cls:'bl',ico:'📅',val:totalApt,lbl:'Total Appointments',trend:'up'},
+      {cls:'am',ico:'✅',val:doneApt,lbl:'Completed',trend:'up'},
+      {cls:'pu',ico:'💰',val:'৳'+Math.round(totalRev/1000)+'K',lbl:'Total Revenue',trend:'up'},
+    ].map(function(s){
+      return '<div class="sc '+s.cls+'"><div class="cshine"></div><div class="stop"><div class="siw">'+s.ico+'</div><div class="strend '+s.trend+'">↑</div></div><div class="sval">'+s.val+'</div><div class="slbl">'+s.lbl+'</div></div>';
+    }).join('');
+  }
+
+  // Monthly data (last 6 months)
+  var months=[];var aptCounts=[];var revCounts=[];
+  var now=new Date();
+  for(var i=5;i>=0;i--){
+    var d=new Date(now.getFullYear(),now.getMonth()-i,1);
+    var ym=d.getFullYear()+'-'+(d.getMonth()+1<10?'0':'')+(d.getMonth()+1);
+    var mName=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'][d.getMonth()];
+    months.push(mName);
+    aptCounts.push(apts.filter(function(a){return a.date&&a.date.startsWith(ym);}).length);
+    revCounts.push(invs.filter(function(v){return v.date&&v.date.includes(mName)}).reduce(function(s,v){return s+(v.amt||0);},0));
+  }
+
+  // Draw charts using canvas
+  drawBarChart('chart-apts',months,aptCounts,'#00e5a0','Appointments');
+  drawBarChart('chart-rev',months,revCounts,'#4d9fff','Revenue ৳');
+
+  // Service bars
+  var svcEl=document.getElementById('svc-bars');
+  if(svcEl){
+    var svcCount={};
+    apts.forEach(function(a){svcCount[a.test]=(svcCount[a.test]||0)+1;});
+    var svcArr=Object.keys(svcCount).map(function(k){return{name:k,count:svcCount[k]};}).sort(function(a,b){return b.count-a.count;}).slice(0,6);
+    var max=svcArr.length>0?svcArr[0].count:1;
+    var colors=['var(--green)','var(--blue)','var(--purple)','var(--amber)','var(--red)','var(--green)'];
+    svcEl.innerHTML=svcArr.map(function(s,i){
+      var pct=Math.round(s.count/max*100);
+      return '<div class="pr"><div class="plbl" style="width:120px">'+s.name+'</div><div class="ptrk"><div class="pfil" data-w="'+pct+'" style="width:0;background:'+colors[i]+'"></div></div><div class="ppct">'+s.count+'</div></div>';
+    }).join('');
+    setTimeout(function(){document.querySelectorAll('.pfil').forEach(function(f){f.style.width=f.dataset.w+'%';});},200);
+  }
+}
+
+function drawBarChart(canvasId,labels,data,color,label){
+  var canvas=document.getElementById(canvasId);
+  if(!canvas)return;
+  var ctx=canvas.getContext('2d');
+  var W=canvas.offsetWidth||600,H=200;
+  canvas.width=W;canvas.height=H;
+  ctx.clearRect(0,0,W,H);
+  var max=Math.max.apply(null,data)||1;
+  var pad=40,barW=Math.floor((W-pad*2)/labels.length)-8;
+  // Grid lines
+  ctx.strokeStyle='rgba(255,255,255,0.07)';ctx.lineWidth=1;
+  for(var g=0;g<=4;g++){
+    var gy=H-pad-(g/4)*(H-pad*1.5);
+    ctx.beginPath();ctx.moveTo(pad,gy);ctx.lineTo(W-10,gy);ctx.stroke();
+    ctx.fillStyle='rgba(240,246,255,0.3)';ctx.font='10px Outfit,sans-serif';ctx.textAlign='right';
+    ctx.fillText(Math.round(max*g/4),pad-4,gy+4);
+  }
+  // Bars
+  labels.forEach(function(lbl,i){
+    var x=pad+i*(barW+8);
+    var barH=data[i]?Math.max(4,(data[i]/max)*(H-pad*1.5)):0;
+    var y=H-pad-barH;
+    // Bar
+    ctx.fillStyle=color;
+    ctx.globalAlpha=0.85;
+    ctx.beginPath();
+    ctx.roundRect?ctx.roundRect(x,y,barW,barH,4):ctx.rect(x,y,barW,barH);
+    ctx.fill();
+    ctx.globalAlpha=1;
+    // Value
+    if(data[i]>0){
+      ctx.fillStyle='rgba(240,246,255,0.8)';ctx.font='11px Outfit,sans-serif';ctx.textAlign='center';
+      ctx.fillText(data[i],x+barW/2,y-5);
+    }
+    // Label
+    ctx.fillStyle='rgba(240,246,255,0.45)';ctx.font='11px Outfit,sans-serif';ctx.textAlign='center';
+    ctx.fillText(lbl,x+barW/2,H-8);
+  });
+}
+
+// ═══════════════════════════════════════
+// WEBSITE SYNC
+// ═══════════════════════════════════════
+function notifyWebsite(type){
+  // Timestamp so website knows to reload
+  try{
+    localStorage.setItem('mediscan_sync',JSON.stringify({type:type,ts:Date.now()}));
+  }catch(e){}
+}
+
+// Doctor status change from website panel
+function changeDocStat(i,val){
+  docs[i].stat=val;
+  lsSave();
+  notifyWebsite('doctor');
+  renderDocs();
+  toast('✅ Doctor status updated — Website এ দেখাবে!');
+}
+
+// ═══════════════════════════════════════
+// WEBSITE SYNC — LocalStorage Bridge
+// ═══════════════════════════════════════
+function syncWebsite(){
+  // Write website-readable data to a separate key
+  var webData={
+    svcs: svcs,
+    docs: docs,
+    lastUpdated: new Date().toISOString()
+  };
+  try{
+    localStorage.setItem('mediscan_web', JSON.stringify(webData));
+    // Also dispatch storage event for same-tab detection
+    window.dispatchEvent(new CustomEvent('mediscan_sync', {detail: webData}));
+  }catch(e){}
+}
+
+// Call syncWebsite on init so website always has fresh data
+// ═══════════════════════════════════════
+// MESSAGES — Contact Form Inbox
+// ═══════════════════════════════════════
+function renderMsgs(){
+  var s=(document.getElementById('msg-search')||{value:''}).value.toLowerCase();
+  var rows=msgs.filter(function(m){return!s||m.name.toLowerCase().includes(s)||m.message.toLowerCase().includes(s)||m.email.toLowerCase().includes(s);});
+  var grid=document.getElementById('msg-grid');
+  var empty=document.getElementById('msg-empty');
+  if(!grid)return;
+  if(rows.length===0){grid.innerHTML='';if(empty)empty.style.display='block';return;}
+  if(empty)empty.style.display='none';
+  grid.innerHTML=rows.map(function(m,i){
+    var idx=msgs.indexOf(m);
+    var unread=!m.read?'border-color:var(--green);':'';
+    var unreadDot=!m.read?'<div style="width:8px;height:8px;border-radius:50%;background:var(--green);flex-shrink:0"></div>':'';
+    return '<div style="background:var(--bg2);border:1px solid var(--border);'+unread+'border-radius:var(--r);padding:1.25rem;position:relative;transition:border-color .2s">'
+      +'<div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:10px">'
+        +'<div style="display:flex;align-items:center;gap:8px">'
+          +unreadDot
+          +'<div style="width:36px;height:36px;border-radius:10px;background:var(--blue2);color:var(--blue);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;flex-shrink:0">'+m.name.charAt(0).toUpperCase()+'</div>'
+          +'<div>'
+            +'<div style="font-size:14px;font-weight:600">'+m.name+'</div>'
+            +'<div style="font-size:11px;color:var(--text3)">'+m.time+'</div>'
+          +'</div>'
+        +'</div>'
+        +'<button class="btn btnsm btnd" onclick="delMsg('+idx+')" title="Delete">🗑</button>'
+      +'</div>'
+      +'<div style="font-size:13px;color:var(--text2);line-height:1.6;margin-bottom:12px;background:var(--glass);border-radius:8px;padding:10px 12px">'+m.message+'</div>'
+      +'<div style="display:flex;flex-wrap:wrap;gap:8px;align-items:center">'
+        +(m.email&&m.email!=='—'?'<span style="font-size:11px;color:var(--text3)">📧 '+m.email+'</span>':'')
+        +(m.phone&&m.phone!=='—'?'<span style="font-size:11px;color:var(--text3)">📞 '+m.phone+'</span>':'')
+        +'<div style="margin-left:auto;display:flex;gap:6px">'
+          +(!m.read?'<button class="btn btnsm" style="color:var(--green);border-color:var(--green3);background:var(--green4)" onclick="markRead('+idx+')">✓ Mark Read</button>':'<span class="bdg bg" style="font-size:10px">Read</span>')
+          +(m.email&&m.email!=='—'?'<a href="mailto:'+m.email+'" class="btn btnsm btne" style="text-decoration:none">Reply →</a>':'')
+        +'</div>'
+      +'</div>'
+    +'</div>';
+  }).join('');
+  updateMsgBadge();
+}
+
+function markRead(i){msgs[i].read=true;lsSave();renderMsgs();toast('✅ Marked as read');}
+function delMsg(i){if(!confirm('Delete this message?'))return;msgs.splice(i,1);lsSave();renderMsgs();toast('🗑 Deleted');}
+function clearReadMsgs(){
+  var count=msgs.filter(function(m){return m.read;}).length;
+  if(count===0){toast('⚠ কোনো read message নেই');return;}
+  if(!confirm(count+'টি read message delete করবেন?'))return;
+  msgs=msgs.filter(function(m){return!m.read;});
+  lsSave();renderMsgs();toast('🗑 '+count+' messages deleted');
+}
+function updateMsgBadge(){
+  var unread=msgs.filter(function(m){return!m.read;}).length;
+  var badge=document.getElementById('nbadge-msg');
+  if(badge)badge.textContent=unread;
+}
+
+// Poll for new messages from contact form (same browser tab)
+function pollNewMsgs(){
+  try{
+    var raw=localStorage.getItem(LS_KEY);
+    if(!raw)return;
+    var data=JSON.parse(raw);
+    if(!data.msgs)return;
+    if(data.msgs.length!==msgs.length){
+      msgs=data.msgs;
+      renderMsgs();
+      var unread=msgs.filter(function(m){return!m.read;}).length;
+      if(unread>0){
+        addActivity('💬','নতুন message এসেছে <span>contact form</span> থেকে','এইমাত্র','var(--blue2)');
+        toast('💬 নতুন message! '+unread+' unread');
+        renderDash();
+      }
+    }
+  }catch(e){}
+}
+
+// ═══ INIT ═══
 function initApp(){
   makeParticles();
   var now=new Date();
   document.getElementById('datebadge').textContent=now.toLocaleDateString('en-GB',{weekday:'short',day:'numeric',month:'short'});
-  setTimeout(function(){
-    counter('sv1',pats.length);
-    counter('sv2',apts.filter(function(a){return a.date===now.toISOString().split('T')[0];}).length||apts.length);
-    counter('sv3',reps.length);
-    counter('sv4',Math.round(invs.reduce(function(s,v){return s+v.amt;},0)/1000));
-  },250);
   spark('sp1','#00e5a0');spark('sp2','#4d9fff');spark('sp3','#ffb347');spark('sp4','#a78bfa');
-  renderDash();renderApts();renderPats();renderReps();renderDocs();renderSvcs();renderInvs();renderToggles();
-  // Update LS status
-  var lsEl=document.getElementById('ls-status');
-  if(lsEl){
-    var sz=JSON.stringify({apts:apts,pats:pats,docs:docs,svcs:svcs,reps:reps,invs:invs}).length;
-    lsEl.textContent='✅ LocalStorage Active — '+pats.length+' patients, '+apts.length+' appointments, '+invs.length+' invoices saved ('+Math.round(sz/1024*10)/10+' KB)';
-  }
+  renderDash();renderApts();renderPats();renderReps();renderDocs();renderSvcs();renderInvs();renderToggles();renderMsgs();updateBadges();updateMsgBadge();updateLsStatus();syncWebsite();
+  setInterval(pollNewMsgs,3000);
+  // Show reminder after 1 second
+  setTimeout(showReminder,1000);
+  // Override goPage to render calendar/analytics when needed
+  var _origGoPage=goPage;
+  goPage=function(name){
+    _origGoPage(name);
+    if(name==='calendar')renderCalendar();
+    if(name==='analytics'){renderAnalytics();setTimeout(function(){renderAnalytics();},100);}
+  };
 }
 </script>
 </body>
