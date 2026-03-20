@@ -512,7 +512,7 @@ tr:hover td{background:rgba(255,255,255,.015)}
 <div class="mo" id="mo-inv"><div class="mbox">
   <div class="mh"><div class="mt2" id="mo-inv-title">💳 Invoice</div><button class="mc" onclick="closeMo('mo-inv')">✕</button></div>
   <input type="hidden" id="inv-edit-id">
-  <div class="fg"><label class="fl">Patient Name *</label><input class="fi" type="text" id="i-pat" placeholder="Patient নাম"></div>
+  <div class="fr2"><div class="fg"><label class="fl">Patient Name *</label><input class="fi" type="text" id="i-pat" placeholder="Patient নাম"></div><div class="fg"><label class="fl">Phone</label><input class="fi" type="tel" id="i-phone" placeholder="01700-000000"></div></div>
   <div class="fg"><label class="fl">Services</label><input class="fi" type="text" id="i-svc" placeholder="যেমন: Blood CBC, ECG"></div>
   <div class="fr2"><div class="fg"><label class="fl">Amount (৳) *</label><input class="fi" type="number" id="i-amt" placeholder="0"></div><div class="fg"><label class="fl">Payment Status</label><select class="fi" id="i-stat"><option value="Pending">Pending</option><option value="Paid">Paid</option><option value="Partial">Partial</option></select></div></div>
   <div class="mf"><button class="btn btnp" style="flex:1" onclick="saveInv()">Save Invoice</button><button class="btn" onclick="closeMo('mo-inv')">Cancel</button></div>
@@ -537,10 +537,8 @@ tr:hover td{background:rgba(255,255,255,.015)}
 <style>
 @media print{
   body > *{display:none!important}
-  #print-area{display:block!important;padding:2rem;font-family:Arial,sans-serif;color:#000}
-  #print-area h2{font-size:20px;margin-bottom:4px}
-  #print-area .prow{display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid #eee;font-size:14px}
-  #print-area .total{font-size:16px;font-weight:bold;color:#1D9E75}
+  #print-area{display:block!important}
+  #print-area *{-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important}
 }
 </style>
 
@@ -600,6 +598,7 @@ function lsLoad(){
 function lsSave(){
   try{localStorage.setItem(LS_KEY,JSON.stringify({apts:apts,pats:pats,docs:docs,svcs:svcs,reps:reps,invs:invs,msgs:msgs}));}catch(e){}
   updateBadges();
+  updateMsgBadge();
 }
 function loadAdmin(){
   try{var r=localStorage.getItem(ADMIN_KEY);if(r)return JSON.parse(r);}catch(e){}
@@ -648,6 +647,11 @@ function goPage(name){
   if(nav)nav.classList.add('on');
   var m=pageMeta[name];
   if(m){document.getElementById('ptitle').textContent=m.t;document.getElementById('pbread').textContent='MediScan / '+m.b;}
+  // Fresh load when entering specific panels
+  if(name==='messages'){loadMsgsFromLS();renderMsgs();}
+  if(name==='appointments'){renderApts();}
+  if(name==='calendar'){renderCalendar();}
+  if(name==='analytics'){renderAnalytics();setTimeout(function(){renderAnalytics();},100);}
 }
 
 // LOGIN / LOGOUT
@@ -1061,7 +1065,7 @@ function renderInvs(){
     var idx=invs.indexOf(v);
     return '<tr>'
       +'<td style="color:var(--text3);font-size:11px">'+v.id+'</td>'
-      +'<td>'+v.pat+'</td>'
+      +'<td>'+v.pat+(v.phone&&v.phone!=='—'?'<div style="font-size:11px;color:var(--text3)">'+v.phone+'</div>':'')+'</td>'
       +'<td style="color:var(--text2);font-size:12px">'+v.svc+'</td>'
       +'<td style="font-weight:700;color:var(--green)">৳'+v.amt.toLocaleString()+'</td>'
       +'<td>'+v.date+'</td>'
@@ -1101,7 +1105,7 @@ function saveInv(){
   if(!p){toast('⚠ Patient name required!');return;}
   var today=new Date().toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'});
   var editId=document.getElementById('inv-edit-id').value;
-  var obj={pat:p,svc:document.getElementById('i-svc').value||'—',amt:parseInt(document.getElementById('i-amt').value)||0,stat:document.getElementById('i-stat').value,date:today};
+  var obj={pat:p,phone:document.getElementById('i-phone')?document.getElementById('i-phone').value||'—':'—',svc:document.getElementById('i-svc').value||'—',amt:parseInt(document.getElementById('i-amt').value)||0,stat:document.getElementById('i-stat').value,date:today};
   if(editId!==''){
     obj.id=invs[editId].id;invs[editId]=obj;toast('✅ Invoice updated!');
   } else {
@@ -1119,8 +1123,22 @@ function renderToggles(){
   }).join('');
 }
 function saveClinicInfo(){
-  toast('✅ Clinic info saved!');
+  var info={
+    name:document.getElementById('set-cname').value||'MediScan Healthcare',
+    phone:document.getElementById('set-phone').value||'+880 1700-000000',
+    email:document.getElementById('set-email').value||'info@mediscan.com',
+    addr:document.getElementById('set-addr').value||'Mymensingh, Bangladesh'
+  };
+  try{localStorage.setItem('mediscan_clinic',JSON.stringify(info));}catch(e){}
+  toast('✅ Clinic info saved! Invoice এ দেখাবে।');
   addActivity('⚙️','Clinic info updated','এইমাত্র','var(--glass)');
+}
+function getClinicInfo(){
+  try{
+    var r=localStorage.getItem('mediscan_clinic');
+    if(r)return JSON.parse(r);
+  }catch(e){}
+  return{name:'MediScan Healthcare',phone:'+880 1700-000000',email:'info@mediscan.com',addr:'Mymensingh, Bangladesh'};
 }
 function changePassword(){
   var oldpw=document.getElementById('set-oldpw').value;
@@ -1229,21 +1247,118 @@ function showReminder(){
 // ═══════════════════════════════════════
 function printInvoice(idx){
   var v=invs[idx];
+  var ci=getClinicInfo();
   var area=document.getElementById('print-area');
   if(!area)return;
-  area.innerHTML='<div style="max-width:500px;margin:0 auto">'
-    +'<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1.5rem;padding-bottom:1rem;border-bottom:2px solid #1D9E75">'
-      +'<div><h2 style="color:#1D9E75;font-size:24px;margin:0">🩺 MediScan</h2><div style="font-size:12px;color:#666;margin-top:2px">Healthcare · Mymensingh, Bangladesh</div></div>'
-      +'<div style="text-align:right"><div style="font-size:18px;font-weight:bold">INVOICE</div><div style="font-size:13px;color:#666">'+v.id+'</div></div>'
+  var isPaid=v.stat==='Paid';
+  var statusColor=isPaid?'#15803d':'#b45309';
+  var statusBg=isPaid?'#dcfce7':'#fef3c7';
+  var now=new Date().toLocaleString('en-GB',{day:'numeric',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit'});
+  // Parse services into list
+  var svcList=(v.svc||'—').split(',').map(function(s){return s.trim();}).filter(Boolean);
+  area.innerHTML=''
+  +'<div style="width:210mm;min-height:297mm;margin:0 auto;padding:40px;font-family:Georgia,serif;color:#1a1a1a;background:#fff;box-sizing:border-box">'
+
+    /* ── HEADER ── */
+    +'<div style="display:flex;justify-content:space-between;align-items:flex-start;padding-bottom:24px;border-bottom:3px solid #1D9E75;margin-bottom:28px">'
+      +'<div>'
+        +'<div style="display:flex;align-items:center;gap:10px;margin-bottom:6px">'
+          +'<div style="width:44px;height:44px;background:#1D9E75;border-radius:10px;display:flex;align-items:center;justify-content:center">'
+            +'<svg width="24" height="24" viewBox="0 0 20 20" fill="white"><path d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z"/></svg>'
+          +'</div>'
+          +'<div style="font-size:26px;font-weight:bold;color:#1D9E75;letter-spacing:-0.5px">'+ci.name+'</div>'
+        +'</div>'
+        +'<div style="font-size:12px;color:#666;line-height:1.7;font-family:Arial,sans-serif">'
+          +'<div>📍 '+ci.addr+'</div>'
+          +'<div>📞 '+ci.phone+'</div>'
+          +'<div>📧 '+ci.email+'</div>'
+        +'</div>'
+      +'</div>'
+      +'<div style="text-align:right">'
+        +'<div style="font-size:32px;font-weight:bold;color:#1D9E75;letter-spacing:2px;text-transform:uppercase">INVOICE</div>'
+        +'<div style="font-family:Arial,sans-serif;margin-top:6px">'
+          +'<div style="font-size:13px;color:#666">Invoice No.</div>'
+          +'<div style="font-size:16px;font-weight:bold;color:#1a1a1a">'+v.id+'</div>'
+        +'</div>'
+        +'<div style="margin-top:8px;display:inline-block;padding:4px 14px;border-radius:99px;font-size:12px;font-weight:bold;font-family:Arial,sans-serif;background:'+statusBg+';color:'+statusColor+'">'+v.stat.toUpperCase()+'</div>'
+      +'</div>'
     +'</div>'
-    +'<div class="prow"><span style="color:#666">Patient</span><span style="font-weight:600">'+v.pat+'</span></div>'
-    +'<div class="prow"><span style="color:#666">Services</span><span>'+v.svc+'</span></div>'
-    +'<div class="prow"><span style="color:#666">Date</span><span>'+v.date+'</span></div>'
-    +'<div class="prow"><span style="color:#666">Status</span><span style="color:'+(v.stat==='Paid'?'#1D9E75':'#d97706')+'">'+v.stat+'</span></div>'
-    +'<div class="prow total" style="margin-top:.5rem;padding-top:.75rem;border-top:2px solid #eee;border-bottom:none"><span>Total Amount</span><span>৳'+v.amt.toLocaleString()+'</span></div>'
-    +'<div style="margin-top:2rem;text-align:center;font-size:11px;color:#999">ধন্যবাদ MediScan বেছে নেওয়ার জন্য · Thank you for choosing MediScan</div>'
+
+    /* ── BILL TO ── */
+    +'<div style="display:flex;gap:32px;margin-bottom:28px">'
+      +'<div style="flex:1;background:#f8fffe;border:1px solid #d1fae5;border-radius:10px;padding:16px">'
+        +'<div style="font-size:10px;font-weight:bold;color:#1D9E75;letter-spacing:1px;text-transform:uppercase;font-family:Arial,sans-serif;margin-bottom:8px">BILL TO</div>'
+        +'<div style="font-size:16px;font-weight:bold;margin-bottom:4px">'+v.pat+'</div>'
+        +(v.phone&&v.phone!=='—'?'<div style="font-size:13px;color:#555;font-family:Arial,sans-serif">📞 '+v.phone+'</div>':'')
+      +'</div>'
+      +'<div style="flex:1;background:#f8fffe;border:1px solid #d1fae5;border-radius:10px;padding:16px">'
+        +'<div style="font-size:10px;font-weight:bold;color:#1D9E75;letter-spacing:1px;text-transform:uppercase;font-family:Arial,sans-serif;margin-bottom:8px">INVOICE DETAILS</div>'
+        +'<div style="font-size:13px;font-family:Arial,sans-serif;line-height:1.8">'
+          +'<div><span style="color:#666">Issue Date:</span> <strong>'+v.date+'</strong></div>'
+          +'<div><span style="color:#666">Printed:</span> <strong>'+now+'</strong></div>'
+        +'</div>'
+      +'</div>'
+    +'</div>'
+
+    /* ── SERVICES TABLE ── */
+    +'<table style="width:100%;border-collapse:collapse;margin-bottom:24px;font-family:Arial,sans-serif">'
+      +'<thead>'
+        +'<tr style="background:#1D9E75;color:#fff">'
+          +'<th style="padding:12px 16px;text-align:left;font-size:12px;letter-spacing:0.5px;font-weight:600;border-radius:8px 0 0 0">#</th>'
+          +'<th style="padding:12px 16px;text-align:left;font-size:12px;letter-spacing:0.5px;font-weight:600">DESCRIPTION</th>'
+          +'<th style="padding:12px 16px;text-align:right;font-size:12px;letter-spacing:0.5px;font-weight:600;border-radius:0 8px 0 0">AMOUNT</th>'
+        +'</tr>'
+      +'</thead>'
+      +'<tbody>'
+        +svcList.map(function(s,i){
+          // Try to find price from services list
+          var matchSvc=svcs.find(function(sv){return sv.name.toLowerCase()===s.toLowerCase();});
+          var price=matchSvc?'৳'+matchSvc.price.toLocaleString():'—';
+          return '<tr style="background:'+(i%2===0?'#f9fafb':'#fff')+'">'
+            +'<td style="padding:12px 16px;font-size:13px;color:#666;border-bottom:1px solid #e5e7eb">'+(i+1)+'</td>'
+            +'<td style="padding:12px 16px;font-size:14px;font-weight:500;border-bottom:1px solid #e5e7eb">'+s+'</td>'
+            +'<td style="padding:12px 16px;font-size:14px;text-align:right;color:#1D9E75;font-weight:600;border-bottom:1px solid #e5e7eb">'+price+'</td>'
+          +'</tr>';
+        }).join('')
+      +'</tbody>'
+    +'</table>'
+
+    /* ── TOTAL ── */
+    +'<div style="display:flex;justify-content:flex-end;margin-bottom:32px">'
+      +'<div style="width:260px">'
+        +'<div style="display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid #e5e7eb;font-size:13px;font-family:Arial,sans-serif">'
+          +'<span style="color:#666">Subtotal</span><span>৳'+v.amt.toLocaleString()+'</span>'
+        +'</div>'
+        +'<div style="display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid #e5e7eb;font-size:13px;font-family:Arial,sans-serif">'
+          +'<span style="color:#666">Discount</span><span>৳0</span>'
+        +'</div>'
+        +'<div style="display:flex;justify-content:space-between;padding:14px 16px;background:#1D9E75;border-radius:8px;margin-top:8px">'
+          +'<span style="font-size:15px;font-weight:bold;color:#fff;font-family:Arial,sans-serif">TOTAL</span>'
+          +'<span style="font-size:18px;font-weight:bold;color:#fff;font-family:Arial,sans-serif">৳'+v.amt.toLocaleString()+'</span>'
+        +'</div>'
+        +'<div style="text-align:center;margin-top:8px;font-size:11px;color:#666;font-family:Arial,sans-serif">Payment Status: <strong style="color:'+statusColor+'">'+v.stat+'</strong></div>'
+      +'</div>'
+    +'</div>'
+
+    /* ── FOOTER ── */
+    +'<div style="border-top:2px dashed #e5e7eb;padding-top:20px;display:flex;justify-content:space-between;align-items:flex-end">'
+      +'<div style="font-family:Arial,sans-serif">'
+        +'<div style="font-size:12px;color:#666;margin-bottom:4px">Terms & Conditions</div>'
+        +'<div style="font-size:11px;color:#999;max-width:260px;line-height:1.6">Payment is due upon receipt. Reports will be delivered as per committed timeline. For queries contact us.</div>'
+      +'</div>'
+      +'<div style="text-align:center">'
+        +'<div style="width:120px;border-top:1px solid #1a1a1a;padding-top:6px;font-size:11px;color:#666;font-family:Arial,sans-serif">Authorized Signature</div>'
+      +'</div>'
+    +'</div>'
+
+    /* ── THANK YOU ── */
+    +'<div style="text-align:center;margin-top:24px;padding:14px;background:#f0fdf4;border-radius:8px">'
+      +'<div style="font-size:14px;color:#1D9E75;font-weight:bold;font-family:Arial,sans-serif">ধন্যবাদ MediScan বেছে নেওয়ার জন্য 💚</div>'
+      +'<div style="font-size:12px;color:#666;margin-top:4px;font-family:Arial,sans-serif">Thank you for choosing '+ci.name+' · Your health is our priority</div>'
+    +'</div>'
+
   +'</div>';
-  window.print();
+  setTimeout(function(){window.print();},100);
 }
 
 // ═══════════════════════════════════════
@@ -1465,6 +1580,8 @@ function syncWebsite(){
 // MESSAGES — Contact Form Inbox
 // ═══════════════════════════════════════
 function renderMsgs(){
+  // Always get fresh data from localStorage before rendering
+  loadMsgsFromLS();
   var s=(document.getElementById('msg-search')||{value:''}).value.toLowerCase();
   var rows=msgs.filter(function(m){return!s||m.name.toLowerCase().includes(s)||m.message.toLowerCase().includes(s)||m.email.toLowerCase().includes(s);});
   var grid=document.getElementById('msg-grid');
@@ -1512,27 +1629,47 @@ function clearReadMsgs(){
   lsSave();renderMsgs();toast('🗑 '+count+' messages deleted');
 }
 function updateMsgBadge(){
+  // Read fresh from LS for accurate count
+  try{
+    var raw=localStorage.getItem(LS_KEY);
+    if(raw){var d=JSON.parse(raw);if(d.msgs)msgs=d.msgs;}
+  }catch(e){}
   var unread=msgs.filter(function(m){return!m.read;}).length;
   var badge=document.getElementById('nbadge-msg');
-  if(badge)badge.textContent=unread;
+  if(badge)badge.textContent=unread||'';
 }
 
 // Poll for new messages from contact form (same browser tab)
+function loadMsgsFromLS(){
+  // Always read fresh from localStorage
+  try{
+    var raw=localStorage.getItem(LS_KEY);
+    if(!raw)return;
+    var data=JSON.parse(raw);
+    if(data.msgs){msgs=data.msgs;}
+  }catch(e){}
+}
+
 function pollNewMsgs(){
   try{
     var raw=localStorage.getItem(LS_KEY);
     if(!raw)return;
     var data=JSON.parse(raw);
     if(!data.msgs)return;
-    if(data.msgs.length!==msgs.length){
-      msgs=data.msgs;
-      renderMsgs();
-      var unread=msgs.filter(function(m){return!m.read;}).length;
-      if(unread>0){
-        addActivity('💬','নতুন message এসেছে <span>contact form</span> থেকে','এইমাত্র','var(--blue2)');
-        toast('💬 নতুন message! '+unread+' unread');
-        renderDash();
-      }
+    var prevCount=msgs.length;
+    var prevUnread=msgs.filter(function(m){return!m.read;}).length;
+    msgs=data.msgs;
+    var newUnread=msgs.filter(function(m){return!m.read;}).length;
+    updateMsgBadge();
+    // If currently viewing messages panel, re-render
+    var msgPanel=document.getElementById('panel-messages');
+    if(msgPanel&&msgPanel.classList.contains('on')){renderMsgs();}
+    // Show notification only for truly new messages
+    if(msgs.length>prevCount){
+      var diff=msgs.length-prevCount;
+      addActivity('💬',diff+'টি নতুন message এসেছে <span>Contact Form</span> থেকে','এইমাত্র','var(--blue2)');
+      toast('💬 '+diff+'টি নতুন message!');
+      renderDash();
     }
   }catch(e){}
 }
@@ -1544,7 +1681,8 @@ function initApp(){
   document.getElementById('datebadge').textContent=now.toLocaleDateString('en-GB',{weekday:'short',day:'numeric',month:'short'});
   spark('sp1','#00e5a0');spark('sp2','#4d9fff');spark('sp3','#ffb347');spark('sp4','#a78bfa');
   renderDash();renderApts();renderPats();renderReps();renderDocs();renderSvcs();renderInvs();renderToggles();renderMsgs();updateBadges();updateMsgBadge();updateLsStatus();syncWebsite();
-  setInterval(pollNewMsgs,3000);
+  setInterval(pollNewMsgs,2000);
+  setInterval(updateMsgBadge,2000);
   // Show reminder after 1 second
   setTimeout(showReminder,1000);
   // Override goPage to render calendar/analytics when needed
