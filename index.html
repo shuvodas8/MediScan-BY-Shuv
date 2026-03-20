@@ -10,6 +10,8 @@
     <style>
         body { font-family: 'Plus Jakarta Sans', sans-serif; scroll-behavior: smooth; }
         .hero-gradient { background: linear-gradient(135deg, #f0f7ff 0%, #ffffff 100%); }
+        @keyframes countUp { from { opacity:0; transform:translateY(8px); } to { opacity:1; transform:translateY(0); } }
+        .count-anim { animation: countUp 0.6s ease both; }
     </style>
 </head>
 <body class="bg-white text-slate-900">
@@ -27,27 +29,14 @@
             <a href="services.html" class="hover:text-blue-600 transition">Services</a>
             <a href="team.html" class="hover:text-blue-600 transition">Our Team</a>
             <a href="contact.html" class="hover:text-blue-600 transition">Contact</a>
-           <a href="admin.html" style="
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  background: linear-gradient(135deg, #3b82f6, #6366f1);
-  color: white;
-  padding: 10px 22px;
-  border-radius: 50px;
-  text-decoration: none;
-  font-weight: bold;
-  box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4);
-  transition: all 0.3s ease;
-  margin-right: 10px;
-">
-  <i class="fas fa-user-shield"></i>
-  Login
-</a>
+            <a href="admin.html" style="display:inline-flex;align-items:center;gap:8px;background:linear-gradient(135deg,#3b82f6,#6366f1);color:white;padding:10px 22px;border-radius:50px;text-decoration:none;font-weight:bold;box-shadow:0 4px 15px rgba(59,130,246,0.4);transition:all 0.3s ease;margin-right:10px;">
+                <i class="fas fa-user-shield"></i> Login
+            </a>
         </div>
         <a href="appointment.html" class="bg-blue-600 text-white px-7 py-3 rounded-full font-bold shadow-lg shadow-blue-200 hover:bg-blue-700 transition">Book Now</a>
-  </nav>
+    </nav>
 
+    <!-- HERO — exact same -->
     <section class="hero-gradient pt-20 pb-28 px-6">
         <div class="max-w-7xl mx-auto grid md:grid-cols-2 gap-12 items-center">
             <div>
@@ -68,15 +57,29 @@
         </div>
     </section>
 
+    <!-- STATS — connected to admin -->
     <section class="py-12 px-6 -mt-16 relative z-10">
         <div class="max-w-6xl mx-auto bg-white shadow-xl rounded-[2.5rem] p-10 grid grid-cols-2 md:grid-cols-4 gap-8 text-center border border-gray-50">
-            <div><h2 class="text-4xl font-bold text-blue-600">20k+</h2><p class="text-slate-500 font-medium">Patients Served</p></div>
-            <div><h2 class="text-4xl font-bold text-blue-600">50+</h2><p class="text-slate-500 font-medium">Expert Doctors</p></div>
-            <div><h2 class="text-4xl font-bold text-blue-600">100%</h2><p class="text-slate-500 font-medium">Accurate Results</p></div>
-            <div><h2 class="text-4xl font-bold text-blue-600">24/7</h2><p class="text-slate-500 font-medium">Emergency Care</p></div>
+            <div class="count-anim">
+                <h2 class="text-4xl font-bold text-blue-600" id="stat-patients">20k+</h2>
+                <p class="text-slate-500 font-medium">Patients Served</p>
+            </div>
+            <div class="count-anim" style="animation-delay:.1s">
+                <h2 class="text-4xl font-bold text-blue-600" id="stat-doctors">50+</h2>
+                <p class="text-slate-500 font-medium">Expert Doctors</p>
+            </div>
+            <div class="count-anim" style="animation-delay:.2s">
+                <h2 class="text-4xl font-bold text-blue-600" id="stat-services">100%</h2>
+                <p class="text-slate-500 font-medium">Accurate Results</p>
+            </div>
+            <div class="count-anim" style="animation-delay:.3s">
+                <h2 class="text-4xl font-bold text-blue-600">24/7</h2>
+                <p class="text-slate-500 font-medium">Emergency Care</p>
+            </div>
         </div>
     </section>
 
+    <!-- WHY CHOOSE — exact same -->
     <section class="py-24 px-6 bg-white">
         <div class="max-w-7xl mx-auto">
             <div class="text-center mb-16">
@@ -103,6 +106,7 @@
         </div>
     </section>
 
+    <!-- SERVICES SECTION — connected to admin -->
     <section class="py-24 px-6 bg-slate-50">
         <div class="max-w-7xl mx-auto flex flex-col md:flex-row gap-12 items-center">
             <div class="md:w-1/2">
@@ -111,7 +115,8 @@
             <div class="md:w-1/2">
                 <h2 class="text-4xl font-bold mb-6">Our Specialist Diagnostic Services</h2>
                 <p class="text-slate-600 text-lg mb-8 leading-relaxed">We offer a wide range of medical tests including Cardiology, Radiology, and General Pathology to help you stay ahead of your health.</p>
-                <ul class="space-y-4 mb-10">
+                <ul id="home-svc-list" class="space-y-4 mb-10">
+                    <!-- Default — will be replaced by admin data -->
                     <li class="flex items-center gap-3 font-bold text-slate-700"><i class="fas fa-check text-green-500"></i> Full Body Checkup</li>
                     <li class="flex items-center gap-3 font-bold text-slate-700"><i class="fas fa-check text-green-500"></i> Advanced MRI & CT Scan</li>
                     <li class="flex items-center gap-3 font-bold text-slate-700"><i class="fas fa-check text-green-500"></i> Blood & Lab Analysis</li>
@@ -121,6 +126,7 @@
         </div>
     </section>
 
+    <!-- CTA — exact same -->
     <section class="py-24 px-6">
         <div class="max-w-5xl mx-auto bg-blue-600 rounded-[3rem] p-16 text-center text-white shadow-2xl">
             <h2 class="text-4xl md:text-5xl font-bold mb-8">Ready to Take Control of Your Health?</h2>
@@ -129,6 +135,7 @@
         </div>
     </section>
 
+    <!-- FOOTER — exact same -->
     <footer class="bg-slate-900 text-slate-400 py-16 px-6">
         <div class="max-w-7xl mx-auto text-center border-t border-slate-800 pt-10">
             <div class="flex items-center justify-center gap-2 mb-6 text-white">
@@ -139,21 +146,96 @@
             <p>© 2026 MediScan Healthcare. All rights reserved.</p>
         </div>
     </footer>
-    <a href="admin.html">Admin Panel</a>
-  <!--Start of Tawk.to Script-->
-<script type="text/javascript">
-var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
-(function(){
-var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
-s1.async=true;
-s1.src='https://embed.tawk.to/69b05b58e75f191c369b7edd/1jjce9knh';
-s1.charset='UTF-8';
-s1.setAttribute('crossorigin','*');
-s0.parentNode.insertBefore(s1,s0);
-})();
-</script>
-<!--End of Tawk.to Script-->
+    <a href="admin.html" style="display:none">Admin Panel</a>
+
+    <!-- ADMIN DATA SYNC SCRIPT -->
+    <script>
+    var LS_KEY = 'mediscan_v1';
+
+    function loadAdminData() {
+        try {
+            var raw = localStorage.getItem(LS_KEY);
+            if (!raw) return null;
+            return JSON.parse(raw);
+        } catch(e) { return null; }
+    }
+
+    function updateStats() {
+        var data = loadAdminData();
+        if (!data) return;
+
+        // Patients count
+        var patEl = document.getElementById('stat-patients');
+        if (patEl && data.pats && data.pats.length > 0) {
+            var count = data.pats.length;
+            patEl.textContent = count >= 1000 ? Math.floor(count/1000) + 'k+' : count + '+';
+        }
+
+        // Doctors count
+        var docEl = document.getElementById('stat-doctors');
+        if (docEl && data.docs && data.docs.length > 0) {
+            var onDuty = data.docs.filter(function(d){ return d.stat === 'On duty'; }).length;
+            var total = data.docs.length;
+            docEl.textContent = total + '+';
+        }
+
+        // Services count — show total active services
+        var svcEl = document.getElementById('stat-services');
+        if (svcEl && data.svcs && data.svcs.length > 0) {
+            var active = data.svcs.filter(function(s){ return s.stat !== 'Inactive'; }).length;
+            svcEl.textContent = active + '+';
+            // Also update the label below it
+            var labels = svcEl.parentElement.querySelectorAll('p');
+            if (labels[0]) labels[0].textContent = 'Services Available';
+        }
+    }
+
+    function updateServiceList() {
+        var data = loadAdminData();
+        var listEl = document.getElementById('home-svc-list');
+        if (!listEl) return;
+
+        if (!data || !data.svcs || data.svcs.length === 0) return;
+
+        // Show top 5 active services
+        var active = data.svcs.filter(function(s){ return s.stat !== 'Inactive'; }).slice(0, 5);
+        if (active.length === 0) return;
+
+        listEl.innerHTML = active.map(function(s) {
+            var price = s.price ? ' <span style="color:#64748b;font-weight:400;font-size:14px">— ৳' + s.price.toLocaleString() + '</span>' : '';
+            return '<li class="flex items-center gap-3 font-bold text-slate-700">' +
+                '<i class="fas fa-check text-green-500"></i> ' + s.name + price +
+            '</li>';
+        }).join('');
+    }
+
+    // Run on page load
+    window.addEventListener('load', function() {
+        updateStats();
+        updateServiceList();
+    });
+
+    // Listen for admin updates (same browser)
+    window.addEventListener('storage', function(e) {
+        if (e.key === LS_KEY) {
+            updateStats();
+            updateServiceList();
+        }
+    });
+    </script>
+
+    <!--Start of Tawk.to Script-->
+    <script type="text/javascript">
+    var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+    (function(){
+    var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+    s1.async=true;
+    s1.src='https://embed.tawk.to/69b05b58e75f191c369b7edd/1jjce9knh';
+    s1.charset='UTF-8';
+    s1.setAttribute('crossorigin','*');
+    s0.parentNode.insertBefore(s1,s0);
+    })();
+    </script>
+    <!--End of Tawk.to Script-->
 </body>
 </html>
-
-
