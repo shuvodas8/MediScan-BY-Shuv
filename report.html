@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Report Download — MediScan</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+body{font-family:'Plus Jakarta Sans',sans-serif;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+.fade-up{animation:fadeUp .5s ease both}
+@media print{
+  body>*{display:none!important}
+  #print-area{display:block!important}
+  #print-area *{-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important}
+}
+</style>
+</head>
+<body class="bg-gradient-to-br from-blue-50 to-white min-h-screen">
+
+<nav class="bg-white/90 backdrop-blur-md sticky top-0 z-50 border-b border-gray-100 py-4 px-6 flex justify-between items-center shadow-sm">
+  <div class="flex items-center gap-2">
+    <div class="bg-blue-600 p-2 rounded-lg text-white"><i class="fas fa-heartbeat text-xl"></i></div>
+    <span class="text-2xl font-bold tracking-tight">MediScan</span>
+  </div>
+  <div class="hidden md:flex gap-10 font-semibold text-slate-600">
+    <a href="index.html" class="hover:text-blue-600 transition">Home</a>
+    <a href="services.html" class="hover:text-blue-600 transition">Services</a>
+    <a href="appointment.html" class="hover:text-blue-600 transition">Appointment</a>
+    <a href="contact.html" class="hover:text-blue-600 transition">Contact</a>
+  </div>
+  <a href="appointment.html" class="bg-blue-600 text-white px-7 py-3 rounded-full font-bold shadow-lg shadow-blue-200 hover:bg-blue-700 transition">Book Now</a>
+</nav>
+
+<div id="print-area" style="display:none"></div>
+
+<main class="min-h-[calc(100vh-80px)] flex items-center justify-center p-6">
+  <div class="w-full max-w-lg">
+
+    <!-- SEARCH CARD -->
+    <div id="search-section" class="bg-white rounded-3xl shadow-xl border border-gray-100 p-8 md:p-10 fade-up">
+      <div class="text-center mb-8">
+        <div class="w-16 h-16 bg-blue-100 rounded-2xl flex items-center justify-center mx-auto mb-4">
+          <i class="fas fa-file-medical text-3xl text-blue-600"></i>
+        </div>
+        <h1 class="text-3xl font-extrabold text-slate-900 mb-2">Report Download</h1>
+        <p class="text-slate-500">আপনার ফোন নম্বর দিয়ে report খুঁজুন</p>
+      </div>
+
+      <div class="space-y-4">
+        <div>
+          <label class="block text-sm font-bold text-slate-700 mb-2 uppercase tracking-wide">Phone Number</label>
+          <input type="tel" id="search-phone" placeholder="01700-000000" onkeydown="if(event.key==='Enter')searchReport()"
+            class="w-full border border-gray-200 p-4 rounded-2xl focus:outline-none focus:ring-2 focus:ring-blue-500 bg-gray-50 text-lg transition-all">
+        </div>
+        <button onclick="searchReport()" class="w-full bg-blue-600 hover:bg-blue-700 text-white py-4 rounded-2xl font-bold text-lg shadow-lg shadow-blue-100 transition transform hover:-translate-y-0.5">
+          <i class="fas fa-search mr-2"></i> Report খুঁজুন
+        </button>
+      </div>
+
+      <div id="search-error" class="hidden mt-4 bg-red-50 border border-red-200 text-red-700 rounded-2xl p-4 text-center font-semibold"></div>
+    </div>
+
+    <!-- RESULTS SECTION -->
+    <div id="results-section" class="hidden fade-up">
+      <div class="flex items-center justify-between mb-4">
+        <h2 class="text-xl font-bold text-slate-900" id="results-title">Reports Found</h2>
+        <button onclick="backToSearch()" class="text-blue-600 font-semibold text-sm hover:text-blue-700 transition">
+          <i class="fas fa-arrow-left mr-1"></i> আবার খুঁজুন
+        </button>
+      </div>
+      <div id="report-cards" class="space-y-4"></div>
+    </div>
+
+  </div>
+</main>
+
+<footer class="bg-slate-900 text-slate-400 py-10 px-6 text-center">
+  <div class="flex items-center justify-center gap-2 mb-3 text-white">
+    <i class="fas fa-heartbeat text-xl"></i>
+    <span class="text-xl font-bold">MediScan</span>
+  </div>
+  <p class="text-sm">© 2026 MediScan Healthcare. All rights reserved.</p>
+</footer>
+
+<script>
+var LS_KEY = 'mediscan_v1';
+var CLINIC_KEY = 'mediscan_clinic';
+
+function getClinic(){
+  try{var r=localStorage.getItem(CLINIC_KEY);if(r)return JSON.parse(r);}catch(e){}
+  return{name:'MediScan Healthcare',phone:'+880 1700-000000',email:'info@mediscan.com',addr:'Mymensingh, Bangladesh'};
+}
+
+function loadReps(){
+  try{
+    var raw=localStorage.getItem(LS_KEY);
+    if(!raw)return[];
+    var d=JSON.parse(raw);
+    return d.reps||[];
+  }catch(e){return[];}
+}
+
+function searchReport(){
+  var phone=document.getElementById('search-phone').value.trim();
+  if(!phone){showError('ফোন নম্বর দিন!');return;}
+
+  var reps=loadReps();
+  // Match phone — flexible (remove spaces, dashes)
+  var clean=function(p){return p.replace(/[\s\-\+]/g,'');};
+  var found=reps.filter(function(r){
+    return r.phone&&clean(r.phone).includes(clean(phone));
+  });
+
+  if(found.length===0){
+    showError('এই নম্বরে কোনো report পাওয়া যায়নি।<br><small style="font-weight:400">নম্বর ঠিক আছে কিনা check করুন বা clinic এ যোগাযোগ করুন।</small>');
+    return;
+  }
+
+  showResults(found, phone);
+}
+
+function showError(msg){
+  var el=document.getElementById('search-error');
+  el.innerHTML=msg;
+  el.classList.remove('hidden');
+  setTimeout(function(){el.classList.add('hidden');},4000);
+}
+
+function getStatusTracker(stat) {
+  var steps = ['In Lab', 'Processing', 'Done'];
+  var icons = ['🔬', '⚙️', '✅'];
+  var labels = ['Lab এ আছে', 'Processing', 'সম্পন্ন'];
+  var curIdx = steps.indexOf(stat);
+  if(stat==='Overdue') curIdx=1;
+
+  var html = '<div style="display:flex;align-items:center;margin-bottom:16px;padding:14px;background:#f8fafc;border-radius:14px;border:1px solid #e2e8f0">';
+  steps.forEach(function(step, i){
+    var isDone = i < curIdx;
+    var isCur  = i === curIdx;
+    // Circle
+    var circleStyle = isDone
+      ? 'width:36px;height:36px;border-radius:50%;background:#16a34a;color:white;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0'
+      : isCur
+      ? 'width:36px;height:36px;border-radius:50%;background:#2563eb;color:white;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0;box-shadow:0 0 0 4px rgba(37,99,235,0.15)'
+      : 'width:36px;height:36px;border-radius:50%;background:#e5e7eb;color:#9ca3af;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0';
+    var labelStyle = isDone
+      ? 'font-size:11px;font-weight:600;color:#16a34a;text-align:center;margin-top:4px'
+      : isCur
+      ? 'font-size:11px;font-weight:700;color:#2563eb;text-align:center;margin-top:4px'
+      : 'font-size:11px;color:#9ca3af;text-align:center;margin-top:4px';
+
+    html += '<div style="display:flex;flex-direction:column;align-items:center;flex:1">';
+    html += '<div style="'+circleStyle+'">'+(isDone?'✓':icons[i])+'</div>';
+    html += '<div style="'+labelStyle+'">'+labels[i]+'</div>';
+    html += '</div>';
+
+    // Connector line (not after last)
+    if(i < steps.length-1){
+      var lineColor = i < curIdx ? '#16a34a' : '#e5e7eb';
+      html += '<div style="flex:1;height:2px;background:'+lineColor+';margin-top:-14px;max-width:40px"></div>';
+    }
+  });
+  html += '</div>';
+
+  // Status message
+  var msgs = {
+    'In Lab':     {bg:'#fffbeb',border:'#fde68a',color:'#92400e',icon:'🔬',text:'নমুনা Lab এ পরীক্ষা চলছে। সাধারণত ২-৪ ঘণ্টার মধ্যে result পাওয়া যায়।'},
+    'Processing': {bg:'#eff6ff',border:'#bfdbfe',color:'#1e40af',icon:'⚙️',text:'Result তৈরি হচ্ছে। Doctor review করছেন। শীঘ্রই সম্পন্ন হবে।'},
+    'Overdue':    {bg:'#fef2f2',border:'#fecaca',color:'#991b1b',icon:'⚠️',text:'Report তৈরিতে দেরি হচ্ছে। Clinic এ যোগাযোগ করুন।'},
+    'Done':       {bg:'#f0fdf4',border:'#bbf7d0',color:'#15803d',icon:'✅',text:'Report সম্পন্ন! নিচে Download বাটনে click করুন।'},
+  };
+  var m = msgs[stat] || msgs['Processing'];
+  html += '<div style="background:'+m.bg+';border:1px solid '+m.border+';border-radius:10px;padding:10px 14px;font-size:13px;color:'+m.color+';display:flex;align-items:center;gap:8px;margin-bottom:14px">';
+  html += '<span style="font-size:16px">'+m.icon+'</span><span>'+m.text+'</span>';
+  html += '</div>';
+  return html;
+}
+
+function showResults(reps, phone){
+  document.getElementById('search-section').classList.add('hidden');
+  document.getElementById('results-section').classList.remove('hidden');
+  document.getElementById('results-title').textContent=reps.length+'টি Report পাওয়া গেছে';
+
+  var html=reps.map(function(r,i){
+    var isDone=r.stat==='Done';
+    var hasResult=r.result&&r.result.trim().length>0;
+
+    return '<div class="bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden fade-up" style="animation-delay:'+(i*0.1)+'s">'
+      // Colored top bar based on status
+      +'<div style="height:4px;background:'+(isDone?'#16a34a':r.stat==='Overdue'?'#dc2626':'#2563eb')+'"></div>'
+      +'<div class="p-5">'
+        // Header
+        +'<div class="flex items-start justify-between mb-4">'
+          +'<div>'
+            +'<div class="text-xs font-bold text-gray-400 uppercase tracking-wide mb-1">'+r.id+'</div>'
+            +'<div class="text-xl font-extrabold text-slate-900">'+r.test+'</div>'
+            +'<div class="text-sm text-slate-500 mt-1">👨‍⚕️ '+(r.doc||'—')+'</div>'
+          +'</div>'
+          +'<div class="text-right">'
+            +'<div class="text-xs text-slate-400 mb-1"><i class="fas fa-calendar mr-1"></i>'+(r.date||r.ord||'—')+'</div>'
+            +'<div class="text-xs text-slate-400"><i class="fas fa-user mr-1"></i>'+r.pat+'</div>'
+          +'</div>'
+        +'</div>'
+        // STATUS TRACKER
+        +getStatusTracker(r.stat)
+        // Download / waiting button
+        +(hasResult&&isDone?
+          '<button onclick="downloadReport('+i+')" class="w-full bg-green-600 hover:bg-green-700 text-white py-3.5 rounded-xl font-bold transition-all flex items-center justify-center gap-2 hover:-translate-y-0.5 shadow-lg shadow-green-100">'
+            +'<i class="fas fa-download"></i> Report Download করুন (PDF)'
+          +'</button>'
+        : isDone&&!hasResult?
+          '<div class="w-full bg-gray-100 text-gray-500 py-3 rounded-xl font-semibold text-center text-sm">⏳ Report শীঘ্রই পাওয়া যাবে</div>'
+        :
+          '<div class="w-full bg-slate-100 text-slate-500 py-3 rounded-xl text-center text-sm">Report ready হলে এখানে Download বাটন আসবে</div>'
+        )
+      +'</div>'
+    +'</div>';
+  }).join('');
+
+  window._foundReps=reps;
+  document.getElementById('report-cards').innerHTML=html;
+}
+
+function downloadReport(idx){
+  var r=window._foundReps[idx];
+  var ci=getClinic();
+  var area=document.getElementById('print-area');
+  var now=new Date().toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric'});
+
+  var resultLines=(r.result||'').split('\n').filter(function(l){return l.trim();});
+  var resultRows=resultLines.map(function(line){
+    var parts=line.split(':');
+    if(parts.length>=2){
+      var param=parts[0].trim();
+      var rest=parts.slice(1).join(':').trim();
+      var isAbnormal=rest.toLowerCase().includes('high')||rest.toLowerCase().includes('low')||rest.toLowerCase().includes('abnormal')||rest.toLowerCase().includes('positive');
+      var color=isAbnormal?'#dc2626':'#15803d';
+      return '<tr style="border-bottom:1px solid #f3f4f6">'
+        +'<td style="padding:9px 14px;font-size:13px;font-weight:500;color:#374151">'+param+'</td>'
+        +'<td style="padding:9px 14px;font-size:13px;color:'+color+';font-weight:600">'+rest+'</td>'
+        +'</tr>';
+    }
+    return '<tr><td colspan="2" style="padding:9px 14px;font-size:13px;color:#6b7280">'+line+'</td></tr>';
+  }).join('');
+
+  area.innerHTML=''
+  +'<div style="width:210mm;min-height:297mm;margin:0 auto;padding:40px;font-family:Arial,sans-serif;color:#1a1a1a;background:#fff;box-sizing:border-box">'
+
+    +'<div style="display:flex;justify-content:space-between;align-items:flex-start;padding-bottom:20px;border-bottom:3px solid #1D9E75;margin-bottom:24px">'
+      +'<div>'
+        +'<div style="display:flex;align-items:center;gap:10px;margin-bottom:6px">'
+          +'<div style="width:42px;height:42px;background:#1D9E75;border-radius:10px;display:flex;align-items:center;justify-content:center">'
+            +'<svg width="22" height="22" viewBox="0 0 20 20" fill="white"><path d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z"/></svg>'
+          +'</div>'
+          +'<div style="font-size:22px;font-weight:bold;color:#1D9E75">'+ci.name+'</div>'
+        +'</div>'
+        +'<div style="font-size:12px;color:#6b7280;line-height:1.7">'
+          +'<div>📍 '+ci.addr+'</div>'
+          +'<div>📞 '+ci.phone+' | 📧 '+ci.email+'</div>'
+        +'</div>'
+      +'</div>'
+      +'<div style="text-align:right">'
+        +'<div style="font-size:26px;font-weight:bold;color:#1D9E75;letter-spacing:1px">LAB REPORT</div>'
+        +'<div style="font-size:13px;color:#6b7280;margin-top:4px">Report No: <strong style="color:#1a1a1a">'+r.id+'</strong></div>'
+        +'<div style="font-size:13px;color:#6b7280">Date: <strong style="color:#1a1a1a">'+now+'</strong></div>'
+        +'<div style="margin-top:6px;display:inline-block;padding:3px 12px;border-radius:99px;font-size:11px;font-weight:bold;background:#dcfce7;color:#15803d">✓ Done</div>'
+      +'</div>'
+    +'</div>'
+
+    +'<div style="display:flex;gap:24px;margin-bottom:24px">'
+      +'<div style="flex:1;background:#f0fdf4;border:1px solid #bbf7d0;border-radius:10px;padding:14px">'
+        +'<div style="font-size:10px;font-weight:bold;color:#1D9E75;letter-spacing:1px;text-transform:uppercase;margin-bottom:8px">PATIENT INFORMATION</div>'
+        +'<div style="font-size:15px;font-weight:bold;margin-bottom:4px">'+r.pat+'</div>'
+        +'<div style="font-size:13px;color:#6b7280">📞 '+(r.phone||'—')+'</div>'
+      +'</div>'
+      +'<div style="flex:1;background:#f0fdf4;border:1px solid #bbf7d0;border-radius:10px;padding:14px">'
+        +'<div style="font-size:10px;font-weight:bold;color:#1D9E75;letter-spacing:1px;text-transform:uppercase;margin-bottom:8px">TEST INFORMATION</div>'
+        +'<div style="font-size:14px;font-weight:bold;margin-bottom:4px">'+r.test+'</div>'
+        +'<div style="font-size:13px;color:#6b7280">👨‍⚕️ '+(r.doc||'—')+'</div>'
+        +'<div style="font-size:13px;color:#6b7280">📅 '+(r.date||'—')+'</div>'
+      +'</div>'
+    +'</div>'
+
+    +'<div style="margin-bottom:24px">'
+      +'<div style="font-size:12px;font-weight:bold;color:#1D9E75;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:10px;padding-bottom:6px;border-bottom:2px solid #d1fae5">TEST RESULTS</div>'
+      +'<table style="width:100%;border-collapse:collapse">'
+        +'<thead><tr style="background:#f0fdf4">'
+          +'<th style="padding:10px 14px;text-align:left;font-size:11px;font-weight:bold;color:#1D9E75;text-transform:uppercase;letter-spacing:0.5px;width:50%">Parameter</th>'
+          +'<th style="padding:10px 14px;text-align:left;font-size:11px;font-weight:bold;color:#1D9E75;text-transform:uppercase;letter-spacing:0.5px">Result / Value</th>'
+        +'</tr></thead>'
+        +'<tbody>'+resultRows+'</tbody>'
+      +'</table>'
+    +'</div>'
+
+    +(r.note?
+      '<div style="background:#f8fafc;border-left:4px solid #1D9E75;border-radius:0 8px 8px 0;padding:14px;margin-bottom:24px">'
+        +'<div style="font-size:11px;font-weight:bold;color:#1D9E75;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:6px">DOCTOR\S REMARKS</div>'
+        +'<div style="font-size:13px;color:#374151;line-height:1.7">'+r.note+'</div>'
+      +'</div>'
+    :'')
+
+    +'<div style="border-top:2px dashed #e5e7eb;padding-top:20px;display:flex;justify-content:space-between;align-items:flex-end">'
+      +'<div style="font-size:11px;color:#9ca3af;max-width:280px;line-height:1.6">This report is generated electronically. For queries, contact '+ci.phone+'. Verified by '+ci.name+'.</div>'
+      +'<div style="text-align:center"><div style="width:130px;border-top:1px solid #1a1a1a;padding-top:6px;font-size:11px;color:#6b7280">'+(r.doc||'Authorized Doctor')+'</div></div>'
+    +'</div>'
+
+    +'<div style="text-align:center;margin-top:20px;padding:12px;background:#f0fdf4;border-radius:8px">'
+      +'<div style="font-size:13px;color:#1D9E75;font-weight:bold">ধন্যবাদ আপনার আস্থার জন্য 💚 · Thank you for choosing '+ci.name+'</div>'
+    +'</div>'
+
+  +'</div>';
+  setTimeout(function(){window.print();},100);
+}
+
+function backToSearch(){
+  document.getElementById('results-section').classList.add('hidden');
+  document.getElementById('search-section').classList.remove('hidden');
+  document.getElementById('search-phone').value='';
+}
+
+// Auto-fill from URL param
+var params=new URLSearchParams(window.location.search);
+var ph=params.get('phone');
+if(ph){document.getElementById('search-phone').value=ph;searchReport();}
+</script>
+
+<script>
+window.__lc=window.__lc||{};window.__lc.license=19516214;window.__lc.integration_name="manual_onboarding";window.__lc.product_name="livechat";
+;(function(n,t,c){function i(n){return e._h?e._h.apply(null,n):e._q.push(n)}var e={_q:[],_h:null,_v:"2.0",on:function(){i(["on",c.call(arguments)])},once:function(){i(["once",c.call(arguments)])},off:function(){i(["off",c.call(arguments)])},get:function(){if(!e._h)throw new Error("[LiveChatWidget] You can't use getters before load.");return i(["get",c.call(arguments)])},call:function(){i(["call",c.call(arguments)])},init:function(){var n=t.createElement("script");n.async=!0,n.type="text/javascript",n.src="https://cdn.livechatinc.com/tracking.js",t.head.appendChild(n)}};!n.__lc.asyncInit&&e.init(),n.LiveChatWidget=n.LiveChatWidget||e}(window,document,[].slice))
+</script>
+<script type="text/javascript">
+var Tawk_API=Tawk_API||{},Tawk_LoadStart=new Date();
+(function(){var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];s1.async=true;s1.src='https://embed.tawk.to/69b05b58e75f191c369b7edd/1jjce9knh';s1.charset='UTF-8';s1.setAttribute('crossorigin','*');s0.parentNode.insertBefore(s1,s0);})();
+</script>
+</body>
+</html>
