@@ -482,7 +482,8 @@ tr:hover td{background:rgba(255,255,255,.015)}
 <div class="mo" id="mo-rep"><div class="mbox">
   <div class="mh"><div class="mt2" id="mo-rep-title">📋 নতুন Report</div><button class="mc" onclick="closeMo('mo-rep')">✕</button></div>
   <input type="hidden" id="rep-edit-id">
-  <div class="fr2"><div class="fg"><label class="fl">Patient Name *</label><input class="fi" type="text" id="r-pat" placeholder="Patient নাম"></div><div class="fg"><label class="fl">Phone *</label><input class="fi" type="tel" id="r-phone" placeholder="01700-000000"></div></div>
+  <div class="fr2"><div class="fg"><label class="fl">Patient Name *</label><input class="fi" type="text" id="r-pat" placeholder="Patient নাম" oninput="autoFillPatient(this.value)"></div><div class="fg"><label class="fl">Patient ID</label><input class="fi" type="text" id="r-patid" placeholder="PAT-0001" readonly style="background:var(--glass);cursor:default"></div></div>
+  <div class="fg"><label class="fl">Phone</label><input class="fi" type="tel" id="r-phone" placeholder="01700-000000"></div>
   <div class="fr2"><div class="fg"><label class="fl">Test *</label><select class="fi" id="r-test"><option value="Blood CBC">Blood CBC</option><option value="MRI Brain">MRI Brain</option><option value="CT Scan">CT Scan</option><option value="X-Ray Chest">X-Ray Chest</option><option value="ECG">ECG</option><option value="Ultrasound">Ultrasound</option><option value="Thyroid Panel">Thyroid Panel</option><option value="Lipid Profile">Lipid Profile</option><option value="Full Body Checkup">Full Body Checkup</option></select></div><div class="fg"><label class="fl">Doctor</label><select class="fi" id="r-doc"><option value="Dr. Michael Chen">Dr. Michael Chen</option><option value="Dr. Urmi Sengu">Dr. Urmi Sengu</option><option value="Dr. Ananna Patel">Dr. Ananna Patel</option><option value="Dr. Ruhan Mirza">Dr. Ruhan Mirza</option></select></div></div>
   <div class="fr2"><div class="fg"><label class="fl">Test Date</label><input class="fi" type="date" id="r-date"></div><div class="fg"><label class="fl">Status</label><select class="fi" id="r-stat"><option value="In Lab">In Lab</option><option value="Processing">Processing</option><option value="Overdue">Overdue</option><option value="Done">Done</option></select></div></div>
   <div class="fg"><label class="fl">📝 Result / Findings</label><textarea class="fi" id="r-result" rows="4" placeholder="যেমন: Hemoglobin: 12.5 g/dL (Normal), WBC: 7,500 (Normal), Platelets: 2,50,000 (Normal)..."></textarea></div>
@@ -567,11 +568,11 @@ var DEF={
     {id:'APT-005',pat:'Sumon Islam',phone:'01611-000005',test:'CT Scan',doc:'Dr. Urmi Sengu',date:'2026-03-18',time:'14:00',stat:'Cancelled',note:''},
   ],
   pats:[
-    {id:'P-001',name:'Rahim Uddin',age:45,gen:'Male',phone:'01712-000001',blood:'B+',visit:'19 Mar 2026',stat:'Active'},
-    {id:'P-002',name:'Nasrin Begum',age:32,gen:'Female',phone:'01812-000002',blood:'O+',visit:'19 Mar 2026',stat:'Active'},
-    {id:'P-003',name:'Jamal Hossain',age:58,gen:'Male',phone:'01912-000003',blood:'A+',visit:'18 Mar 2026',stat:'Follow-up'},
-    {id:'P-004',name:'Tahmina Akter',age:27,gen:'Female',phone:'01711-000004',blood:'AB+',visit:'17 Mar 2026',stat:'Active'},
-    {id:'P-005',name:'Sumon Islam',age:61,gen:'Male',phone:'01611-000005',blood:'O-',visit:'15 Mar 2026',stat:'Critical'},
+    {id:'PAT-0001',name:'Rahim Uddin',age:45,gen:'Male',phone:'01712-000001',blood:'B+',visit:'19 Mar 2026',stat:'Active'},
+    {id:'PAT-0002',name:'Nasrin Begum',age:32,gen:'Female',phone:'01812-000002',blood:'O+',visit:'19 Mar 2026',stat:'Active'},
+    {id:'PAT-0003',name:'Jamal Hossain',age:58,gen:'Male',phone:'01912-000003',blood:'A+',visit:'18 Mar 2026',stat:'Follow-up'},
+    {id:'PAT-0004',name:'Tahmina Akter',age:27,gen:'Female',phone:'01711-000004',blood:'AB+',visit:'17 Mar 2026',stat:'Active'},
+    {id:'PAT-0005',name:'Sumon Islam',age:61,gen:'Male',phone:'01611-000005',blood:'O-',visit:'15 Mar 2026',stat:'Critical'},
   ],
   docs:[
     {name:'Dr. Michael Chen', spec:'Radiologist',        exp:'12 years', stat:'On duty',  apts:14, rating:4.9, phone:'01700-111111', color:'#00e5a0', schedule:'Sun–Thu: 8AM – 5PM',  services:'MRI, CT Scan, X-Ray, USG',    qual:'Senior Radiologist with expertise in MRI, CT Scan and X-Ray.'},
@@ -874,7 +875,7 @@ function renderPats(){
     var idx=pats.indexOf(p);
     var ini=p.name.split(' ').map(function(x){return x[0];}).slice(0,2).join('');
     return '<tr>'
-      +'<td style="color:var(--text3);font-size:11px">'+p.id+'</td>'
+      +'<td><div style="font-size:12px;font-weight:700;color:var(--blue);background:var(--blue2);padding:3px 8px;border-radius:6px;display:inline-block">'+p.id+'</div></td>'
       +'<td><div class="avc"><div class="mav" style="background:var(--purple2);color:var(--purple)">'+ini+'</div>'+p.name+'</div></td>'
       +'<td>'+(p.age||'—')+'</td>'
       +'<td>'+p.phone+'</td>'
@@ -911,7 +912,16 @@ function savePat(){
     obj.id=pats[editId].id;pats[editId]=obj;toast('✅ Patient updated!');
     addActivity('✏️','Patient <span>'+n+'</span> updated','এইমাত্র','var(--blue2)');
   } else {
-    obj.id='P-'+String(Date.now()).slice(-5);pats.unshift(obj);toast('✅ Patient added!');
+    // Generate PAT-XXXX — find max existing number
+    var maxNum=0;
+    pats.forEach(function(p){
+      var m=p.id&&p.id.match(/PAT-0*(\d+)/);
+      if(m&&parseInt(m[1])>maxNum)maxNum=parseInt(m[1]);
+    });
+    var newNum=maxNum+1;
+    var padded=String(newNum).padStart(4,'0');
+    obj.id='PAT-'+padded;
+    pats.unshift(obj);toast('✅ Patient added! ID: PAT-'+padded);
     addActivity('👤','নতুন patient <span>'+n+'</span>','এইমাত্র','var(--purple2)');
   }
   lsSave();closeMo('mo-pat');resetMo('mo-pat');renderPats();renderDash();
@@ -929,7 +939,7 @@ function renderReps(){
     var resultBadge=hasResult?'<span style="font-size:10px;background:var(--green3);color:var(--green);padding:1px 6px;border-radius:99px;margin-left:4px">Result ✓</span>':'';
     return '<tr>'
       +'<td style="color:var(--text3);font-size:11px">'+r.id+'</td>'
-      +'<td><div>'+r.pat+resultBadge+'</div><div style="font-size:11px;color:var(--text3)">'+(r.phone||'—')+'</div></td>'
+      +'<td><div>'+r.pat+resultBadge+'</div><div style="font-size:11px;color:var(--text3)">'+( r.patid&&r.patid!=='—'?'<span style="font-size:10px;font-weight:700;color:var(--blue);background:var(--blue2);padding:1px 6px;border-radius:4px;margin-right:4px">'+r.patid+'</span>':'')+(r.phone||'—')+'</div></td>'
       +'<td>'+r.test+'</td>'
       +'<td style="font-size:12px;color:var(--text3)">'+(r.date||r.ord||'—')+'</td>'
       +'<td><select class="stat-sel" onchange="changeRepStat('+idx+',this.value)">'+getStatOptions(r.stat,['In Lab','Processing','Overdue','Done'])+'</select></td>'
@@ -960,6 +970,7 @@ function editRep(i){
   document.getElementById('mo-rep-title').textContent='✏️ Report Edit';
   document.getElementById('rep-edit-id').value=i;
   document.getElementById('r-pat').value=r.pat;
+  if(document.getElementById('r-patid'))document.getElementById('r-patid').value=r.patid||'';
   document.getElementById('r-phone').value=r.phone||'';
   document.getElementById('r-test').value=r.test;
   document.getElementById('r-doc').value=r.doc||'Dr. Michael Chen';
@@ -969,6 +980,17 @@ function editRep(i){
   document.getElementById('r-note').value=r.note||'';
   openMo('mo-rep');
 }
+function autoFillPatient(name){
+  if(!name||name.length<2)return;
+  var found=pats.find(function(p){return p.name.toLowerCase().startsWith(name.toLowerCase());});
+  if(found){
+    document.getElementById('r-patid').value=found.id;
+    document.getElementById('r-phone').value=found.phone||'';
+  } else {
+    document.getElementById('r-patid').value='';
+  }
+}
+
 function saveRep(){
   var p=document.getElementById('r-pat').value.trim();
   if(!p){toast('⚠ Patient name required!');return;}
@@ -976,6 +998,7 @@ function saveRep(){
   var today=new Date().toISOString().split('T')[0];
   var obj={
     pat:p,
+    patid:document.getElementById('r-patid')?document.getElementById('r-patid').value||'—':'—',
     phone:document.getElementById('r-phone').value||'—',
     test:document.getElementById('r-test').value,
     doc:document.getElementById('r-doc').value||'—',
@@ -1767,6 +1790,7 @@ function printReport(idx){
       +'<div style="flex:1;background:#f0fdf4;border:1px solid #bbf7d0;border-radius:10px;padding:14px">'
         +'<div style="font-size:10px;font-weight:bold;color:#1D9E75;letter-spacing:1px;text-transform:uppercase;margin-bottom:8px">PATIENT INFORMATION</div>'
         +'<div style="font-size:15px;font-weight:bold;margin-bottom:4px">'+r.pat+'</div>'
+        +(r.patid&&r.patid!=='—'?'<div style="font-size:12px;font-weight:700;color:#1D9E75;margin-bottom:2px">ID: '+r.patid+'</div>':'')
         +'<div style="font-size:13px;color:#6b7280">📞 '+(r.phone||'—')+'</div>'
       +'</div>'
       +'<div style="flex:1;background:#f0fdf4;border:1px solid #bbf7d0;border-radius:10px;padding:14px">'
