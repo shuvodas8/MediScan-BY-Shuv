@@ -29,6 +29,7 @@
             <a href="services.html" class="hover:text-blue-600 transition">Services</a>
             <a href="team.html" class="hover:text-blue-600 transition">Our Team</a>
             <a href="contact.html" class="hover:text-blue-600 transition">Contact</a>
+            <a href="report.html" class="hover:text-blue-600 transition flex items-center gap-1"><i class="fas fa-file-medical text-sm"></i> My Report</a>
             <a href="admin.html" style="display:inline-flex;align-items:center;gap:8px;background:linear-gradient(135deg,#3b82f6,#6366f1);color:white;padding:10px 22px;border-radius:50px;text-decoration:none;font-weight:bold;box-shadow:0 4px 15px rgba(59,130,246,0.4);transition:all 0.3s ease;margin-right:10px;">
                 <i class="fas fa-user-shield"></i> Login
             </a>
@@ -36,7 +37,7 @@
         <a href="appointment.html" class="bg-blue-600 text-white px-7 py-3 rounded-full font-bold shadow-lg shadow-blue-200 hover:bg-blue-700 transition">Book Now</a>
     </nav>
 
-    <!-- HERO — exact same -->
+    <!-- HERO -->
     <section class="hero-gradient pt-20 pb-28 px-6">
         <div class="max-w-7xl mx-auto grid md:grid-cols-2 gap-12 items-center">
             <div>
@@ -57,7 +58,7 @@
         </div>
     </section>
 
-    <!-- STATS — connected to admin -->
+    <!-- STATS -->
     <section class="py-12 px-6 -mt-16 relative z-10">
         <div class="max-w-6xl mx-auto bg-white shadow-xl rounded-[2.5rem] p-10 grid grid-cols-2 md:grid-cols-4 gap-8 text-center border border-gray-50">
             <div class="count-anim">
@@ -79,7 +80,7 @@
         </div>
     </section>
 
-    <!-- WHY CHOOSE — exact same -->
+    <!-- WHY CHOOSE -->
     <section class="py-24 px-6 bg-white">
         <div class="max-w-7xl mx-auto">
             <div class="text-center mb-16">
@@ -106,7 +107,7 @@
         </div>
     </section>
 
-    <!-- SERVICES SECTION — connected to admin -->
+    <!-- SERVICES SECTION -->
     <section class="py-24 px-6 bg-slate-50">
         <div class="max-w-7xl mx-auto flex flex-col md:flex-row gap-12 items-center">
             <div class="md:w-1/2">
@@ -116,26 +117,31 @@
                 <h2 class="text-4xl font-bold mb-6">Our Specialist Diagnostic Services</h2>
                 <p class="text-slate-600 text-lg mb-8 leading-relaxed">We offer a wide range of medical tests including Cardiology, Radiology, and General Pathology to help you stay ahead of your health.</p>
                 <ul id="home-svc-list" class="space-y-4 mb-10">
-                    <!-- Default — will be replaced by admin data -->
                     <li class="flex items-center gap-3 font-bold text-slate-700"><i class="fas fa-check text-green-500"></i> Full Body Checkup</li>
                     <li class="flex items-center gap-3 font-bold text-slate-700"><i class="fas fa-check text-green-500"></i> Advanced MRI & CT Scan</li>
                     <li class="flex items-center gap-3 font-bold text-slate-700"><i class="fas fa-check text-green-500"></i> Blood & Lab Analysis</li>
                 </ul>
-                <a href="services.html" class="inline-block text-blue-600 font-bold border-b-2 border-blue-600 pb-1">View All Services</a>
+                <div class="flex gap-4">
+                    <a href="services.html" class="inline-block text-blue-600 font-bold border-b-2 border-blue-600 pb-1">View All Services</a>
+                    <a href="report.html" class="inline-flex items-center gap-2 bg-green-50 text-green-700 border border-green-200 px-5 py-2 rounded-full font-bold hover:bg-green-100 transition text-sm"><i class="fas fa-file-medical"></i> Download Report</a>
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- CTA — exact same -->
+    <!-- CTA -->
     <section class="py-24 px-6">
         <div class="max-w-5xl mx-auto bg-blue-600 rounded-[3rem] p-16 text-center text-white shadow-2xl">
             <h2 class="text-4xl md:text-5xl font-bold mb-8">Ready to Take Control of Your Health?</h2>
             <p class="text-blue-100 text-xl mb-12 max-w-2xl mx-auto">Book your appointment today and get a special 10% discount on your first checkup.</p>
-            <a href="appointment.html" class="bg-white text-blue-600 px-12 py-5 rounded-full font-bold text-lg hover:shadow-xl hover:-translate-y-1 transition-all">Book An Appointment</a>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <a href="appointment.html" class="bg-white text-blue-600 px-12 py-5 rounded-full font-bold text-lg hover:shadow-xl hover:-translate-y-1 transition-all">Book An Appointment</a>
+                <a href="report.html" class="bg-blue-500 text-white px-10 py-5 rounded-full font-bold text-lg hover:bg-blue-400 transition border border-blue-400"><i class="fas fa-file-medical mr-2"></i>My Report</a>
+            </div>
         </div>
     </section>
 
-    <!-- FOOTER — exact same -->
+    <!-- FOOTER -->
     <footer class="bg-slate-900 text-slate-400 py-16 px-6">
         <div class="max-w-7xl mx-auto text-center border-t border-slate-800 pt-10">
             <div class="flex items-center justify-center gap-2 mb-6 text-white">
@@ -148,7 +154,6 @@
     </footer>
     <a href="admin.html" style="display:none">Admin Panel</a>
 
-    <!-- ADMIN DATA SYNC SCRIPT -->
     <script>
     var LS_KEY = 'mediscan_v1';
 
@@ -163,28 +168,19 @@
     function updateStats() {
         var data = loadAdminData();
         if (!data) return;
-
-        // Patients count
         var patEl = document.getElementById('stat-patients');
         if (patEl && data.pats && data.pats.length > 0) {
             var count = data.pats.length;
             patEl.textContent = count >= 1000 ? Math.floor(count/1000) + 'k+' : count + '+';
         }
-
-        // Doctors count
         var docEl = document.getElementById('stat-doctors');
         if (docEl && data.docs && data.docs.length > 0) {
-            var onDuty = data.docs.filter(function(d){ return d.stat === 'On duty'; }).length;
-            var total = data.docs.length;
-            docEl.textContent = total + '+';
+            docEl.textContent = data.docs.length + '+';
         }
-
-        // Services count — show total active services
         var svcEl = document.getElementById('stat-services');
         if (svcEl && data.svcs && data.svcs.length > 0) {
             var active = data.svcs.filter(function(s){ return s.stat !== 'Inactive'; }).length;
             svcEl.textContent = active + '+';
-            // Also update the label below it
             var labels = svcEl.parentElement.querySelectorAll('p');
             if (labels[0]) labels[0].textContent = 'Services Available';
         }
@@ -193,38 +189,21 @@
     function updateServiceList() {
         var data = loadAdminData();
         var listEl = document.getElementById('home-svc-list');
-        if (!listEl) return;
-
-        if (!data || !data.svcs || data.svcs.length === 0) return;
-
-        // Show top 5 active services
+        if (!listEl || !data || !data.svcs || data.svcs.length === 0) return;
         var active = data.svcs.filter(function(s){ return s.stat !== 'Inactive'; }).slice(0, 5);
         if (active.length === 0) return;
-
         listEl.innerHTML = active.map(function(s) {
             var price = s.price ? ' <span style="color:#64748b;font-weight:400;font-size:14px">— ৳' + s.price.toLocaleString() + '</span>' : '';
-            return '<li class="flex items-center gap-3 font-bold text-slate-700">' +
-                '<i class="fas fa-check text-green-500"></i> ' + s.name + price +
-            '</li>';
+            return '<li class="flex items-center gap-3 font-bold text-slate-700"><i class="fas fa-check text-green-500"></i> ' + s.name + price + '</li>';
         }).join('');
     }
 
-    // Run on page load
-    window.addEventListener('load', function() {
-        updateStats();
-        updateServiceList();
-    });
-
-    // Listen for admin updates (same browser)
+    window.addEventListener('load', function() { updateStats(); updateServiceList(); });
     window.addEventListener('storage', function(e) {
-        if (e.key === LS_KEY) {
-            updateStats();
-            updateServiceList();
-        }
+        if (e.key === LS_KEY) { updateStats(); updateServiceList(); }
     });
     </script>
 
-    <!--Start of Tawk.to Script-->
     <script type="text/javascript">
     var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
     (function(){
@@ -236,6 +215,5 @@
     s0.parentNode.insertBefore(s1,s0);
     })();
     </script>
-    <!--End of Tawk.to Script-->
 </body>
 </html>
